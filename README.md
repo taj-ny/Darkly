@@ -2,14 +2,23 @@
   <img src="logo.png"/>
 </p>
 
-*Lightly* is a fork of breeze theme style that aims to be visually modern and minimalistic. 
+**This is a personal fork of lightly where I merge pull requests sent to [Luwx/Lightly](https://github.com/Luwx/Lightly)**
+
+*Lightly* is a fork of breeze theme style that aims to be visually modern and minimalistic.
+
+# Notes about this fork
+
+- Do not open pull requests directly here unless they change/require some code that has diverged from upstream
+- If the pull request can sucessfully be merged into [Luwx/Lightly](https://github.com/Luwx/Lightly), please open it there and I will merge it here. My intention is not for this to be a permanent fork (hopefully Luwx comes back!)
+- Similarly, don't open issues here unless the issue was likely caused by some code here that's not in [Luwx/Lightly](https://github.com/Luwx/Lightly)
+
+These rules are because I don't want to diverge too far from upstream. It should be easy for Luwx to catch up.
+
+Thanks ❤️🐢
 
 ## Development ⚠️
 
 Lightly is a work in progress theme, there is still a lot to change, so expect bugs! Some applications may suddenly crash or flicker.
-
-If you have any feedback or encounter some bugs, feel free to open an issue or a pr.
-
 
 ## Screenshots
 
