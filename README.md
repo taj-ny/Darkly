@@ -119,7 +119,7 @@ sudo eopkg install extra-cmake-modules kdecoration-devel qt5-declarative-devel q
 ### Build and install
 
 ```
-git clone --single-branch --depth=1 https://github.com/Luwx/Lightly.git
+git clone --single-branch --depth=1 https://github.com/boehs/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF ..
 make
