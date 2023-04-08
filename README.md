@@ -45,45 +45,6 @@ Most of these options are inherited from Breeze style, but Lightly has a few exc
 
 The toolbar and menubar will follow the **titlebar** opacity. To configure the titlebar opacity, you will have to change the color scheme file directly in ~/.local/share/color-schemes. Open your desired color scheme and, in the ```[WM]``` section, add a fourth value to ```activeBackground``` and ```inactiveBackground```, like ```activeBackground=0,0,0,127``` where the last value is the alpha, that ranges from 0 (completely transparent) to 255 (totally opaque).
 
-## Installation
-
-### Installing Lightly from [chaotic-aur](https://aur.chaotic.cx/) on ArchLinux and its [derivatives](https://wiki.archlinux.org/title/Arch-based_distributions)
-  1. Follow the instructions [here](https://aur.chaotic.cx/) on how to setup chaotic-aur 
-  2. run: ```sudo pacman -Syyu lightly-qt```
-
-### Installing Lightly from RPM repository on openSUSE Tumbleweed:
-
-1. Add "sputnik-look-and-feel" repository:
-```sudo zypper ar -ef https://download.opensuse.org/repositories/home:/sputnik:/look-and-feel/openSUSE_Tumbleweed/ sputnik-look-and-feel```
-2. Refresh repository list:
-```sudo zypper ref```
-3. You will be notified about received new repository key. And you will be asked if you want to accept the key. This repository is created on OBS. All builds are reproducible.
-Type "```a```" and press enter.
-4. Install Lightly:
-```sudo zypper in Lightly```
-
-### Fedora
-```
-sudo dnf install Lightly
-```
-
-### Fedora 32 RPM repository
-
-1. Create repo file:
-```
-echo  "[sputnik-look-and-feel]
-name=Look And Feel (Fedora_32)
-type=rpm-md
-baseurl=https://download.opensuse.org/repositories/home:/sputnik:/look-and-feel/Fedora_32/
-gpgcheck=1
-gpgkey=https://download.opensuse.org/repositories/home:/sputnik:/look-and-feel/Fedora_32/repodata/repomd.xml.key
-enabled=1" | sudo tee -a /etc/yum.repos.d/sputnik-look-and-feel.repo
-```
-2. Install Lightly:
-```sudo dnf install Lightly```
-
-
-
 ## Manual installation
 
 ### Dependencies
@@ -126,6 +87,8 @@ make
 sudo make install
 ```
 
+For fedora, run `cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..` instead (#4)
+
 ### Uninstall
 
 In the build folder:
@@ -136,8 +99,3 @@ sudo make uninstall
 ## Acknowledgments
 
 Breeze authors and Kvantum developer Pedram Pourang.
-
-
-
-
-
