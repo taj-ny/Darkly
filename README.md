@@ -2,7 +2,7 @@
   <img src="logo.png"/>
 </p>
 
-**This is a personal fork of lightly where I merge pull requests sent to [Luwx/Lightly](https://github.com/Luwx/Lightly)**
+**This is a personal fork of Lightly where I merge pull requests sent to [Luwx/Lightly](https://github.com/Luwx/Lightly)**
 
 *Lightly* is a fork of breeze theme style that aims to be visually modern and minimalistic.
 
@@ -87,7 +87,7 @@ make
 sudo make install
 ```
 
-For fedora, run `cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..` instead (#4)
+For RedHat-based distros (like Fedora and OpenSUSE), run `cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..` instead (#4)
 
 ### Uninstall
 
