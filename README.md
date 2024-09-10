@@ -4,7 +4,8 @@ This fork attempts to revive lightly with a different approach from boehs, with 
 
 This means that this fork allows real changes, and not just maintainence.
 
-![Lightly](https://github.com/user-attachments/assets/9a7470f5-e32d-40f2-b333-67dc618a95b2)
+![Lightly](https://github.com/user-attachments/assets/ae39fc7f-8277-48b1-b80c-9e307542b8b0)
+
 
 ## The to-do list
 
