@@ -1,3 +1,18 @@
+# About this fork
+
+This fork attempts to revive lightly with a different approach from boehs, with the assumption that Luwx won't ever resume his project.
+
+This means that this fork allows real changes, and not just maintainence.
+
+## To do list
+
+- [x] Make a new readme
+- [x] Make install work on plasma 6
+- [ ] Find some people that can help with this project
+- [ ] Build some community
+- [ ] Make some meaningful commits
+- [ ] Expand to-do list
+
 ## Installation
 
 ### Dependencies
