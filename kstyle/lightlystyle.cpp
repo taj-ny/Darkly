@@ -6349,7 +6349,7 @@ namespace Lightly
         else if( hasFocus ) focusColor =  _helper->focusColor( palette );
 
         // render focus line
-        _helper->renderFocusLine( painter, textRect, focusColor );
+        // _helper->renderFocusLine( painter, textRect, focusColor );
 
         if( verticalTabs ) painter->restore();
 
@@ -6462,18 +6462,18 @@ namespace Lightly
             side = SideTop;
             if ( selected ) {
                 
-                corners = CornerTopLeft|CornerTopRight;
+                corners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight;
                 
             } 
             
             shadowRect = QRect(rect.bottomLeft() + QPoint(0,1), QSize(rect.width() , shadowSize));
-            if( isFirst ) backgroundCorners |= CornerTopLeft; 
+            if( isFirst ) backgroundCorners |= CornerTopLeft|CornerBottomLeft;
             else shadowRect.adjust(-shadowSize, 0, 0, 0);
-            if( isLast ) backgroundCorners |= CornerTopRight;
+            if( isLast ) backgroundCorners |= CornerTopRight|CornerBottomRight;
             if( isLeftOfSelected ) shadowRect.adjust(0, 0, shadowSize, 0);
             
             backgroundRect = rect;
-            rect.adjust(3, 3, -3, 0);
+            rect.adjust(4, 4, -4, -4);
             break;
 
             
@@ -6481,7 +6481,7 @@ namespace Lightly
             case QTabBar::TriangularSouth:
             
             side = SideBottom;
-            if( selected ) corners = CornerBottomLeft|CornerBottomRight;
+            if( selected ) corners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight;
             
             shadowRect = QRect(rect.topLeft() - QPoint(0 ,shadowSize + 1), QSize(rect.width() , shadowSize));
             if( isFirst ) backgroundCorners |= CornerBottomLeft;
@@ -6530,8 +6530,8 @@ namespace Lightly
                 rect.adjust( 1, 0, 0, 0 );
                 if( isFirst ) corners |= CornerTopRight;
                 if( isLast ) corners |= CornerBottomRight;
-                if( isRightOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), 0, 0 );
-                if( isLeftOfSelected ) rect.adjust( 0, 0, 0, StyleConfigData::cornerRadius() );
+                if( isRightOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), -StyleConfigData::cornerRadius(), 0 );
+                if( isLeftOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), 0, StyleConfigData::cornerRadius() );
                 else if( !isLast ) rect.adjust( 0, 0, 0, overlap );
 
             }
@@ -6549,24 +6549,24 @@ namespace Lightly
         }
         
         // render
-        if( StyleConfigData::tabBarAltStyle() ) {
-                
-            const int hightlightHeight = selected ? 4 : 2;
-            const QColor hightlightColor( selected ?  _helper->focusColor(palette) : _helper->isDarkTheme(palette) ? QColor(255,255,255,30) : QColor(0,0,0,30) );
-            
-            const int offset = selected ? 0 : 1;
-            const int radius = isFirst || isLast || selected ? hightlightHeight/2 : 0;
-            
-            painter->setPen(Qt::NoPen);
-            painter->setBrush( hightlightColor );
-            painter->setRenderHint( QPainter::Antialiasing, true );
-            painter->drawRoundedRect(backgroundRect.adjusted(
-                    side == SideLeft ? backgroundRect.width() - (hightlightHeight+offset) : (side == SideRight && !selected) ? 1 : 0, 
-                    side == SideTop ? backgroundRect.height() - (hightlightHeight+offset) : (side == SideBottom && !selected) ? 1 : 0, 
-                    side == SideRight ? - backgroundRect.width() + (hightlightHeight+offset) : (side == SideLeft && !selected) ? -1 : 0, 
-                    side == SideBottom ? -backgroundRect.height() + (hightlightHeight+offset) : (side == SideTop && !selected) ? -1 : 0 ), radius, radius);
-            
-        }
+//         if( StyleConfigData::tabBarAltStyle() ) {
+//
+//             const int hightlightHeight = selected ? 4 : 2;
+//             const QColor hightlightColor( selected ?  _helper->focusColor(palette) : _helper->isDarkTheme(palette) ? QColor(255,255,255,30) : QColor(0,0,0,30) );
+//
+//             const int offset = selected ? 0 : 1;
+//             const int radius = isFirst || isLast || selected ? hightlightHeight/2 : 0;
+//
+//             painter->setPen(Qt::NoPen);
+//             painter->setBrush( hightlightColor );
+//             painter->setRenderHint( QPainter::Antialiasing, true );
+//             painter->drawRoundedRect(backgroundRect.adjusted(
+//                     side == SideLeft ? backgroundRect.width() - (hightlightHeight+offset) : (side == SideRight && !selected) ? 1 : 0,
+//                     side == SideTop ? backgroundRect.height() - (hightlightHeight+offset) : (side == SideBottom && !selected) ? 1 : 0,
+//                     side == SideRight ? - backgroundRect.width() + (hightlightHeight+offset) : (side == SideLeft && !selected) ? -1 : 0,
+//                     side == SideBottom ? -backgroundRect.height() + (hightlightHeight+offset) : (side == SideTop && !selected) ? -1 : 0 ), radius, radius);
+//
+//         }
         else if( selected )
         {
             QRegion oldRegion( painter->clipRegion() );
