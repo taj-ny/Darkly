@@ -4,7 +4,9 @@ This fork attempts to revive lightly with a different approach from boehs, with 
 
 This means that this fork allows real changes, and not just maintainence.
 
-## To do list
+![Lightly](https://github.com/user-attachments/assets/9a7470f5-e32d-40f2-b333-67dc618a95b2)
+
+## The to-do list
 
 - [x] Make a new readme
 - [x] Make install work on plasma 6
