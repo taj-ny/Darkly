@@ -50,6 +50,10 @@ sudo eopkg install extra-cmake-modules kdecoration-devel qt5-declarative-devel q
 ```
 </details>
 
+> [!IMPORTANT]
+> These have not been tested yet, just copied them from the original. If you want to help without programming knowledge, you can confirm if one works or not, and if not, you can help expand the dependency list to make it work for everyone using your distro 
+
+
 ### Build and install
 
 ```
