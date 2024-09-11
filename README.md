@@ -23,7 +23,7 @@ This means that this fork allows real changes, and not just maintainence.
 
 #### For Arch Linux
 ```
-sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extras
+sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extras kcoreaddons kcmutils kcolorscheme kconfig kguiaddons kcoreaddons kguiaddons kiconthemes kwindowsystem 
 ```
 
 <details>
@@ -31,7 +31,7 @@ sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extr
 
 #### Ubuntu
 ```
-sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
+sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5kcmutils-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
 ```
 
 #### Fedora
