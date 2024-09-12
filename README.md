@@ -1,3 +1,4 @@
+
 # About this fork
 
 This fork attempts to revive lightly with a different approach from boehs, with the assumption that Luwx won't ever resume his project.
@@ -36,19 +37,28 @@ sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev lib
 
 #### Fedora
 
-Tested on Fedora 40 (KDE Spin)
-
-#### The system must first be up to date.
+#####  The system must first be up to date
 
 ```
 sudo dnf up --refresh
 ```
 
-Then install the required dependencies.
+#####  Fedora 40
+
+#### Install the required dependencies
 
 ```
 sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(Qt5X11Extras)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" "cmake(KF5I18n)" "cmake(KDecoration2)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" "cmake(KF5IconThemes)" kwin-devel libepoxy-devel "cmake(KF5Init)" "cmake(KF5Crash)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel kf6-kirigami-devel kf6-frameworkintegration-devel kf6-kcmutils-devel kf5-kcmutils-devel kf5-frameworkintegration-devel
 ```
+
+#####  Fedora 39
+
+```
+sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(Qt5X11Extras)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" "cmake(KF5I18n)" "cmake(KDecoration2)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" "cmake(KF5IconThemes)" kwin-devel libepoxy-devel "cmake(KF5Init)" "cmake(KF5Crash)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel
+```
+
+
+#### Build & install
 
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
@@ -59,7 +69,7 @@ make
 cd ../../
 make
 sudo make install
-``
+```
 
 #### openSUSE
 ```
@@ -73,7 +83,7 @@ sudo eopkg install extra-cmake-modules kdecoration-devel qt5-declarative-devel q
 </details>
 
 > [!IMPORTANT]
-> These have not been tested yet, just copied them from the original. If you want to help without programming knowledge, you can confirm if one works or not, and if not, you can help expand the dependency list to make it work for everyone using your distro 
+> These have not been tested yet, just copied them from the original. If you want to help without programming knowledge, you can confirm if one works or not, and if not, you can help expand the dependency list to make it work for everyone using your distro
 
 
 ### Build and install
@@ -88,8 +98,3 @@ cd ../../
 make
 sudo make install
 ```
-
-
-
-
-
