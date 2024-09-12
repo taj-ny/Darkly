@@ -24,7 +24,7 @@ This means that this fork allows real changes, and not just maintainence.
   - [ ] Align it a little better, now it's slightly too left, it needs slightly larger margins for both sides 
 - [ ] Make the buttons sligthly larger
 - [ ] Change the defaults to fit the normal use-cases better
-- [ ] Add my own colorscheme to it (it's easy I just havn't done it yet)
+- [x] Add my own colorscheme to it
 - [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
 - [ ] Make installation in all major distros easy
 - [ ] Rename the project to something like „Darkly” to reflect the changes, and for it to be installable alongside the other lightly
