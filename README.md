@@ -43,11 +43,6 @@ sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extr
 <details>
 <summary><h4>For other distros I have not tested it on</h4></summary>
 
-#### Ubuntu
-```
-sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5kcmutils-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
-```
-
 #### Fedora
 
 #####  Fedora 40
@@ -72,6 +67,17 @@ sudo zypper install cmake gcc-c++ extra-cmake-modules libQt5Gui-devel libQt5DBus
 ```
 sudo eopkg install extra-cmake-modules kdecoration-devel qt5-declarative-devel qt5-x11extras-devel qt5-base-devel kcoreaddons-devel kguiaddons-devel kconfigwidgets-devel kwindowsystem-devel ki18n-devel kiconthemes-devel kcmutils-devel libxcb-devel xcb-util-devel qt5-wayland-devel kwayland-devel wayland-devel frameworkintegration-devel
 ```
+</details>
+
+<details>
+<summary><h4>Doesn't work, help me figure it out</h4></summary>
+
+
+#### Ubuntu
+```
+sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5kcmutils-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
+```
+
 </details>
 
 > [!IMPORTANT]
