@@ -85,6 +85,9 @@ sudo eopkg install extra-cmake-modules kdecoration-devel qt5-declarative-devel q
 
 
 #### Ubuntu
+
+It can be expected to work shortly after 24.10, until then, most dependencies needed for this to work are not yet packaged, or versions behind what is needed for it to work in ubuntu
+
 ```
 sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5kcmutils-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
 ```
