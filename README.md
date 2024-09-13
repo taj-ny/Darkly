@@ -36,14 +36,14 @@ This means that this fork allows real changes, and not just maintainence.
 
 
 #### For Arch Linux
+
 ```
 sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extras kcoreaddons kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem
 ```
 
-<details>
-<summary><h4>For other distros I have not tested it on</h4></summary>
+***
 
-#### Fedora
+#### For Fedora
 
 #####  Fedora 40
 
@@ -56,6 +56,10 @@ sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cma
 ```
 sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(Qt5X11Extras)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" "cmake(KF5I18n)" "cmake(KDecoration2)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" "cmake(KF5IconThemes)" kwin-devel libepoxy-devel "cmake(KF5Init)" "cmake(KF5Crash)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel
 ```
+
+
+<details>
+<summary><h4>Not tested</h4></summary>
 
 
 #### openSUSE
