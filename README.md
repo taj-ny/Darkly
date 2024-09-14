@@ -42,9 +42,9 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 
@@ -62,9 +62,9 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 
@@ -78,9 +78,9 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 
@@ -109,9 +109,9 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 </details>
