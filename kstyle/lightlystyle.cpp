@@ -3046,7 +3046,7 @@ namespace Lightly
                 QSize iconSize = buttonOption->iconSize;
                 if( !iconSize.isValid() ) iconSize = QSize( pixelMetric( PM_SmallIconSize, option, widget ), pixelMetric( PM_SmallIconSize, option, widget ) );
 
-                size.setHeight( qMax( size.height(), iconSize.height() ) );
+                size.setHeight( qMax( size.height() + 4, iconSize.height() ) );
                 size.rwidth() += iconSize.width();
 
                 if( hasText ) size.rwidth() += Metrics::Button_ItemSpacing;
