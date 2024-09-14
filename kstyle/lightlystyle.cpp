@@ -2922,7 +2922,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height(), int(Metrics::MenuButton_IndicatorWidth) ) );
+        size.setHeight( qMax( size.height() + 4, int(Metrics::MenuButton_IndicatorWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::MenuButton_IndicatorWidth+2;
@@ -2950,7 +2950,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height(), int(Metrics::SpinBox_ArrowButtonWidth) ) );
+        size.setHeight( qMax( size.height() + 4, int(Metrics::SpinBox_ArrowButtonWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::SpinBox_ArrowButtonWidth;
