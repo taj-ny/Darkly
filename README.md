@@ -29,6 +29,7 @@ This means that this fork allows real changes, and not just maintainence.
 - [x] Add my own colorscheme to it
 - [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
 - [ ] Make installation in all major distros easy
+  - [x] Can be built on most distros that support plasma 6 
 - [ ] Rename the project to something like „Darkly” to reflect the changes, and for it to be installable alongside the other lightly
 - [ ] Maintain the project
 
