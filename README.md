@@ -68,22 +68,6 @@ make
 sudo make install
 ```
 
-#####  Fedora 39
-
-```
-sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(Qt5X11Extras)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" "cmake(KF5I18n)" "cmake(KDecoration2)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" "cmake(KF5IconThemes)" kwin-devel libepoxy-devel "cmake(KF5Init)" "cmake(KF5Crash)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel
-```
-```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly && mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF .
-cd ./kdecoration/config/
-make
-cd ../../
-make
-sudo make install
-```
-
 ***
 #### openSUSE Tumbleweed
 
