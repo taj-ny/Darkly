@@ -23,10 +23,13 @@ This means that this fork allows real changes, and not just maintainence.
   - [ ] Fix the issues I caused with it
   - [ ] Align it a little better, now it's slightly too left, it needs slightly larger margins for both sides 
 - [ ] Make the buttons sligthly larger
-- [ ] Change the defaults to fit the normal use-cases better
+  - [x] The standard push button is now slightly larger
+  - [x] Spinboxes and comboboxes
+- [x] Change the defaults to fit the normal use-cases better
 - [x] Add my own colorscheme to it
 - [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
 - [ ] Make installation in all major distros easy
+  - [x] Can be built on most distros that support plasma 6 
 - [ ] Rename the project to something like „Darkly” to reflect the changes, and for it to be installable alongside the other lightly
 - [ ] Maintain the project
 
@@ -42,9 +45,9 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 
@@ -60,11 +63,11 @@ sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cma
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly && mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF .
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..
 cd ./kdecoration/config/
-make
+make -j 12
 cd ../../
-make
+make -j 12
 sudo make install
 ```
 
@@ -84,19 +87,20 @@ sudo cmake --install ./build
 ***
 
 
-
-<details>
-<summary><h4>Doesn't work, help me figure it out</h4></summary>
-
-
-#### Ubuntu
-
-It can be expected to work shortly after 24.10, until then, most dependencies needed for this to work are not yet packaged, or versions behind what is needed for it to work in ubuntu
-
+#### KDE neon
 ```
-sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5kcmutils-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
+sudo apt install git build-essential cmake kf6-extra-cmake-modules kf6-extra-cmake-modules kf6-frameworkintegration-dev kf6-kcmutils-dev kf6-kcolorscheme-dev kf6-kconfig-dev kf6-kconfigwidgets-dev kf6-kcoreaddons-dev kf6-kguiaddons-dev kf6-ki18n-dev kf6-kiconthemes-dev kf6-kirigami2-dev kf6-kpackage-dev kf6-kservice-dev kf6-kwindowsystem-dev kirigami2-dev kwayland-dev libx11-dev libkdecorations2-dev libkf5config-dev libkf5configwidgets-dev libkf5coreaddons-dev libkf5guiaddons-dev libkf5i18n-dev libkf5iconthemes-dev libkf5kcmutils-dev libkf5package-dev libkf5service-dev libkf5style-dev libkf5wayland-dev libkf5windowsystem-dev libplasma-dev libqt5x11extras5-dev qt6-base-dev qt6-declarative-dev qtbase5-dev qtdeclarative5-dev gettext qt6-svg-dev extra-cmake-modules qt3d5-dev
 ```
-
+```
+git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
+cd Lightly && mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_TESTING=OFF ..
+cd ./kdecoration/config/
+make -j 12
+cd ../../
+make -j 12
+sudo make install
+```
 </details>
 
 

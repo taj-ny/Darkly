@@ -2922,7 +2922,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height(), int(Metrics::MenuButton_IndicatorWidth) ) );
+        size.setHeight( qMax( size.height() + 4, int(Metrics::MenuButton_IndicatorWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::MenuButton_IndicatorWidth+2;
@@ -2950,7 +2950,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height(), int(Metrics::SpinBox_ArrowButtonWidth) ) );
+        size.setHeight( qMax( size.height() + 4, int(Metrics::SpinBox_ArrowButtonWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::SpinBox_ArrowButtonWidth;
@@ -3046,7 +3046,7 @@ namespace Lightly
                 QSize iconSize = buttonOption->iconSize;
                 if( !iconSize.isValid() ) iconSize = QSize( pixelMetric( PM_SmallIconSize, option, widget ), pixelMetric( PM_SmallIconSize, option, widget ) );
 
-                size.setHeight( qMax( size.height(), iconSize.height() ) );
+                size.setHeight( qMax( size.height() + 4, iconSize.height() ) );
                 size.rwidth() += iconSize.width();
 
                 if( hasText ) size.rwidth() += Metrics::Button_ItemSpacing;
@@ -6484,13 +6484,13 @@ namespace Lightly
             if( selected ) corners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight;
             
             shadowRect = QRect(rect.topLeft() - QPoint(0 ,shadowSize + 1), QSize(rect.width() , shadowSize));
-            if( isFirst ) backgroundCorners |= CornerBottomLeft;
+            if( isFirst ) backgroundCorners |= CornerBottomLeft|CornerTopLeft;
             else shadowRect.adjust(-shadowSize, 0, 0, 0);
-            if( isLast ) backgroundCorners |= CornerBottomRight;
+            if( isLast ) backgroundCorners |= CornerBottomRight|CornerTopRight;
             //if( isLeftOfSelected ) shadowRect.adjust(0, 0, shadowSize, 0);
              
             backgroundRect = rect;
-            rect.adjust(3, 0, -3, -3);
+            rect.adjust(4, 4, -4, -4);
             break;
 
             
@@ -6500,14 +6500,13 @@ namespace Lightly
             side = SideLeft;
             if( selected )
             {
-                corners = CornerTopLeft|CornerBottomLeft;
-                rect.adjust( 0, 0, 1, 0 );
+                corners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight;
 
             } else {
 
-                rect.adjust( 0, 0, -1, 0 );
-                if( isFirst ) corners |= CornerTopLeft;
-                if( isLast ) corners |= CornerBottomLeft;
+                rect.adjust(4, 4, -4, -4);
+                if( isFirst ) corners |= CornerTopLeft|CornerTopRight;
+                if( isLast ) corners |= CornerBottomLeft|CornerBottomRight;
                 if( isRightOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), 0, 0 );
                 if( isLeftOfSelected ) rect.adjust( 0, 0, 0, StyleConfigData::cornerRadius() );
                 else if( !isLast ) rect.adjust( 0, 0, 0, overlap );
@@ -6522,14 +6521,13 @@ namespace Lightly
             if( selected )
             {
 
-                corners = CornerTopRight|CornerBottomRight;
-                rect.adjust( -1, 0, 0, 0 );
+                corners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight;
 
             } else {
 
-                rect.adjust( 1, 0, 0, 0 );
-                if( isFirst ) corners |= CornerTopRight;
-                if( isLast ) corners |= CornerBottomRight;
+                rect.adjust(4, 4, -4, -4);
+                if( isFirst ) corners |= CornerTopRight|CornerTopLeft;
+                if( isLast ) corners |= CornerBottomRight|CornerBottomLeft;
                 if( isRightOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), -StyleConfigData::cornerRadius(), 0 );
                 if( isLeftOfSelected ) rect.adjust( 0, -StyleConfigData::cornerRadius(), 0, StyleConfigData::cornerRadius() );
                 else if( !isLast ) rect.adjust( 0, 0, 0, overlap );

@@ -110,7 +110,7 @@
     </entry>
     
     <entry name="TransparentDolphinView" type="Bool">
-      <default>true</default>
+      <default>false</default>
     </entry>
     
     <!-- shadows on widgets -->
@@ -238,11 +238,11 @@
 
     <!-- transparency -->
     <entry name="MenuOpacity" type="Int">
-        <default>80</default>
+        <default>100</default>
     </entry>
     
     <entry name="DolphinSidebarOpacity" type="Int">
-        <default>60</default>
+        <default>100</default>
     </entry>
 
   </group>
