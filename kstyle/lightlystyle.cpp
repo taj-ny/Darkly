@@ -2922,7 +2922,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height() + 4, int(Metrics::MenuButton_IndicatorWidth) ) );
+        size.setHeight( qMax( size.height() + StyleConfigData::buttonSize(), int(Metrics::MenuButton_IndicatorWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::MenuButton_IndicatorWidth+2;
@@ -2950,7 +2950,7 @@ namespace Lightly
         if( !flat ) size = expandSize( size, frameWidth );
 
         // make sure there is enough height for the button
-        size.setHeight( qMax( size.height() + 4, int(Metrics::SpinBox_ArrowButtonWidth) ) );
+        size.setHeight( qMax( size.height() + StyleConfigData::buttonSize(), int(Metrics::SpinBox_ArrowButtonWidth) ) );
 
         // add button width and spacing
         size.rwidth() += Metrics::SpinBox_ArrowButtonWidth;
@@ -3046,7 +3046,7 @@ namespace Lightly
                 QSize iconSize = buttonOption->iconSize;
                 if( !iconSize.isValid() ) iconSize = QSize( pixelMetric( PM_SmallIconSize, option, widget ), pixelMetric( PM_SmallIconSize, option, widget ) );
 
-                size.setHeight( qMax( size.height() + 4, iconSize.height() ) );
+                size.setHeight( qMax( size.height() + StyleConfigData::buttonSize(), iconSize.height() ) );
                 size.rwidth() += iconSize.width();
 
                 if( hasText ) size.rwidth() += Metrics::Button_ItemSpacing;
