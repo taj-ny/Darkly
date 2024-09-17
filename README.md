@@ -134,7 +134,4 @@ make -j $(nproc)
 make install
 ```
 Once installed, make sure to add `export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:$QT_PLUGIN_PATH` to your .bashrc, .zshrc, or wherever you set environment variables for your system.
-</details>
-
-
-
+***
