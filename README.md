@@ -25,6 +25,7 @@ This means that this fork allows real changes, and not just maintainence.
 - [ ] Make the buttons sligthly larger
   - [x] The standard push button is now slightly larger
   - [x] Spinboxes and comboboxes
+  - [x] Now the size of the buttons is adjustable by the user in the settings
 - [x] Change the defaults to fit the normal use-cases better
 - [x] Add my own colorscheme to it
 - [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
