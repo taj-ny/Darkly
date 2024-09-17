@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>576</width>
-    <height>409</height>
+    <width>609</width>
+    <height>444</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,68 +39,11 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" colspan="5">
-        <widget class="QCheckBox" name="_tabDrawHighlight">
+       <item row="2" column="0" colspan="5">
+        <widget class="QCheckBox" name="_toolBarDrawItemSeparator">
          <property name="text">
-          <string>Draw highlight on active tab</string>
+          <string>Draw toolbar item separators</string>
          </property>
-        </widget>
-       </item>
-       <item row="8" column="4">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>65</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="12" column="2" colspan="2">
-        <widget class="QSlider" name="_buttonSize">
-         <property name="minimum">
-          <number>-2</number>
-         </property>
-         <property name="maximum">
-          <number>6</number>
-         </property>
-         <property name="singleStep">
-          <number>1</number>
-         </property>
-         <property name="sliderPosition">
-          <number>4</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="tickPosition">
-          <enum>QSlider::TicksBelow</enum>
-         </property>
-         <property name="tickInterval">
-          <number>2</number>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="2" colspan="2">
-        <widget class="QComboBox" name="_windowDragMode">
-         <item>
-          <property name="text">
-           <string>Drag windows from titlebar only</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Drag windows from titlebar, menubar and toolbars</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Drag windows from all empty areas</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="8" column="2" colspan="2">
@@ -122,10 +65,42 @@
          </item>
         </widget>
        </item>
-       <item row="11" column="2">
-        <widget class="QLabel" name="label_2">
+       <item row="6" column="0">
+        <widget class="QCheckBox" name="_widgetDrawShadow">
          <property name="text">
-          <string>Button Size</string>
+          <string>Draw widget shadow</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="_mnemonicsLabel">
+         <property name="text">
+          <string>&amp;Keyboard accelerators visibility:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="buddy">
+          <cstring>_mnemonicsMode</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="_windowDragLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>W&amp;indows' drag mode:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="buddy">
+          <cstring>_windowDragMode</cstring>
          </property>
         </widget>
        </item>
@@ -152,30 +127,29 @@
          </property>
         </widget>
        </item>
+       <item row="9" column="2" colspan="2">
+        <widget class="QComboBox" name="_windowDragMode">
+         <item>
+          <property name="text">
+           <string>Drag windows from titlebar only</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Drag windows from titlebar, menubar and toolbars</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Drag windows from all empty areas</string>
+          </property>
+         </item>
+        </widget>
+       </item>
        <item row="1" column="0" colspan="3">
         <widget class="QCheckBox" name="_unifiedTabBarKonsole">
          <property name="text">
           <string>Unify konsole tab bar with header area</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="_mnemonicsLabel">
-         <property name="text">
-          <string>&amp;Keyboard accelerators visibility:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>_mnemonicsMode</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="_widgetDrawShadow">
-         <property name="text">
-          <string>Draw widget shadow</string>
          </property>
         </widget>
        </item>
@@ -189,24 +163,25 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="_windowDragLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="0" column="0" colspan="5">
+        <widget class="QCheckBox" name="_tabDrawHighlight">
          <property name="text">
-          <string>W&amp;indows' drag mode:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>_windowDragMode</cstring>
+          <string>Draw highlight on active tab</string>
          </property>
         </widget>
+       </item>
+       <item row="8" column="4">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>65</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item row="15" column="0" colspan="4">
         <spacer name="verticalSpacer">
@@ -221,24 +196,52 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="0" colspan="5">
-        <widget class="QCheckBox" name="_toolBarDrawItemSeparator">
+       <item row="12" column="0" alignment="Qt::AlignRight">
+        <widget class="QLabel" name="label_2">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
          <property name="text">
-          <string>Draw toolbar item separators</string>
+          <string>Button Size:</string>
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
+       <item row="13" column="2">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Smaller</string>
          </property>
         </widget>
        </item>
-       <item row="12" column="4">
+       <item row="13" column="3" alignment="Qt::AlignRight">
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>Bigger</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="2" colspan="2">
+        <widget class="QSlider" name="_buttonSize">
+         <property name="minimum">
+          <number>-2</number>
+         </property>
+         <property name="maximum">
+          <number>6</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="sliderPosition">
+          <number>4</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::TicksBelow</enum>
+         </property>
+         <property name="tickInterval">
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -659,7 +662,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
   <tabstop>_tabDrawHighlight</tabstop>
   <tabstop>_toolBarDrawItemSeparator</tabstop>
   <tabstop>_mnemonicsMode</tabstop>
