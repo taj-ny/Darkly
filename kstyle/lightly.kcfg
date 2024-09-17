@@ -42,7 +42,9 @@
        <min>1</min>
        <max>8</max>
     </entry>
-
+    <entry name="ButtonSize" type="Int">
+        <default>4</default>
+    </entry>
   </group>
 
   <!-- widget style -->
