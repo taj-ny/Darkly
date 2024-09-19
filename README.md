@@ -80,10 +80,13 @@ sudo zypper in --no-recommends ninja cmake kf6-extra-cmake-modules kf6-kconfig-d
 ```
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
-cmake -G Ninja -S . -B ./build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LIBDIR=lib64 -DCMAKE_INSTALL_PREFIX=/usr
-cmake --build ./build --parallel
-sudo cmake --install ./build
+cd Lightly && mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_TESTING=OFF ..
+cd ./kdecoration/config/
+make -j 12
+cd ../../
+make -j 12
+sudo make install
 ```
 ***
 
