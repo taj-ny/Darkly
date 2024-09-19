@@ -110,6 +110,7 @@ sudo make install
 
 
 #### Distrobox (Fedora 40)
+Create Distrobox container:
 ```
 distrobox create --name lightly --image fedora-toolbox:40
 distrobox enter lightly
@@ -131,5 +132,9 @@ cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \
 make -j $(nproc)
 make install
 ```
-Once installed, make sure to add `export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:$QT_PLUGIN_PATH` to your .bashrc, .zshrc, or wherever you set environment variables for your system.
+
+Set environment variable on plasma startup:
+```
+echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME/.config/plasma-workspace/env/localthemes.sh && chmod +x $HOME/.config/plasma-workspace/env/localthemes.sh
+```
 ***
