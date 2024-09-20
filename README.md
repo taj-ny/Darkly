@@ -128,7 +128,11 @@ cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_LIBDIR=lib64 \
       -DBUILD_TESTING=OFF ..
-make -j $(nproc)
+
+cd ./kdecoration/config/
+make -j 12
+cd ../../
+make -j 12
 make install
 ```
 
