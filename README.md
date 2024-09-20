@@ -110,13 +110,11 @@ sudo make install
 
 
 #### Distrobox (Fedora 40)
-Create Distrobox container:
 ```
 distrobox create --name lightly --image fedora-toolbox:40
 distrobox enter lightly
 ```
 
-Build Lightly
 ```
 sudo dnf install -y cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
     kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
