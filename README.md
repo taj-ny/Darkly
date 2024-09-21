@@ -141,3 +141,17 @@ Set environment variable on plasma startup:
 echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME/.config/plasma-workspace/env/localthemes.sh && chmod +x $HOME/.config/plasma-workspace/env/localthemes.sh
 ```
 ***
+
+## Known issues & solutions
+
+### Blurred icon rendering on Wayland with fractional scaling
+
+As referenced in https://github.com/Bali10050/Lightly/issues/14
+
+On Wayland when scaling is set to >100% some icons appear blurred.
+
+The fix for now until QT is updated is to add `QT_SCALE_FACTOR_ROUNDING_POLICY=RoundPreferFloor` into the file `/etc/environment`
+
+Restart to apply the changes.
+
+For further details see: https://bugs.kde.org/show_bug.cgi?id=479891
