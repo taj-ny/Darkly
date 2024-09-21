@@ -60,7 +60,9 @@ sudo make install
 #####  Fedora 40
 
 ```
-sudo dnf install cmake extra-cmake-modules "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(Qt5X11Extras)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" "cmake(KF5I18n)" "cmake(KDecoration2)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" "cmake(KF5IconThemes)" kwin-devel libepoxy-devel "cmake(KF5Init)" "cmake(KF5Crash)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel kf6-kirigami-devel kf6-frameworkintegration-devel kf6-kcmutils-devel kf5-kcmutils-devel kf5-frameworkintegration-devel
+sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
+    kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
+    kf6-kirigami-devel kf6-kcmutils-devel
 ```
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
