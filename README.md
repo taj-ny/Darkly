@@ -21,7 +21,7 @@ This means that this fork allows real changes, and not just maintainence.
 ## My plans for changes at the moment -- They are in progress, I'm just really slow
 - [x] Redesign the tabbar
   - [ ] Fix the issues I caused with it
-  - [ ] Align it a little better, ~~now it's slightly too left,~~ it needs slightly larger margins for ~~both sides~~ the right side
+  - [x] Align it a little better, ~~now it's slightly too left,~~ it needs slightly larger margins for ~~both sides~~ the right side
   - [x] You can now set the old tabbar back if you dont like the new one in the settings
 - [ ] Make the buttons sligthly larger
   - [x] The standard push button is now slightly larger
