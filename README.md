@@ -40,7 +40,7 @@ This means that this fork allows real changes, and not just maintainence.
 #### Arch Linux
 
 ```
-sudo pacman -S cmake extra-cmake-modules kdecoration qt5-declarative qt5-x11extras kcoreaddons kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git
+sudo pacman -S cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git
 ```
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
