@@ -62,7 +62,7 @@ sudo make install
 ```
 sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
     kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
-    kf6-kirigami-devel kf6-kcmutils-devel
+    kf6-kirigami-devel kf6-kcmutils-devel kf6-frameworkintegration-devel
 ```
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
