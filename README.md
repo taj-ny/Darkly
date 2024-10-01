@@ -36,6 +36,19 @@ This means that this fork allows real changes, and not just maintainence.
 - [ ] Maintain the project
 
 ## Installation
+## Automatic
+
+#### Fedora copr
+
+<https://copr.fedorainfracloud.org/coprs/deltacopy/lightly-qt6/>
+
+
+#### AUR
+
+<https://aur.archlinux.org/packages/lightly-qt6>
+
+
+## Manual
 
 #### Arch Linux
 
