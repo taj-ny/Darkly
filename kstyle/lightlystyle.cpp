@@ -6680,11 +6680,11 @@ namespace Lightly
                     _helper->renderTabBarTab(painter, rect, color, corners);
                 }
                 else {
-                    
+
                     // render dark background and shadow
                     _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
                     _helper->renderBoxShadow(painter, shadowRect, 0, 1, shadowSize, QColor(0,0,0, 220), StyleConfigData::cornerRadius(), true);
-                    
+
                     _helper->renderBoxShadow(painter, rect/*.adjusted(0,0,0,4)*/,0, 1, 4, QColor(0,0,0, 220), StyleConfigData::cornerRadius(), true);
                     _helper->renderTabBarTab(painter, rect, color, corners);
                 }
@@ -6729,23 +6729,14 @@ namespace Lightly
 
         } else {
             
-            if(documentMode)
-            {
-                // render dark background and shadow
-                if( !unifiedTabAndHeader ) {
-                    _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
-                }
-                _helper->renderBoxShadow(painter, shadowRect, 0, 1, shadowSize, QColor(0,0,0, 220), StyleConfigData::cornerRadius(), true);
-            }
-            else {
                 _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
                 if( mouseOver ) {
-                    backgroundRect.adjust(5, 6, -5, -6);
-                    painter->setBrush( _helper->alphaColor(_helper->focusColor(palette), 0.2) );
+                    backgroundRect.adjust(4, 4, -4, -4);
+                    painter->setBrush( _helper->alphaColor(_helper->hoverColor(palette), 0.2) );
                     painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
                 }
                 
-            }
+
         }
 
         return true;
