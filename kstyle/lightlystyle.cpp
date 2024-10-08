@@ -2133,7 +2133,8 @@ namespace Lightly
             if( StyleConfigData::tabBarTabExpandFullWidth() ) tabBarRect.setWidth(rect.width() - 2*Metrics::Frame_FrameWidth - sizeCorrection); // adwaita qt style tab 
             else tabBarRect.setWidth( qMin( tabBarRect.width(), rect.width() - 2 ) );  // fixed width tabs      
             if( tabBarAlignment == Qt::AlignCenter ) tabBarRect.moveLeft( rect.left() + (rect.width() - tabBarRect.width())/2 );
-            else tabBarRect.moveLeft( rect.left() + 4);
+            else if(tabOption->lineWidth == 0)tabBarRect.moveLeft( rect.left() + 4);
+            else tabBarRect.moveLeft( rect.left() - 1);
 
             tabBarRect = visualRect( option, tabBarRect );
 
