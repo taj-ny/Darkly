@@ -40,7 +40,8 @@ jobs:
           cp ${{ env.PKGBUILD }} /var/tmp
           sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" /var/tmp/PKGBUILD
       - name: Change permissions of build directory
-        run: chown -R builduser:builduser .
+        run: | 
+            chown builduser:builduser /var/tmp/PKGBUILD
       - name: Generate package checksum
         run: sudo -u builduser bash -c 'cd /var/tmp; makepkg -g >> PKGBUILD'
       - name: Build package
