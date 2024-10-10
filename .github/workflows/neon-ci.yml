@@ -31,7 +31,6 @@ jobs:
           ls -lrta build_kf6
           make -j $(nproc) -C build_kf6/kdecoration/config/
           make -j $(nproc) -C build_kf6
-          #make install -C build_kf6
       - name: Create deb package
         id: create_deb_package
         run: |
