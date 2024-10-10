@@ -1,18 +1,25 @@
+# Archlinux
+# Build Lightly from release tag and publish .zst package
+
 on:
   workflow_call:
     inputs:
       version:
         required: true
         type: string
+env:
+  PKGBUILD: $GITHUB_WORKSPACE/.github/assets/pkgbuild/PKGBUILD
 jobs:
   build-release:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
-      - name: Checkout PKGBUILD file
+      - name: Checkout local
         uses: actions/checkout@v4.2.0
         with:
-          repository: DeltaCopy/lightly-archlinux
+          repository: ${{ github.repository }}
+          sparse-checkout: .github
+          sparse-checkout-cone-mode: false
       - name: System update
         run: pacman -Syu --noconfirm
       - name: Install sudo, git and compile dependencies
@@ -31,14 +38,14 @@ jobs:
         run: |
           # update tag with latest version
           
-          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" PKGBUILD
+          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" ${{ env.PKGBUILD }}
       - name: Change permissions of build directory
         run: chown -R builduser:builduser .
       - name: Generate package checksum
-        run: sudo -u builduser bash -c 'makepkg -g >> PKGBUILD'
+        run: sudo -u builduser bash -c 'makepkg -g >> ${{ env.PKGBUILD }}'
       - name: Build package
         run: |
-          sudo -u builduser bash -c 'makepkg -s'
+          sudo -u builduser bash -c 'cd $GITHUB_WORKSPACE/.github/assets/pkgbuild/; makepkg -s'
           zst_file=$(find -name "*.zst*")
           publish_filename=lightly-${{ inputs.version }}-x86_64.pkg.zst
           mv "$zst_file" $publish_filename

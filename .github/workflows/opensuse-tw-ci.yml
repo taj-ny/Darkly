@@ -1,3 +1,6 @@
+# openSUSE Tumbleweed
+# Build Lightly from release tag and publish .rpm package
+
 on:
   workflow_call:
     inputs:
