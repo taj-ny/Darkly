@@ -42,7 +42,7 @@ jobs:
       - name: Change permissions of build directory
         run: chown -R builduser:builduser .
       - name: Generate package checksum
-        run: sudo -u builduser bash -c 'makepkg -g >> ${{ env.PKGBUILD }}'
+        run: sudo -u builduser bash -c 'cd $GITHUB_WORKSPACE/.github/assets/pkgbuild/; makepkg -g >> PKGBUILD'
       - name: Build package
         run: |
           sudo -u builduser bash -c 'cd $GITHUB_WORKSPACE/.github/assets/pkgbuild/; makepkg -s'
