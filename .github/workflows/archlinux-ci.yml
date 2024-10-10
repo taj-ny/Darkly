@@ -37,15 +37,15 @@ jobs:
       - name: Update PKGBUILD file with new checksum and git tag values
         run: |
           # update tag with latest version
-          
-          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" ${{ env.PKGBUILD }}
+          cp ${{ env.PKGBUILD }} /var/tmp
+          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" /var/tmp/PKGBUILD
       - name: Change permissions of build directory
         run: chown -R builduser:builduser .
       - name: Generate package checksum
-        run: sudo -u builduser bash -c 'cd $GITHUB_WORKSPACE/.github/assets/pkgbuild/; makepkg -g >> PKGBUILD'
+        run: sudo -u builduser bash -c 'cd /var/tmp; makepkg -g >> PKGBUILD'
       - name: Build package
         run: |
-          sudo -u builduser bash -c 'cd $GITHUB_WORKSPACE/.github/assets/pkgbuild/; makepkg -s'
+          sudo -u builduser bash -c 'cd /var/tmp; makepkg -s'
           zst_file=$(find -name "*.zst*")
           publish_filename=lightly-${{ inputs.version }}-x86_64.pkg.zst
           mv "$zst_file" $publish_filename
