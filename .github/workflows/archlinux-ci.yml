@@ -37,17 +37,18 @@ jobs:
       - name: Update PKGBUILD file with new checksum and git tag values
         run: |
           # update tag with latest version
-          cp ${{ env.PKGBUILD }} /var/tmp
-          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" /var/tmp/PKGBUILD
+          mkdir /var/tmp/lightly-archlinux
+          cp ${{ env.PKGBUILD }} /var/tmp/lightly-archlinux
+          sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" /var/tmp/lightly-archlinux/PKGBUILD
       - name: Change permissions of build directory
         run: | 
-            chown builduser:builduser /var/tmp/PKGBUILD
+            chown builduser:builduser -R /var/tmp/lightly-archlinux
       - name: Generate package checksum
-        run: sudo -u builduser bash -c 'cd /var/tmp; makepkg -g >> PKGBUILD'
+        run: sudo -u builduser bash -c 'cd /var/tmp/lightly-archlinux; makepkg -g >> PKGBUILD'
       - name: Build package
         run: |
-          sudo -u builduser bash -c 'cd /var/tmp; makepkg -s'
-          zst_file=$(find -name "*.zst*")
+          sudo -u builduser bash -c 'cd /var/tmp/lightly-archlinux; makepkg -s'
+          zst_file=$(find /var/tmp/lightly-archlinux -name "*.zst*")
           publish_filename=lightly-${{ inputs.version }}-x86_64.pkg.zst
           mv "$zst_file" $publish_filename
           echo "ZST_ASSET=$publish_filename" >> "$GITHUB_ENV"
