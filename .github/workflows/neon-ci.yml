@@ -40,7 +40,7 @@ jobs:
           cd build_kf6
           checkinstall -D --pkgname lightly --pkgversion ${{ inputs.version }} --nodoc --default
           deb_file=$(find . -name "*.deb*")
-          test ! -z $deb_file && mv $deb_file /home/neon/lightly_${{ inputs.version }}_amd64.deb
+          test ! -z $deb_file && mv $deb_file /home/neon/lightly_${{ inputs.version }}_kdeneon_amd64.deb
           echo "DEB_ASSET=/home/neon/lightly_${{ inputs.version }}_kdeneon_amd64.deb" >> "$GITHUB_OUTPUT"
       - name: Release
         uses: softprops/action-gh-release@v2.0.8
