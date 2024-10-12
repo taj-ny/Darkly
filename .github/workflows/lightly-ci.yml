@@ -23,7 +23,7 @@ jobs:
             .github/workflows
 
       - name: Install build dependencies
-        run: sudo apt-get install git -y
+        run: sudo apt-get install git -y -qq
       - name: Get latest Lightly release tag
         id: step_getlatest_tag
         run: |
