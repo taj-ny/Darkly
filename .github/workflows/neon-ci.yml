@@ -1,6 +1,6 @@
 # KDE Neon
 # Requires a custom docker container
-# The Dockerfile is inside .github/assets/docker
+# The Dockerfile is inside .github/assets/docker/kde-neon
 # Build Lightly from release tag and publish .deb package
 
 on:
