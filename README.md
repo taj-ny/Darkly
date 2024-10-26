@@ -174,3 +174,14 @@ The fix for now until QT is updated is to add `QT_SCALE_FACTOR_ROUNDING_POLICY=R
 Restart to apply the changes.
 
 For further details see: https://bugs.kde.org/show_bug.cgi?id=479891
+
+
+---
+
+# cmake     
+# cmake --build build_kf6 -j $(nproc)
+# sudo cmake --install build_kf6
+
+# sudo rm /usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.klassy.so
+# sudo rm -rf /usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/*klassy*
+# sudo rm -f /usr/lib/*klassy*

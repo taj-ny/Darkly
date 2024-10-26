@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(lightly)
-set(PROJECT_VERSION "6.80")
+set(PROJECT_VERSION "lightly0.5.3")
 set(PROJECT_VERSION_MAJOR 6)
 
-
-set(KF6_MIN_VERSION "5.240.0")
+set(KF6_MIN_VERSION "6.2.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 set(QT_MIN_VERSION "6.6.0")
 
@@ -35,6 +34,10 @@ endif()
 set(QT_MAJOR_VERSION 6)
 include(KDEInstallDirs6)
 include(KDECMakeSettings)
+
+# 3rd-party libraries
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/build-assets/klassy/klassy.cmake)
 
 option(WITH_DECORATIONS "Build Lightly window decorations for KWin" ON)
 
