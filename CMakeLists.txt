@@ -36,10 +36,6 @@ set(QT_MAJOR_VERSION 6)
 include(KDEInstallDirs6)
 include(KDECMakeSettings)
 
-# 3rd-party libraries
-
-include(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/build-assets/klassy/klassy.cmake)
-
 option(WITH_DECORATIONS "Build Lightly window decorations for KWin" ON)
 
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED CONFIG COMPONENTS Widgets DBus)
