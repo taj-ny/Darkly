@@ -203,7 +203,7 @@ namespace Lightly
     }
 
     //_____________________________________________
-    void SizeGrip::sendMoveResizeEvent( QPoint position )
+    void SizeGrip::sendMoveResizeEvent( QPoint /*position*/ )
     {
 
         #if LIGHTLY_HAVE_X11
