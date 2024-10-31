@@ -300,11 +300,11 @@ namespace Lightly
             return TileSet();
         } 
 
-        auto withOpacity = [](const QColor &color, qreal opacity) -> QColor {
-            QColor c(color);
-            c.setAlphaF(opacity);
-            return c;
-        };
+        // auto withOpacity = [](const QColor &color, qreal opacity) -> QColor {
+        //     QColor c(color);
+        //     c.setAlphaF(opacity);
+        //     return c;
+        // };
 
         //const QColor color = StyleConfigData::shadowColor();
         //const qreal strength = static_cast<qreal>(StyleConfigData::shadowStrength()) / 255.0;

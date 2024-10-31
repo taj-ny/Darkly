@@ -5832,7 +5832,7 @@ namespace Lightly
         
         // define handle rect
         QRectF handleRect;
-        const qreal sliderWidth = Metrics::ScrollBar_SliderWidth / ( 2 - grooveAnimationOpacity ) ;
+        const qreal sliderWidth = static_cast<qreal>(Metrics::ScrollBar_SliderWidth) / (2 - grooveAnimationOpacity);
         if( horizontal ) handleRect = centerRectF( rect, rect.width(), sliderWidth );
         else handleRect = centerRectF( rect, sliderWidth, rect.height() );
 

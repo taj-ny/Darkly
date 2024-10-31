@@ -53,7 +53,7 @@ namespace Lightly
     {
         
         if ( qApp ) {
-            connect(qApp, &QApplication::paletteChanged, this, [=]() {
+            connect(qApp, &QApplication::paletteChanged, this, [this]() {
                 if (qApp->property("KDE_COLOR_SCHEME_PATH").isValid()) {
                     const auto path = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
                     KConfig config(path, KConfig::SimpleConfig);
@@ -939,7 +939,7 @@ namespace Lightly
                     //renderBoxShadow( painter, frameRect, 0, 1, 6, alphaColor(outline.darker(120), opacity) , radius, windowActive ); 
                     //renderBoxShadow( painter, frameRect, 0, 1, 4, alphaColor(outline.darker(120), opacity) , radius, windowActive );
 
-                    const qreal finalRadius ((frameRect.width()+Metrics::Frame_FrameWidth)*opacity);
+                    const qreal finalRadius ((frameRect.width() + static_cast<qreal>(Metrics::Frame_FrameWidth)) * opacity);
                     
                     QPixmap mask = QPixmap(rect.width(), rect.height());	
                     mask.fill( Qt::transparent );
@@ -993,7 +993,7 @@ namespace Lightly
                 // focus out animation
                 if( mode == 2 && opacity > 0 && opacity < 1) {
                     
-                    const qreal finalRadius ((frameRect.width()+Metrics::Frame_FrameWidth)*opacity);
+                    const qreal finalRadius ((frameRect.width() + static_cast<qreal>(Metrics::Frame_FrameWidth)) * opacity);
                     
                     QPixmap mask = QPixmap(rect.width(), rect.height());	
                     mask.fill( Qt::transparent );
@@ -1370,7 +1370,7 @@ namespace Lightly
         painter->setRenderHint( QPainter::Antialiasing, true );
 
         const QRectF baseRect( rect );
-        const qreal radius( 0.5*Metrics::Slider_GrooveThickness );
+        const qreal radius(0.5 * static_cast<qreal>(Metrics::Slider_GrooveThickness));
 
         // content
         if( color.isValid() )
@@ -1523,7 +1523,7 @@ namespace Lightly
         
         int thickness = Metrics::ProgressBar_Thickness;
         if( !isContent ) thickness = qMax(Metrics::ProgressBar_Thickness-2, 0);
-        const qreal radius( 0.5*Metrics::ProgressBar_Thickness);
+        const qreal radius(0.5 * static_cast<qreal>(Metrics::ProgressBar_Thickness));
 
         // content
         if( color.isValid() )
@@ -1552,7 +1552,7 @@ namespace Lightly
         painter->setRenderHint( QPainter::Antialiasing, true );
 
         const QRectF baseRect( rect );
-        const qreal radius( 0.5*Metrics::ProgressBar_Thickness );
+        const qreal radius(0.5 * static_cast<qreal>(Metrics::ProgressBar_Thickness));
 
         // setup brush
         QPixmap pixmap( horizontal ? 2*Metrics::ProgressBar_BusyIndicatorSize : 1, horizontal ? 1:2*Metrics::ProgressBar_BusyIndicatorSize );
