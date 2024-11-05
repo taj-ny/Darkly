@@ -73,7 +73,7 @@
 #include <QQuickWindow>
 #endif
 
-#include <QDebug>
+//#include <QDebug>
 
 namespace LightlyPrivate
 {
@@ -486,7 +486,6 @@ namespace Lightly
             setTranslucentBackground( widget );
 
         } else if (qobject_cast<QDialogButtonBox *>(widget)) {
-            qDebug() << "Polish() - QDialogButtonBox";
             addEventFilter(widget);
         }
 
