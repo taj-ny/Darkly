@@ -66,6 +66,8 @@
 #include <QWidgetAction>
 #include <QSurfaceFormat>
 #include <QWindow>
+#include <QDialogButtonBox>
+#include <QStackedLayout>
 
 #if LIGHTLY_HAVE_QTQUICK
 #include <QQuickWindow>
@@ -483,6 +485,8 @@ namespace Lightly
 
             setTranslucentBackground( widget );
 
+        } else if (qobject_cast<QDialogButtonBox *>(widget)) {
+            addEventFilter(widget);
         }
 
         // base class polishing
@@ -598,54 +602,69 @@ namespace Lightly
 
     }
 
-    //______________________________________________________________
     int Style::pixelMetric( PixelMetric metric, const QStyleOption* option, const QWidget* widget ) const
     {
-
         // handle special cases
         switch( metric )
         {
-
             // frame width
-            case PM_DefaultFrameWidth:
-            if( qobject_cast<const QMenu*>( widget ) ) return StyleConfigData::cornerRadius() > 1 ? 4 : 0;
-            if( qobject_cast<const QLineEdit*>( widget ) ) return Metrics::LineEdit_FrameWidth;
-            else if( isQtQuickControl( option, widget ) )
-            {
-                const QString &elementType = option->styleObject->property( "elementType" ).toString();
-                if( elementType == QLatin1String( "edit" ) || elementType == QLatin1String( "spinbox" ) )
-                {
+            case PM_DefaultFrameWidth: {
 
-                    return Metrics::LineEdit_FrameWidth;
+                const auto isControl = isQtQuickControl(option, widget);
 
-                } else if( elementType == QLatin1String( "combobox" ) ) {
-
-                    return Metrics::ComboBox_FrameWidth;
+                if (!widget && !isControl) {
+                    return 0;
                 }
 
-            }
-            
-            else if( widget && widget->inherits( "KTextEditor::View" ) && !StyleConfigData::kTextEditDrawFrame() && !_isKdevelop ) return 0;
-            
-            // from kvantum
-            else if ( widget && _isDolphin )
-            {
-                if (QWidget *pw = widget->parentWidget())
-                {
-                    if (StyleConfigData::transparentDolphinView()
-                        // not renaming area
-                        && !qobject_cast<QAbstractScrollArea*>(pw)
-                        // only Dolphin's view
-                        && QString(pw->metaObject()->className()).startsWith("Dolphin"))
+                if( qobject_cast<const QMenu*>( widget ) ) return StyleConfigData::cornerRadius() > 1 ? 4 : 0;
+                if( qobject_cast<const QLineEdit*>( widget ) ) return Metrics::LineEdit_FrameWidth;
+                else if( isControl ) {
+                    const QString &elementType = option->styleObject->property( "elementType" ).toString();
+                    if( elementType == QLatin1String( "edit" ) || elementType == QLatin1String( "spinbox" ) )
                     {
-                        // for the top and bottom separators
-                        return 1;
+
+                        return Metrics::LineEdit_FrameWidth;
+
+                    } else if( elementType == QLatin1String( "combobox" ) ) {
+
+                        return Metrics::ComboBox_FrameWidth;
+                    }
+
+                    return Metrics::Frame_FrameWidth;
+
+                }
+
+                const auto forceFrame = widget->property(PropertyNames::forceFrame);
+
+                if (forceFrame.isValid() && !forceFrame.toBool()) {
+                    return 0;
+                }
+                if ((forceFrame.isValid() && forceFrame.toBool()) || widget->property(PropertyNames::bordersSides).isValid()) {
+                    return Metrics::Frame_FrameWidth;
+                }
+
+                if( widget && widget->inherits( "KTextEditor::View" ) && !StyleConfigData::kTextEditDrawFrame() && !_isKdevelop ) return 0;
+                
+                // from kvantum
+                else if ( widget && _isDolphin )
+                {
+                    if (QWidget *pw = widget->parentWidget())
+                    {
+                        if (StyleConfigData::transparentDolphinView()
+                            // not renaming area
+                            && !qobject_cast<QAbstractScrollArea*>(pw)
+                            // only Dolphin's view
+                            && QString(pw->metaObject()->className()).startsWith("Dolphin"))
+                        {
+                            // for the top and bottom separators
+                            return 1;
+                        }
                     }
                 }
-            }
 
-            // fallback
-            return Metrics::Frame_FrameWidth;
+                // fallback
+                return Metrics::Frame_FrameWidth;
+            }
 
             case PM_ComboBoxFrameWidth:
             {
@@ -1163,108 +1182,136 @@ namespace Lightly
 
     }
 
-    //_____________________________________________________________________
     bool Style::eventFilter( QObject *object, QEvent *event )
     {
 
         if( auto dockWidget = qobject_cast<QDockWidget*>( object ) ) { return eventFilterDockWidget( dockWidget, event ); }
         else if( auto subWindow = qobject_cast<QMdiSubWindow*>( object ) ) { return eventFilterMdiSubWindow( subWindow, event ); }
         else if( auto commandLinkButton = qobject_cast<QCommandLinkButton*>( object ) ) { return eventFilterCommandLinkButton( commandLinkButton, event ); }
-        #if QT_VERSION < 0x050D00 // Check if Qt version < 5.13
+    #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         else if( object == qApp && event->type() == QEvent::ApplicationPaletteChange ) { configurationChanged(); }
-        #endif
+    #endif
         // cast to QWidget
-        QWidget *widget = static_cast<QWidget*>( object );
-        if( widget->inherits( "QAbstractScrollArea" ) || widget->inherits( "KTextEditor::View" ) ) { return eventFilterScrollArea( widget, event ); }
-        else if( widget->inherits( "QComboBoxPrivateContainer" ) ) { return eventFilterComboBoxContainer( widget, event ); }
-        
-        // paint background
-        if ( widget && event->type() == QEvent::Paint ) {
-            if (widget->isWindow() 
-                && !_isKonsole
-                && widget->testAttribute( Qt::WA_StyledBackground )
-                && widget->testAttribute( Qt::WA_TranslucentBackground ) )
-            {
-                switch ( widget->windowFlags() & Qt::WindowType_Mask ) {
-                    case Qt::Window:
-                    case Qt::Dialog:
-                    //case Qt::Popup:
-                    //case Qt::ToolTip:
-                    case Qt::Sheet: {
-                        if ( qobject_cast<QMenu*>( widget ) ) break;
-                        if ( !_translucentWidgets.contains( widget ) ) break;
-                        QPainter p( widget );
-                        p.setClipRegion(static_cast<QPaintEvent*>( event )->region());
-                        p.fillRect( widget->rect(), QColor( widget->palette().color( QPalette::Window ) ) );
-                        
-                        // separator between the window and decoration
-                        if( _helper->titleBarColor( true ).alphaF()*100.0 < 100 && !_isKonsole)
-                        {
-                            p.setBrush( Qt::NoBrush );
-                            p.setPen( QColor( 0,0,0,40 ) );
-                            p.drawLine(widget->rect().topLeft(), widget->rect().topRight());
-                        }
-                        
-                        // shadow between toolbar and the rest of the window
-                        /*if( (widget->palette().color( QPalette::Window ).alpha()/255)*100  < _helper->titleBarColor( true ).alphaF()*100.0 )
-                        {
-                            if( LightlyPrivate::possibleTranslucentToolBars.size() == 1 )
+        if (object->isWidgetType()) {
+            QWidget *widget = static_cast<QWidget*>( object );
+            if( widget->inherits( "QAbstractScrollArea" ) || widget->inherits( "KTextEditor::View" ) ) { return eventFilterScrollArea( widget, event ); }
+            else if( widget->inherits( "QComboBoxPrivateContainer" ) ) { return eventFilterComboBoxContainer( widget, event ); }
+            else if (auto dialogButtonBox = qobject_cast<QDialogButtonBox *>(object)) {
+                if (widget->property(PropertyNames::forceFrame).toBool() || (widget->parentWidget() && widget->parentWidget()->inherits("KPageView"))) {
+                    // QDialogButtonBox has no paintEvent
+                    return eventFilterDialogButtonBox(dialogButtonBox, event);
+                }
+            }
+            // paint background
+            if ( widget && event->type() == QEvent::Paint ) {
+                if (widget->isWindow() 
+                    && !_isKonsole
+                    && widget->testAttribute( Qt::WA_StyledBackground )
+                    && widget->testAttribute( Qt::WA_TranslucentBackground ) )
+                {
+                    switch ( widget->windowFlags() & Qt::WindowType_Mask ) {
+                        case Qt::Window:
+                        case Qt::Dialog:
+                        //case Qt::Popup:
+                        //case Qt::ToolTip:
+                        case Qt::Sheet: {
+                            if ( qobject_cast<QMenu*>( widget ) ) break;
+                            if ( !_translucentWidgets.contains( widget ) ) break;
+                            QPainter p( widget );
+                            p.setClipRegion(static_cast<QPaintEvent*>( event )->region());
+                            p.fillRect( widget->rect(), QColor( widget->palette().color( QPalette::Window ) ) );
+                            
+                            // separator between the window and decoration
+                            if( _helper->titleBarColor( true ).alphaF()*100.0 < 100 && !_isKonsole)
                             {
-                                QSet<const QWidget *>::const_iterator i = LightlyPrivate::possibleTranslucentToolBars.constBegin();
-                                const QToolBar *tb = qobject_cast<const QToolBar*>( *i );
-                                
-                                if( tb ){
-                                    if( tb->orientation() == Qt::Horizontal) { 
-                                        p.setPen( QColor( 0, 0, 0, 40 ) );
-                                        p.drawLine( widget->rect().topLeft() + QPoint( 0, tb->y() + tb->height() ), widget->rect().topRight() + QPoint( 0, tb->y() + tb->height() ) ); 
+                                p.setBrush( Qt::NoBrush );
+                                p.setPen( QColor( 0,0,0,40 ) );
+                                p.drawLine(widget->rect().topLeft(), widget->rect().topRight());
+                            }
+                            
+                            // shadow between toolbar and the rest of the window
+                            /*if( (widget->palette().color( QPalette::Window ).alpha()/255)*100  < _helper->titleBarColor( true ).alphaF()*100.0 )
+                            {
+                                if( LightlyPrivate::possibleTranslucentToolBars.size() == 1 )
+                                {
+                                    QSet<const QWidget *>::const_iterator i = LightlyPrivate::possibleTranslucentToolBars.constBegin();
+                                    const QToolBar *tb = qobject_cast<const QToolBar*>( *i );
+                                    
+                                    if( tb ){
+                                        if( tb->orientation() == Qt::Horizontal) { 
+                                            p.setPen( QColor( 0, 0, 0, 40 ) );
+                                            p.drawLine( widget->rect().topLeft() + QPoint( 0, tb->y() + tb->height() ), widget->rect().topRight() + QPoint( 0, tb->y() + tb->height() ) ); 
+                                        }
                                     }
                                 }
-                            }
-                        }*/
-                        
+                            }*/
+                            
+                        }
                     }
                 }
             }
-        }
 
-        // update blur region if window is not completely transparent
-        if( widget && widget->inherits( "QWidget" ) )
-        {
-            if( widget->palette().color( QPalette::Window ).alpha() == 255 )
+            // update blur region if window is not completely transparent
+            if( widget && widget->inherits( "QWidget" ) )
             {
-                if( ( qobject_cast<QToolBar*>( widget ) || qobject_cast<QMenuBar*>( widget )) && _helper->titleBarColor( true ).alphaF() < 1.0 )
+                if( widget->palette().color( QPalette::Window ).alpha() == 255 )
                 {
-                    if( event->type() == QEvent::Move  || event->type() == QEvent::Show || event->type() == QEvent::Hide )
+                    if( ( qobject_cast<QToolBar*>( widget ) || qobject_cast<QMenuBar*>( widget )) && _helper->titleBarColor( true ).alphaF() < 1.0 )
                     {
-                        if( _translucentWidgets.contains( widget->window() ) && !_isKonsole )
-                            _blurHelper->forceUpdate( widget->window() );
+                        if( event->type() == QEvent::Move  || event->type() == QEvent::Show || event->type() == QEvent::Hide )
+                        {
+                            if( _translucentWidgets.contains( widget->window() ) && !_isKonsole )
+                                _blurHelper->forceUpdate( widget->window() );
+                        }
                     }
                 }
             }
+            
+            
+            /*if( widget && qobject_cast<const QGroupBox*>( widget ) ) { 
+                if( event->type() == QEvent::Enter ) {
+                    
+                    if( widget->property("HOVER").toBool() == false ) {
+                        widget->update();
+                        widget->setProperty("HOVER", true);
+                    }
+                    
+                }
+                else if( event->type() == QEvent::Leave ) {
+                    
+                    if( widget->property("HOVER").toBool() == true ) {
+                        widget->update();
+                        widget->setProperty("HOVER", false);
+                    }
+                }
+            }*/
         }
-        
-        
-        /*if( widget && qobject_cast<const QGroupBox*>( widget ) ) { 
-            if( event->type() == QEvent::Enter ) {
-                
-                if( widget->property("HOVER").toBool() == false ) {
-                    widget->update();
-                    widget->setProperty("HOVER", true);
-                }
-                
-            }
-            else if( event->type() == QEvent::Leave ) {
-                
-                if( widget->property("HOVER").toBool() == true ) {
-                    widget->update();
-                    widget->setProperty("HOVER", false);
-                }
-            }
-        }*/
 
         // fallback
         return ParentStyleClass::eventFilter( object, event );
 
+    }
+
+
+    //____________________________________________________________________________
+    bool Style::eventFilterDialogButtonBox(QDialogButtonBox *widget, QEvent *event)
+    {
+        if (event->type() == QEvent::Paint) {
+            QPainter painter(widget);
+            auto paintEvent = static_cast<QPaintEvent *>(event);
+            painter.setClipRegion(paintEvent->region());
+
+            // store rect and palette
+            auto rect(widget->rect());
+            rect.setHeight(1);
+            const auto &palette(widget->palette());
+
+            // define color and render
+            const auto color(_helper->separatorColor(palette));
+            _helper->renderSeparator(&painter, rect, color, false);
+        }
+
+        return false;
     }
 
     //____________________________________________________________________________
@@ -6034,6 +6081,19 @@ namespace Lightly
             case QFrame::StyledPanel:
             {
 
+                // if (isQtQuickControl(option, widget) && option->styleObject->property("elementType").toString() == QLatin1String("combobox"))
+                // {
+
+                //     // ComboBox popup frame
+                //     drawFrameMenuPrimitive( option, painter, widget );
+                //     return true;
+
+                // }
+
+                // // pixelMetric(PM_DefaultFrameWidth) contains heuristics to decide
+                // // when to draw a frame and return 0 when we shouldn't draw a frame.
+                // return pixelMetric(PM_DefaultFrameWidth, option, widget) == 0;
+
                 if( isQtQuickControl( option, widget ) )
                 {
 
@@ -6042,6 +6102,8 @@ namespace Lightly
                     return true;
 
                 } else break;
+
+
             }
 
             default: break;
