@@ -128,9 +128,9 @@ sudo make install
 ***
 
 
-#### Distrobox (Fedora 40)
+#### Distrobox (Fedora 41)
 ```
-distrobox create --name lightly --image fedora-toolbox:40
+distrobox create --name lightly --image registry.fedoraproject.org/fedora-toolbox:41
 distrobox enter lightly
 ```
 
