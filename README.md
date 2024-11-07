@@ -74,7 +74,7 @@ sudo make install
 
 #### Fedora
 
-#####  Fedora 40
+#####  Fedora 40/41
 
 ```
 sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
