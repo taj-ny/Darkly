@@ -51,6 +51,7 @@ set(lightly_PART_SRCS
     lightlystyleplugin.cpp
     lightlytileset.cpp
     lightlywindowmanager.cpp
+    lightlytoolsareamanager.cpp
 )
 
 kconfig_add_kcfg_files(lightly_PART_SRCS ../kdecoration/lightlysettings.kcfgc)

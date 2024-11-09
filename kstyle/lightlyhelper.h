@@ -31,8 +31,9 @@
 #include <KColorScheme>
 #include <KSharedConfig>
 #include <KStatefulBrush>
-#include <QPainterPath>
 #include <QIcon>
+#include <QPainterPath>
+#include <QToolBar>
 #include <QWidget>
 
 namespace Lightly
@@ -289,7 +290,9 @@ namespace Lightly
         //* returns true if a given palette has dark colors 
         bool isDarkTheme( const QPalette& palette) const
         { return qGray( palette.color( QPalette::Window ).rgb() ) > 110 ? false : true; }
-        
+
+        //* returns true if the tools area should be drawn
+        bool shouldDrawToolsArea(const QWidget *) const;
 
         //@}
 
@@ -339,6 +342,8 @@ namespace Lightly
         QColor _inactiveTitleBarTextColor;
         //@}
 
+        mutable bool _cachedAutoValid = false;
+        friend class ToolsAreaManager;
     };
 
 }
