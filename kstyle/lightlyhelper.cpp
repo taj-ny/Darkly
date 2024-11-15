@@ -37,6 +37,7 @@
 #include <QX11Info>
 #endif
 
+#include <QDialog>
 #include <algorithm>
 
 //#include <QDebug>
@@ -1937,5 +1938,44 @@ namespace Lightly
             }
         }
         return pixmap;
+    }
+
+    bool Helper::shouldDrawToolsArea(const QWidget *widget) const
+    {
+        if (!widget) {
+            return false;
+        }
+        static bool isAuto = false;
+        static QString borderSize;
+        if (!_cachedAutoValid) {
+            KConfigGroup kdecorationGroup(_config->group(QStringLiteral("org.kde.kdecoration2")));
+            isAuto = kdecorationGroup.readEntry("BorderSizeAuto", true);
+            borderSize = kdecorationGroup.readEntry("BorderSize", "Normal");
+            _cachedAutoValid = true;
+        }
+        if (isAuto) {
+            auto window = widget->window();
+            if (qobject_cast<const QDialog *>(widget)) {
+                return true;
+            }
+            if (window) {
+                auto handle = window->windowHandle();
+                if (handle) {
+                    auto toolbar = qobject_cast<const QToolBar *>(widget);
+                    if (toolbar) {
+                        if (toolbar->isFloating()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+        if (borderSize != "None" && borderSize != "NoSides") {
+            return false;
+        }
+        return true;
     }
 }

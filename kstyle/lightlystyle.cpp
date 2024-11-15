@@ -21,6 +21,7 @@
 
 #include "lightly.h"
 #include "lightlyanimations.h"
+#include "lightlyblurhelper.h"
 #include "lightlyframeshadow.h"
 #include "lightlymdiwindowshadow.h"
 #include "lightlymnemonics.h"
@@ -28,35 +29,39 @@
 #include "lightlyshadowhelper.h"
 #include "lightlysplitterproxy.h"
 #include "lightlystyleconfigdata.h"
+#include "lightlytoolsareamanager.h"
 #include "lightlywidgetexplorer.h"
 #include "lightlywindowmanager.h"
-#include "lightlyblurhelper.h"
 
 #include <KColorUtils>
 
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDial>
 #include <QDBusConnection>
+#include <QDial>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QFormLayout>
 #include <QGraphicsView>
 #include <QGroupBox>
+#include <QItemDelegate>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMainWindow>
+#include <QMap>
 #include <QMdiSubWindow>
 #include <QMenu>
 #include <QMenuBar>
-#include <QMap>
 #include <QPainter>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QScrollBar>
-#include <QItemDelegate>
 #include <QSplitterHandle>
+#include <QStackedLayout>
+#include <QSurfaceFormat>
 #include <QTableView>
 #include <QTextEdit>
 #include <QToolBar>
@@ -64,10 +69,7 @@
 #include <QToolButton>
 #include <QTreeView>
 #include <QWidgetAction>
-#include <QSurfaceFormat>
 #include <QWindow>
-#include <QDialogButtonBox>
-#include <QStackedLayout>
 
 #if LIGHTLY_HAVE_QTQUICK
 #include <QQuickWindow>
@@ -168,46 +170,50 @@ namespace LightlyPrivate
 namespace Lightly
 {
     //______________________________________________________________
-    Style::Style():
+Style::Style()
+    :
 
-        _helper( new Helper( StyleConfigData::self()->sharedConfig() ) )
-        , _shadowHelper( new ShadowHelper( this, *_helper ) )
-        , _animations( new Animations( this ) )
-        , _mnemonics( new Mnemonics( this ) )
-        , _blurHelper( new BlurHelper( this ) )
-        , _windowManager( new WindowManager( this ) )
-        , _frameShadowFactory( new FrameShadowFactory( this ) )
-        , _mdiWindowShadowFactory( new MdiWindowShadowFactory( this ) )
-        , _splitterFactory( new SplitterFactory( this ) )
-        , _widgetExplorer( new WidgetExplorer( this ) )
-        , _tabBarData( new LightlyPrivate::TabBarData( this ) )
-        #if LIGHTLY_HAVE_KSTYLE
-        , SH_ArgbDndWindow( newStyleHint( QStringLiteral( "SH_ArgbDndWindow" ) ) )
-        , CE_CapacityBar( newControlElement( QStringLiteral( "CE_CapacityBar" ) ) )
-        #endif
-    {
+    _helper(new Helper(StyleConfigData::self()->sharedConfig()))
+    , _shadowHelper(new ShadowHelper(this, *_helper))
+    , _animations(new Animations(this))
+    , _mnemonics(new Mnemonics(this))
+    , _blurHelper(new BlurHelper(this))
+    , _windowManager(new WindowManager(this))
+    , _frameShadowFactory(new FrameShadowFactory(this))
+    , _mdiWindowShadowFactory(new MdiWindowShadowFactory(this))
+    , _splitterFactory(new SplitterFactory(this))
+    , _toolsAreaManager(new ToolsAreaManager(_helper, this))
+    , _widgetExplorer(new WidgetExplorer(this))
+    , _tabBarData(new LightlyPrivate::TabBarData(this))
+#if LIGHTLY_HAVE_KSTYLE
+    , SH_ArgbDndWindow(newStyleHint(QStringLiteral("SH_ArgbDndWindow")))
+    , CE_CapacityBar(newControlElement(QStringLiteral("CE_CapacityBar")))
+#endif
+{
+    // use DBus connection to update on lightly configuration change
+    auto dbus = QDBusConnection::sessionBus();
+    dbus.connect(QString(),
+                 QStringLiteral("/LightlyStyle"),
+                 QStringLiteral("org.kde.Lightly.Style"),
+                 QStringLiteral("reparseConfiguration"),
+                 this,
+                 SLOT(configurationChanged()));
 
-        // use DBus connection to update on lightly configuration change
-        auto dbus = QDBusConnection::sessionBus();
-        dbus.connect( QString(),
-            QStringLiteral( "/LightlyStyle" ),
-            QStringLiteral( "org.kde.Lightly.Style" ),
-            QStringLiteral( "reparseConfiguration" ), this, SLOT(configurationChanged()) );
-
-        dbus.connect( QString(),
-            QStringLiteral( "/LightlyDecoration" ),
-            QStringLiteral( "org.kde.Lightly.Style" ),
-            QStringLiteral( "reparseConfiguration" ), this, SLOT(configurationChanged()) );
-        #if QT_VERSION < 0x050D00 // Check if Qt version < 5.13
-        this->addEventFilter(qApp);
-        #else
-        connect(qApp, &QApplication::paletteChanged, this, &Style::configurationChanged);
-        #endif
-        // call the slot directly; this initial call will set up things that also
-        // need to be reset when the system palette changes
-        loadConfiguration();
-
-    }
+    dbus.connect(QString(),
+                 QStringLiteral("/LightlyDecoration"),
+                 QStringLiteral("org.kde.Lightly.Style"),
+                 QStringLiteral("reparseConfiguration"),
+                 this,
+                 SLOT(configurationChanged()));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    this->addEventFilter(qApp);
+#else
+    connect(qApp, &QApplication::paletteChanged, this, &Style::configurationChanged);
+#endif
+    // call the slot directly; this initial call will set up things that also
+    // need to be reset when the system palette changes
+    loadConfiguration();
+}
 
     //______________________________________________________________
     Style::~Style()
@@ -245,6 +251,8 @@ namespace Lightly
             _isOpaque = true;
         if(_translucentWidgets.size() > 0) _translucentWidgets.clear();
 
+        _toolsAreaManager->registerApplication(app);
+
         // base class polishing
         ParentStyleClass::polish( app );
     }
@@ -261,6 +269,7 @@ namespace Lightly
         _mdiWindowShadowFactory->registerWidget( widget );
         _shadowHelper->registerWidget( widget );
         _splitterFactory->registerWidget( widget );
+        _toolsAreaManager->registerWidget(widget);
 
         // enable mouse over effects for all necessary widgets
         if(
@@ -485,8 +494,23 @@ namespace Lightly
 
             setTranslucentBackground( widget );
 
+        } else if (qobject_cast<QMainWindow *>(widget)) {
+            widget->setAttribute(Qt::WA_StyledBackground);
         } else if (qobject_cast<QDialogButtonBox *>(widget)) {
             addEventFilter(widget);
+        }
+
+        if (_toolsAreaManager->hasHeaderColors()) {
+            // style TitleWidget and Search KPageView to look the same as KDE System Settings
+            if (widget->objectName() == QLatin1String("KPageView::TitleWidget")) {
+                widget->setAutoFillBackground(true);
+                widget->setPalette(_toolsAreaManager->palette());
+                addEventFilter(widget);
+            } else if (widget->objectName() == QLatin1String("KPageView::Search")) {
+                widget->setBackgroundRole(QPalette::Window);
+                widget->setPalette(_toolsAreaManager->palette());
+                addEventFilter(widget);
+            }
         }
 
         // base class polishing
@@ -579,6 +603,7 @@ namespace Lightly
         _windowManager->unregisterWidget( widget );
         _splitterFactory->unregisterWidget( widget );
         _blurHelper->unregisterWidget( widget );
+        _toolsAreaManager->unregisterWidget(widget);
 
         // remove event filter
         if( qobject_cast<QAbstractScrollArea*>( widget ) ||
@@ -1032,6 +1057,9 @@ namespace Lightly
             case PE_FrameTabBarBase: fcn = &Style::drawFrameTabBarBasePrimitive; break;
             case PE_FrameWindow: fcn = &Style::drawFrameWindowPrimitive; break;
             case PE_FrameFocusRect: fcn = _frameFocusPrimitive; break;
+            case PE_Widget:
+                fcn = &Style::drawWidgetPrimitive;
+                break;
 
             // fallback
             default: break;
@@ -1046,6 +1074,113 @@ namespace Lightly
 
         painter->restore();
 
+    }
+
+    //______________________________________________________________
+    bool Style::drawWidgetPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
+    {
+        Q_UNUSED(option)
+
+        const auto drawBackground = _toolsAreaManager->hasHeaderColors() && _helper->shouldDrawToolsArea(widget);
+
+        auto mw = qobject_cast<const QMainWindow *>(widget);
+        if (mw && mw == mw->window()) {
+            painter->save();
+
+            auto rect = _toolsAreaManager->toolsAreaRect(mw);
+
+            if (rect.height() == 0) {
+                if (mw->property(PropertyNames::noSeparator).toBool() || mw->isFullScreen()) {
+                    painter->restore();
+                    return true;
+                }
+                painter->setPen(QPen(_helper->separatorColor(_toolsAreaManager->palette()), PenWidth::Frame * widget->devicePixelRatio()));
+                painter->drawLine(widget->rect().topLeft(), widget->rect().topRight());
+                painter->restore();
+                return true;
+            }
+
+            auto color = _toolsAreaManager->palette().brush(mw->isActiveWindow() ? QPalette::Active : QPalette::Inactive, QPalette::Window);
+
+            if (drawBackground) {
+                painter->setPen(Qt::transparent);
+                painter->setBrush(color);
+                painter->drawRect(rect);
+            }
+
+            painter->setPen(_helper->separatorColor(_toolsAreaManager->palette()));
+            painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+
+            painter->restore();
+        } else if (auto dialog = qobject_cast<const QDialog *>(widget)) {
+            if (dialog->isFullScreen()) {
+                return true;
+            }
+            if (auto vLayout = qobject_cast<QVBoxLayout *>(widget->layout())) {
+                QRect rect(0, 0, widget->width(), 0);
+                const auto color = _toolsAreaManager->palette().brush(widget->isActiveWindow() ? QPalette::Active : QPalette::Inactive, QPalette::Window);
+
+                if (vLayout->menuBar()) {
+                    rect.setHeight(rect.height() + vLayout->menuBar()->rect().height());
+                }
+
+                for (int i = 0, count = vLayout->count(); i < count; i++) {
+                    const auto layoutItem = vLayout->itemAt(i);
+                    if (layoutItem->widget() && qobject_cast<QToolBar *>(layoutItem->widget())) {
+                        rect.setHeight(rect.height() + layoutItem->widget()->rect().height() + vLayout->spacing());
+                    } else {
+                        break;
+                    }
+                }
+
+                if (rect.height() > 0) {
+                    // We found either a QMenuBar or a QToolBar
+
+                    // Add contentsMargins + separator
+                    rect.setHeight(rect.height() + widget->devicePixelRatio() + vLayout->contentsMargins().top());
+
+                    if (drawBackground) {
+                        painter->setPen(Qt::transparent);
+                        painter->setBrush(color);
+                        painter->drawRect(rect);
+                    }
+
+                    painter->setPen(QPen(_helper->separatorColor(_toolsAreaManager->palette()), widget->devicePixelRatio()));
+                    painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+
+                    return true;
+                }
+            }
+
+            painter->setPen(QPen(_helper->separatorColor(_toolsAreaManager->palette()), PenWidth::Frame * widget->devicePixelRatio()));
+            painter->drawLine(widget->rect().topLeft(), widget->rect().topRight());
+        } else if (widget && widget->inherits("KMultiTabBar")) {
+            enum class Position {
+                Left,
+                Right,
+                Top,
+                Bottom,
+            };
+
+            const Position position = static_cast<Position>(widget->property("position").toInt());
+            const auto splitterWidth = Metrics::Splitter_SplitterWidth;
+            QRect rect = option->rect;
+
+            if (position == Position::Top || position == Position::Bottom) {
+                return true;
+            }
+
+            if ((position == Position::Left && widget->layoutDirection() == Qt::LeftToRight)
+                || (position == Position::Right && widget->layoutDirection() == Qt::RightToLeft)) {
+                rect.setX(rect.width() - splitterWidth);
+            }
+
+            rect.setWidth(splitterWidth);
+
+            const auto color(_helper->separatorColor(option->palette));
+            _helper->renderSeparator(painter, rect, color, true);
+        }
+        return true;
     }
 
     //______________________________________________________________
@@ -1309,6 +1444,37 @@ namespace Lightly
             // define color and render
             const auto color(_helper->separatorColor(palette));
             _helper->renderSeparator(&painter, rect, color, false);
+        }
+
+        return false;
+    }
+
+    //____________________________________________________________________________
+    bool Style::eventFilterPageViewHeader(QWidget *widget, QEvent *event)
+    {
+        if (event->type() == QEvent::Paint) {
+            QPainter painter(widget);
+            const auto &palette(_toolsAreaManager->palette());
+
+            painter.setBrush(palette.color(QPalette::Window));
+            painter.setPen(Qt::NoPen);
+            painter.drawRect(widget->rect());
+
+            // Add separator next to the search field
+            if (widget->objectName() == QLatin1String("KPageView::Search")) {
+                auto rect(widget->rect());
+                if (widget->layoutDirection() == Qt::RightToLeft) {
+                    rect.setWidth(1);
+                } else {
+                    rect.setLeft(rect.width() - 1);
+                }
+                rect.setHeight(rect.height() - Metrics::ToolBar_SeparatorVerticalMargin * 2);
+                rect.setY(Metrics::ToolBar_SeparatorVerticalMargin);
+
+                // define color and render
+                const auto color(_helper->separatorColor(palette));
+                _helper->renderSeparator(&painter, rect, color, true);
+            }
         }
 
         return false;
@@ -5012,13 +5178,34 @@ namespace Lightly
         const bool windowActive( widget && widget->isActiveWindow() );
 
         const auto& rect( option->rect );
-        
-        _helper->renderTransparentArea( painter, rect );
-        
+        const auto &palette(option->palette);
+
         // draw background
-        int opacity = _helper->titleBarColor( windowActive ).alphaF()*100.0;
-        painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity) );
-        
+
+        // changes menubar background opacity
+
+        if (widget && _helper->titleBarColor(windowActive).alphaF() * 100.0 < 100 && _translucentWidgets.contains(widget->window())) {
+            _helper->renderTransparentArea(painter, rect);
+
+            float opacity = 0.0;
+            QColor background(palette.color(QPalette::Window));
+
+            if (StyleConfigData::menuBarOpacity() == 100) {
+                // opacity is at 100%
+                opacity = 1.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() == 0) {
+                background.setAlphaF(_helper->titleBarColor(windowActive).alphaF());
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() < 100 && StyleConfigData::menuBarOpacity() > 0) {
+                // lower the opacity
+                opacity = StyleConfigData::menuBarOpacity() / 100.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            }
+        }
+
         bool shouldDrawShadow = false;
         if ( LightlyPrivate::possibleTranslucentToolBars.isEmpty() ) shouldDrawShadow = true;
         
@@ -5079,11 +5266,33 @@ namespace Lightly
         {
             
             _helper->renderTransparentArea( painter, rect );
+            float opacity = 0.0;
 
-            // draw background
-            int opacity = _helper->titleBarColor( windowActive ).alphaF()*100.0;
-            painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity) );
-            
+            // this paints the menubar with the same color from the titlebar
+            // painter->fillRect(rect, _helper->titleBarColor(windowActive));
+
+            // 100% opacity = no transparency
+
+            QColor background(palette.color(QPalette::Window));
+
+            // changes menubar background opacity
+
+            if (StyleConfigData::menuBarOpacity() == 100) {
+                // opacity is at 100%
+                opacity = 1.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() == 0) {
+                // use the same titlebar color
+                background.setAlphaF(_helper->titleBarColor(windowActive).alphaF());
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() < 100 && StyleConfigData::menuBarOpacity() > 0) {
+                // lower the opacity
+                opacity = StyleConfigData::menuBarOpacity() / 100.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            }
+
             bool shouldDrawShadow = false;
             int shadow_xoffset = 0;
             if ( LightlyPrivate::possibleTranslucentToolBars.isEmpty() ) shouldDrawShadow = true;

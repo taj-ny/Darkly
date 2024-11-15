@@ -36,6 +36,7 @@ namespace Lightly
         static const char alteredBackground[];
         static const char bordersSides[];
         static const char forceFrame[];
+        static const char noSeparator[];
     };
 
 }

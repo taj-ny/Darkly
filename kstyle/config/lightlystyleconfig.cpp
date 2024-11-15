@@ -67,6 +67,11 @@ namespace Lightly
         connect( _sidebarOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged );
         connect(_sidebarOpacity, SIGNAL(valueChanged(int)), _sidebarOpacitySpinBox, SLOT(setValue(int)));
         connect(_sidebarOpacitySpinBox, SIGNAL(valueChanged(int)), _sidebarOpacity, SLOT(setValue(int)));
+
+        connect(_menuBarOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
+        connect(_menuBarOpacity, SIGNAL(valueChanged(int)), _menuBarOpacitySpinBox, SLOT(setValue(int)));
+        connect(_menuBarOpacitySpinBox, SIGNAL(valueChanged(int)), _menuBarOpacity, SLOT(setValue(int)));
+
         connect( _kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _oldTabbar, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
@@ -96,6 +101,7 @@ namespace Lightly
         StyleConfigData::setWindowDragMode( _windowDragMode->currentIndex() );
         StyleConfigData::setMenuOpacity( _menuOpacity->value() );
         StyleConfigData::setDolphinSidebarOpacity( _sidebarOpacity->value() );
+        StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
         StyleConfigData::setButtonSize( _buttonSize->value() );
         StyleConfigData::setKTextEditDrawFrame( _kTextEditDrawFrame->isChecked() );
         StyleConfigData::setWidgetDrawShadow( _widgetDrawShadow->isChecked() );
@@ -158,8 +164,11 @@ namespace Lightly
         else if( _sidebarOpacity->value() != StyleConfigData::dolphinSidebarOpacity() ) {
             modified = true;
             _sidebarOpacitySpinBox->setValue( _sidebarOpacity->value() );
-        } 
-        else if( _kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame() ) modified = true;
+        } else if (_menuBarOpacity->value() != StyleConfigData::menuBarOpacity()) {
+            modified = true;
+            _menuBarOpacitySpinBox->setValue(_menuBarOpacity->value());
+        } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
+            modified = true;
         else if( _widgetDrawShadow->isChecked() != StyleConfigData::widgetDrawShadow() ) modified = true;
         else if( _oldTabbar->isChecked() != StyleConfigData::oldTabbar() ) modified = true;
         else if( _tabBarAltStyle->isChecked() != StyleConfigData::tabBarAltStyle() ) modified = true;
@@ -194,6 +203,10 @@ namespace Lightly
         _menuOpacitySpinBox->setValue( StyleConfigData::menuOpacity() );
         _sidebarOpacity->setValue( StyleConfigData::dolphinSidebarOpacity() );
         _sidebarOpacitySpinBox->setValue( StyleConfigData::dolphinSidebarOpacity() );
+
+        _menuBarOpacity->setValue(StyleConfigData::menuBarOpacity());
+        _menuBarOpacitySpinBox->setValue(StyleConfigData::menuBarOpacity());
+
         _buttonSize->setValue( StyleConfigData::buttonSize() );
         _kTextEditDrawFrame->setChecked( StyleConfigData::kTextEditDrawFrame() );
         _widgetDrawShadow->setChecked( StyleConfigData::widgetDrawShadow() );

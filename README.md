@@ -54,6 +54,12 @@ This means that this fork allows real changes, and not just maintainence.
 
 ## Manual
 
+#### Void Linux
+```
+sudo xbps-install -Sy extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel kf6-kirigami-devel kf6-kcoreaddons-devel kf6-kcolorscheme-devel kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel kf6-kwindowsystem-devel kf6-frameworkintegration-devel kf6-karchive-devel kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel
+```
+***
+
 #### Arch Linux
 
 ```
@@ -74,7 +80,7 @@ sudo make install
 
 #### Fedora
 
-#####  Fedora 40
+#####  Fedora 40/41
 
 ```
 sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
@@ -128,9 +134,9 @@ sudo make install
 ***
 
 
-#### Distrobox (Fedora 40)
+#### Distrobox (Fedora 41)
 ```
-distrobox create --name lightly --image fedora-toolbox:40
+distrobox create --name lightly --image registry.fedoraproject.org/fedora-toolbox:41
 distrobox enter lightly
 ```
 
