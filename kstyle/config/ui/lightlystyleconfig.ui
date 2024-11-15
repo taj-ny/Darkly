@@ -697,7 +697,7 @@
               <item>
                <widget class="QSlider" name="_menuOpacity">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This changes the menu items transparency&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>This changes the menu items transparency</string>
                 </property>
                 <property name="minimum">
                  <number>0</number>
@@ -755,7 +755,7 @@
               <item>
                <widget class="QSlider" name="_sidebarOpacity">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This changes the Dolphin sidebar transparency&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>This changes the Dolphin sidebar transparency</string>
                 </property>
                 <property name="maximum">
                  <number>100</number>
