@@ -5178,16 +5178,33 @@ Style::Style()
         const bool windowActive( widget && widget->isActiveWindow() );
 
         const auto& rect( option->rect );
-        
-        _helper->renderTransparentArea( painter, rect );
-        
+        const auto &palette(option->palette);
+
         // draw background
-        int opacity = _helper->titleBarColor( windowActive ).alphaF()*100.0;
 
-        // painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity) );
+        // changes menubar background opacity
 
-        // this paints the menubar with the same color from the titlebar
-        painter->fillRect(rect, _helper->titleBarColor(windowActive));
+        if (widget && _helper->titleBarColor(windowActive).alphaF() * 100.0 < 100 && _translucentWidgets.contains(widget->window())) {
+            _helper->renderTransparentArea(painter, rect);
+
+            float opacity = 0.0;
+            QColor background(palette.color(QPalette::Window));
+
+            if (StyleConfigData::menuBarOpacity() == 100) {
+                // opacity is at 100%
+                opacity = 1.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() == 0) {
+                background.setAlphaF(_helper->titleBarColor(windowActive).alphaF());
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() < 100 && StyleConfigData::menuBarOpacity() > 0) {
+                // lower the opacity
+                opacity = StyleConfigData::menuBarOpacity() / 100.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            }
+        }
 
         bool shouldDrawShadow = false;
         if ( LightlyPrivate::possibleTranslucentToolBars.isEmpty() ) shouldDrawShadow = true;
@@ -5249,13 +5266,32 @@ Style::Style()
         {
             
             _helper->renderTransparentArea( painter, rect );
-
-            // draw background
-            int opacity = _helper->titleBarColor( windowActive ).alphaF()*100.0;
-            // painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity) );
+            float opacity = 0.0;
 
             // this paints the menubar with the same color from the titlebar
-            painter->fillRect(rect, _helper->titleBarColor(windowActive));
+            // painter->fillRect(rect, _helper->titleBarColor(windowActive));
+
+            // 100% opacity = no transparency
+
+            QColor background(palette.color(QPalette::Window));
+
+            // changes menubar background opacity
+
+            if (StyleConfigData::menuBarOpacity() == 100) {
+                // opacity is at 100%
+                opacity = 1.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() == 0) {
+                // use the same titlebar color
+                background.setAlphaF(_helper->titleBarColor(windowActive).alphaF());
+                painter->fillRect(rect, background);
+            } else if (StyleConfigData::menuBarOpacity() < 100 && StyleConfigData::menuBarOpacity() > 0) {
+                // lower the opacity
+                opacity = StyleConfigData::menuBarOpacity() / 100.0;
+                background.setAlphaF(opacity);
+                painter->fillRect(rect, background);
+            }
 
             bool shouldDrawShadow = false;
             int shadow_xoffset = 0;
