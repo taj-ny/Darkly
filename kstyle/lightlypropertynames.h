@@ -34,6 +34,9 @@ namespace Lightly
         static const char toolButtonAlignment[];
         static const char menuTitle[];
         static const char alteredBackground[];
+        static const char bordersSides[];
+        static const char forceFrame[];
+        static const char noSeparator[];
     };
 
 }

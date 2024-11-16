@@ -31,5 +31,7 @@ namespace Lightly
     const char PropertyNames::toolButtonAlignment[] = "_kde_toolButton_alignment";
     const char PropertyNames::menuTitle[] = "_lightly_toolButton_menutitle";
     const char PropertyNames::alteredBackground[] = "_lightly_altered_background";
-
+    const char PropertyNames::forceFrame[] = "_breeze_force_frame";
+    const char PropertyNames::bordersSides[] = "_breeze_borders_sides";
+    const char PropertyNames::noSeparator[] = "_lightly_no_separator";
 }

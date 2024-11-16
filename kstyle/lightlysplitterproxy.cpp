@@ -264,7 +264,7 @@ namespace Lightly
                     // map event position to current splitter and post.
                    QMouseEvent copy(
                         mouseEvent->type(),
-                        _splitter.data()->mapFromGlobal( mouseEvent->globalPos() ),
+                        _splitter.data()->mapFromGlobal( mouseEvent->globalPosition() ),
                         mouseEvent->button(),
                         mouseEvent->buttons(), mouseEvent->modifiers());
 

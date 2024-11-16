@@ -42,6 +42,8 @@
 
 #include <functional>
 
+class QDialogButtonBox;
+
 namespace LightlyPrivate
 {
     class TabBarData;
@@ -60,6 +62,7 @@ namespace Lightly
     class WidgetExplorer;
     class WindowManager;
     class BlurHelper;
+    class ToolsAreaManager;
 
     //* convenience typedef for base class
     #if !LIGHTLY_HAVE_KSTYLE
@@ -142,6 +145,8 @@ namespace Lightly
         bool eventFilterDockWidget( QDockWidget*, QEvent* );
         bool eventFilterMdiSubWindow( QMdiSubWindow*, QEvent* );
         bool eventFilterCommandLinkButton( QCommandLinkButton*, QEvent* );
+        bool eventFilterDialogButtonBox(QDialogButtonBox *, QEvent *);
+        bool eventFilterPageViewHeader(QWidget *, QEvent *);
 
         //* install event filter to object, in a unique way
         void addEventFilter( QObject* object )
@@ -248,6 +253,7 @@ namespace Lightly
         bool drawFrameTabWidgetPrimitive( const QStyleOption*, QPainter*, const QWidget* ) const;
         bool drawFrameTabBarBasePrimitive( const QStyleOption*, QPainter*, const QWidget* ) const;
         bool drawFrameWindowPrimitive( const QStyleOption*, QPainter*, const QWidget* ) const;
+        bool drawWidgetPrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
 
         bool drawIndicatorArrowUpPrimitive( const QStyleOption* option, QPainter* painter, const QWidget* widget ) const
         { return drawIndicatorArrowPrimitive( ArrowUp, option, painter, widget ); }
@@ -520,6 +526,9 @@ namespace Lightly
 
         //* splitter Factory, to extend splitters hit area
         SplitterFactory* _splitterFactory = nullptr;
+
+        //* signal manager for the tools area
+        ToolsAreaManager *_toolsAreaManager = nullptr;
 
         //* widget explorer
         WidgetExplorer* _widgetExplorer = nullptr;

@@ -423,7 +423,7 @@ namespace Lightly
         {
             _quickTarget = item;
             _dragPoint = mouseEvent->pos();
-            _globalDragPoint = mouseEvent->globalPos();
+            _globalDragPoint = mouseEvent->globalPosition().toPoint();
 
             if( _dragTimer.isActive() ) _dragTimer.stop();
             _dragTimer.start( _dragDelay, this );
@@ -446,7 +446,7 @@ namespace Lightly
         // save target and drag point
         _target = widget;
         _dragPoint = position;
-        _globalDragPoint = mouseEvent->globalPos();
+        _globalDragPoint = mouseEvent->globalPosition().toPoint();
         _dragAboutToStart = true;
 
         // send a move event to the current child with same position
@@ -489,7 +489,7 @@ namespace Lightly
 
                 } else resetDrag();
 
-            } else if( QPoint( mouseEvent->globalPos() - _globalDragPoint ).manhattanLength() >= _dragDistance ) {
+            } else if (QPoint(mouseEvent->globalPosition().toPoint() - _globalDragPoint).manhattanLength() >= _dragDistance) {
 
                 _dragTimer.start( 0, this );
 

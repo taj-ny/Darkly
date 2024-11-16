@@ -40,12 +40,11 @@ namespace Lightly
     //@}
 
     //* metrics
-    enum Metrics
-    {
+    enum Metrics {
 
         // frames
         Frame_FrameWidth = 5,
-        //Frame_FrameRadius = 6,
+        // Frame_FrameRadius = 6,
 
         // layout
         Layout_TopLevelMarginWidth = 10,
@@ -56,12 +55,13 @@ namespace Lightly
         LineEdit_FrameWidth = 5 + Frame_FrameWidth,
 
         // menu items
-        //Menu_FrameWidth = 4,
+        Menu_FrameWidth = 4,
         MenuItem_MarginWidth = 5,
         MenuItem_MarginHeight = 3,
         MenuItem_ItemSpacing = 4,
         MenuItem_AcceleratorSpace = 16,
         MenuButton_IndicatorWidth = 20,
+        MenuItem_HighlightGap = 4,
 
         // combobox
         ComboBox_FrameWidth = 5 + Frame_FrameWidth,
@@ -84,7 +84,7 @@ namespace Lightly
         ToolButton_InlineIndicatorWidth = 12,
 
         // checkboxes and radio buttons
-        CheckBox_Size = 16 + ( Frame_FrameWidth - 1 )*2,
+        CheckBox_Size = 16 + (Frame_FrameWidth - 1) * 2,
         CheckBox_FocusMarginWidth = 2,
         CheckBox_ItemSpacing = 4,
 
@@ -96,9 +96,9 @@ namespace Lightly
         ScrollBar_Extend = 21,
         ScrollBar_SliderWidth = 8,
         ScrollBar_MinSliderHeight = 20,
-        ScrollBar_NoButtonHeight = (ScrollBar_Extend-ScrollBar_SliderWidth)/2,
+        ScrollBar_NoButtonHeight = (ScrollBar_Extend - ScrollBar_SliderWidth) / 2,
         ScrollBar_SingleButtonHeight = ScrollBar_Extend,
-        ScrollBar_DoubleButtonHeight = 2*ScrollBar_Extend,
+        ScrollBar_DoubleButtonHeight = 2 * ScrollBar_Extend,
 
         // toolbars
         ToolBar_FrameWidth = 2,
@@ -107,6 +107,7 @@ namespace Lightly
         ToolBar_SeparatorWidth = 8,
         ToolBar_ExtensionWidth = 20,
         ToolBar_ItemSpacing = 0,
+        ToolBar_SeparatorVerticalMargin = 2,
 
         // progressbars
         ProgressBar_BusyIndicatorSize = 14,

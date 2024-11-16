@@ -220,7 +220,7 @@ namespace Lightly
             widgets.append( parent );
 
             // stop at topLevel
-            if( parent->isTopLevel() || parent->autoFillBackground() ) break;
+            if( parent->isWindow() || parent->autoFillBackground() ) break;
 
         }
 
@@ -241,7 +241,7 @@ namespace Lightly
 
         }
 
-        if( parent->isTopLevel() && parent->testAttribute(Qt::WA_StyledBackground))
+        if( parent->isWindow() && parent->testAttribute(Qt::WA_StyledBackground))
         {
             QStyleOption option;
             option.initFrom(parent);

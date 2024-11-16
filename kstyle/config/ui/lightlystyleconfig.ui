@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>772</width>
-    <height>521</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -696,6 +696,9 @@
               </item>
               <item>
                <widget class="QSlider" name="_menuOpacity">
+                <property name="toolTip">
+                 <string>This changes the menu items transparency</string>
+                </property>
                 <property name="minimum">
                  <number>0</number>
                 </property>
@@ -751,6 +754,9 @@
               </item>
               <item>
                <widget class="QSlider" name="_sidebarOpacity">
+                <property name="toolTip">
+                 <string>This changes the Dolphin sidebar transparency</string>
+                </property>
                 <property name="maximum">
                  <number>100</number>
                 </property>
@@ -785,6 +791,49 @@
               </item>
               <item>
                <widget class="QSpinBox" name="_sidebarOpacitySpinBox">
+                <property name="suffix">
+                 <string>%</string>
+                </property>
+                <property name="maximum">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Menubar:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="_menuBarOpacity">
+                <property name="toolTip">
+                 <string>This only works on color schemes which support transparency</string>
+                </property>
+                <property name="maximum">
+                 <number>100</number>
+                </property>
+                <property name="value">
+                 <number>100</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="tickPosition">
+                 <enum>QSlider::TickPosition::TicksBelow</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>10</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="_menuBarOpacitySpinBox">
                 <property name="suffix">
                  <string>%</string>
                 </property>
