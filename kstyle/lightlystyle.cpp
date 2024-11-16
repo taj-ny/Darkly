@@ -1109,7 +1109,7 @@ Style::Style()
             }
 
             painter->setPen(_helper->separatorColor(_toolsAreaManager->palette()));
-            painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+            if (!_isDolphin) painter->drawLine(rect.bottomLeft(), rect.bottomRight());
 
             painter->restore();
         } else if (auto dialog = qobject_cast<const QDialog *>(widget)) {
