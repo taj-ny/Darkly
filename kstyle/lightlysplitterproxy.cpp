@@ -262,11 +262,19 @@ namespace Lightly
                 } else {
 
                     // map event position to current splitter and post.
-                   QMouseEvent copy(
-                        mouseEvent->type(),
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                    QMouseEvent copy(mouseEvent->type(),
                         _splitter.data()->mapFromGlobal( mouseEvent->globalPosition() ),
                         mouseEvent->button(),
-                        mouseEvent->buttons(), mouseEvent->modifiers());
+                                     mouseEvent->buttons(),
+                                     mouseEvent->modifiers());
+#else
+                    QMouseEvent copy(mouseEvent->type(),
+                                     _splitter.data()->mapFromGlobal(mouseEvent->globalPos()),
+                                     mouseEvent->button(),
+                                     mouseEvent->buttons(),
+                                     mouseEvent->modifiers());
+#endif
 
                     QCoreApplication::sendEvent( _splitter.data(), &copy );
 
