@@ -54,10 +54,12 @@ This means that this fork allows real changes, and not just maintainence.
 
 ## Manual
 
-### To ensure this application style works on applications still using QT5 both QT5 and QT6 dependencies are require to be installed before building from source.
+### To ensure this application style works on applications still using QT5 both QT5 and QT6 dependencies are required to be installed before building from source.
 
 ### Installation script
-A script called `install.sh` is now available which both builds and installs this application style.
+
+> [!NOTE]
+> A script called `install.sh` is now available which both builds and installs this application style.
 
 `./install.sh` will remove if existing, build and install Lightly using both QT5/QT6 dependencies.
 

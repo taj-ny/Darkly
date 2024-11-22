@@ -8,6 +8,7 @@ CMAKE_OPTS=(
     -S $SRC_DIR
     -DBUILD_TESTING=OFF
     -Wno-dev
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 )
 PROJECT="lightly"
 _PROJECT="Lightly"
