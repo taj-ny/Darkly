@@ -71,8 +71,7 @@ This means that this fork allows real changes, and not just maintainence.
 
 #### Void Linux
 ```
-sudo xbps-install -Sy \
-      git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel \
+sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel \
       kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel \
       kf6-kirigami-devel kf6-kcoreaddons-devel kf6-kcolorscheme-devel \
       kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
@@ -90,8 +89,7 @@ cd Lightly
 #### <u>Arch Linux</u>
 
 ```
-sudo pacman -S --noconfirm \
-      cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
+sudo pacman -S --noconfirm cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
       kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git \
       qt5-declarative qt5-x11extras gcc make kcmutils5 \
       frameworkintegration5 kconfigwidgets5 kiconthemes5 \
