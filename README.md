@@ -224,6 +224,7 @@ git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
+***
 
 ## Known issues & solutions
 
