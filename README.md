@@ -69,7 +69,14 @@ A script called `install.sh` is now available which both builds and installs thi
 
 #### Void Linux
 ```
-sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel kf6-kirigami-devel kf6-kcoreaddons-devel kf6-kcolorscheme-devel kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel kf6-kwindowsystem-devel kf6-frameworkintegration-devel kf6-karchive-devel kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel
+sudo xbps-install -Sy \
+      git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel \
+      kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel \
+      kf6-kirigami-devel kf6-kcoreaddons-devel kf6-kcolorscheme-devel \
+      kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
+      kf6-kwindowsystem-devel kf6-frameworkintegration-devel kf6-karchive-devel \
+      kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel \
+      qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel
 ```
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
