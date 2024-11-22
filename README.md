@@ -204,6 +204,9 @@ cd ../../
 make -j $(nproc)
 make install
 ```
+***
+
+
 #### <u>Kubuntu (24.10)</u>
 ```
 sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations2-dev \
