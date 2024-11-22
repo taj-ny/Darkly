@@ -10,7 +10,7 @@ on:
 env:
   PKGBUILD: $GITHUB_WORKSPACE/.github/assets/pkgbuild/PKGBUILD
 jobs:
-  build-release:
+  build:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
@@ -28,7 +28,9 @@ jobs:
           cmake extra-cmake-modules qt6-base \
           kdecoration qt6-declarative kcoreaddons \
           kcmutils kcolorscheme kconfig kguiaddons \
-          kiconthemes kwindowsystem --noconfirm
+          kiconthemes kwindowsystem kcmutils5 \
+          frameworkintegration5 kconfigwidgets5 kiconthemes5 \
+          kirigami2 kwindowsystem5 --noconfirm
       - name: Setup build user
         run: |
           useradd builduser -m # Create the builduser
@@ -41,8 +43,8 @@ jobs:
           cp ${{ env.PKGBUILD }} /var/tmp/lightly-archlinux
           sed -i "s/.*pkgver=.*/pkgver=${{ inputs.version }}/" /var/tmp/lightly-archlinux/PKGBUILD
       - name: Change permissions of build directory
-        run: | 
-            chown builduser:builduser -R /var/tmp/lightly-archlinux
+        run: |
+          chown builduser:builduser -R /var/tmp/lightly-archlinux
       - name: Generate package checksum
         run: sudo -u builduser bash -c 'cd /var/tmp/lightly-archlinux; makepkg -g >> PKGBUILD'
       - name: Build package
@@ -57,4 +59,3 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ env.ZST_ASSET }}
-

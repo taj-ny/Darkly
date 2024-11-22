@@ -3,11 +3,11 @@ name: Lightly build & release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v*"
 env:
   BUILD_TYPE: Release
   BUILD_WS: build_kf6
-  BUILD_REPO: https://github.com/Bali10050/Lightly/
+  BUILD_REPO: https://github.com/DeltaCopy/Lightly/
 jobs:
   release-ci:
     runs-on: ubuntu-latest
@@ -28,16 +28,16 @@ jobs:
         id: step_getlatest_tag
         run: |
           # get latest release tag from remote
-          latest_tag=$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags $BUILD_REPO '*.*.*' \
+          latest_tag=$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags $BUILD_REPO '*.*' \
                        | tail --lines=1 | cut --delimiter='/' --fields=3)
-          
+
           echo "INFO: Latest tag = $latest_tag"
           test ! -z "$latest_tag" && echo "LATEST_TAG=$latest_tag" >> "$GITHUB_ENV" \
           || echo "ERROR: Latest tag not found" || exit 1
-          
+
            # use the tag name but remove the 'v' for the asset name to publish
           tagname=$(echo $latest_tag | sed 's/v//')
-          
+
           echo "VERSION=$tagname" >> "$GITHUB_OUTPUT"
       - name: Download tag asset
         id: step_get_asset
@@ -52,35 +52,35 @@ jobs:
 
   Kubuntu:
     needs: release-ci
-    uses: ./.github/workflows/kubuntu-ci.yml
+    uses: ./.github/workflows/kubuntu.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
   openSUSE-Tumbleweed:
     needs: release-ci
-    uses: ./.github/workflows/opensuse-tw-ci.yml
+    uses: ./.github/workflows/opensuse-tw.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
   KDE-Neon:
     needs: release-ci
-    uses: ./.github/workflows/neon-ci.yml
+    uses: ./.github/workflows/neon.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
-  Fedora-40:
+  Fedora:
     needs: release-ci
-    uses: ./.github/workflows/fedora-ci.yml
+    uses: ./.github/workflows/fedora.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
+      containers: "['fedora:latest', 'fedora:40']"
 
-  # Archlinux:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/archlinux-ci.yml
-  #   with:
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
-
+  Archlinux:
+    needs: release-ci
+    uses: ./.github/workflows/archlinux.yml
+    with:
+      version: ${{ needs.release-ci.outputs.VERSION }}

@@ -1,4 +1,4 @@
-# Fedora 40
+# Fedora 41/40
 # Build Lightly from release tag and publish .rpm package
 
 on:
@@ -10,20 +10,26 @@ on:
       version:
         required: true
         type: string
+      containers:
+        required: true
+        type: string
 env:
-  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/fedora/lightly-qt6.spec
+  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/lightly.spec
 jobs:
-  build-release:
+  build:
+    strategy:
+      max-parallel: 2
+      matrix:
+        image: ${{ fromJson(inputs.containers) }}
     runs-on: ubuntu-latest
-    container: fedora:latest
+    container: ${{ matrix.image }}
     steps:
       - name: Checkout local
         uses: actions/checkout@v4.2.0
         with:
           repository: ${{ github.repository }}
           sparse-checkout: |
-            .github/assets/specs/fedora/lightly-qt6.spec
-          sparse-checkout-cone-mode: false
+            .github/assets/specs/lightly.spec
       - name: Update tag version inside spec file
         run: sed -i "s/.*%define release_tag.*/%define release_tag ${{ inputs.version }}/" ${{ env.SPEC_FILE }}
       - uses: actions/cache/restore@v4.1.0
@@ -34,39 +40,34 @@ jobs:
           fail-on-cache-miss: true
       - name: Install dependencies
         run: |
-          sudo dnf install -y -q git rpmdevtools rpmlint cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
-                  kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
-                  kf6-kirigami-devel kf6-kcmutils-devel kf6-frameworkintegration-devel \
-                  "cmake(KF6Crash)" "cmake(KF6GlobalAccel)" "cmake(KF6KIO)" "cmake(KF6Notifications)" \
-                  "cmake(KF6Package)" "cmake(KWayland)" "cmake(Plasma)" "cmake(Plasma5Support)" \
-                  kf6-kpackage-devel libepoxy-devel
+          sudo dnf install -y -q git rpmdevtools rpmlint cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel libepoxy-devel \
+                "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(KF5GuiAddons)" "cmake(KF5WindowSystem)" \
+                "cmake(KF5I18n)" "cmake(KF5CoreAddons)" "cmake(KF5ConfigWidgets)" "cmake(Qt5UiTools)" "cmake(KF5GlobalAccel)" \
+                "cmake(KF5IconThemes)" "cmake(KF5Init)" "cmake(KF5KIO)" "cmake(KF5Notifications)" kf5-kpackage-devel kf5-kcmutils-devel \
+                qt5-qtquickcontrols2-devel kf5-kirigami2-devel "cmake(KF5Crash)" "cmake(KF5FrameworkIntegration)" \
+                kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
+                kf6-kirigami-devel kf6-kcmutils-devel kf6-frameworkintegration-devel \
+                "cmake(KF6Crash)" "cmake(KF6GlobalAccel)" "cmake(KF6KIO)" "cmake(KF6Notifications)" \
+                "cmake(KF6Package)" "cmake(KWayland)" "cmake(Plasma)" "cmake(Plasma5Support)" \
+                kf6-kpackage-devel libepoxy-devel fdupes
       - name: Create rpm tree
         run: rpmdev-setuptree
-      - name: Move tarball asset into sources
-        run: |
-          dest_filename=Lightly-${{ inputs.version }}.tar.gz
-          mv ${{ inputs.cache-file-path }} $HOME/rpmbuild/SOURCES/$dest_filename
-          ls -lart $HOME/rpmbuild/SOURCES/
+      - name: Move tarball asset to rpm build sources location
+        run: mv ${{ inputs.cache-file-path }} $HOME/rpmbuild/SOURCES/${{ inputs.version }}.tar.gz
       - name: Move rpm specfile to specs
         run: mv ${{ env.SPEC_FILE }} $HOME/rpmbuild/SPECS/
       - name: Build rpm binary package
-        id: step_get_version
         run: |
           cd $HOME/rpmbuild/SPECS
-          rpmbuild -bb --quiet lightly-qt6.spec
+          rpmbuild -bb --quiet lightly.spec
           rpm_file=$(find $HOME/rpmbuild/RPMS/x86_64 -name "*.rpm*" ! -name "*src*" ! -name "*debug*")
           echo "rpm_file = $rpm_file"
           source /etc/os-release
           echo "Version ID = $VERSION_ID"
-
           mv $rpm_file $HOME/rpmbuild/RPMS/x86_64/lightly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm
-
-          ls -lart $HOME/rpmbuild/RPMS/x86_64/
-
           echo "RPM_ASSET=$HOME/rpmbuild/RPMS/x86_64/lightly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm" >> "$GITHUB_ENV"
       - name: Release
         uses: softprops/action-gh-release@v2.0.8
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ env.RPM_ASSET }}
-

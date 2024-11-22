@@ -15,8 +15,15 @@ generate_export_header(lightlycommon${QT_MAJOR_VERSION}
 
 target_link_libraries(lightlycommon${QT_MAJOR_VERSION}
     PUBLIC
-        Qt::Core
-        Qt::Gui)
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
+
+    KF${QT_MAJOR_VERSION}::GuiAddons
+    KF${QT_MAJOR_VERSION}::ConfigCore
+    KF${QT_MAJOR_VERSION}::ConfigGui
+    KF${QT_MAJOR_VERSION}::IconThemes
+    KF${QT_MAJOR_VERSION}::I18n)
 
 set_target_properties(lightlycommon${QT_MAJOR_VERSION} PROPERTIES
     VERSION ${PROJECT_VERSION}

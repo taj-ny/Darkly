@@ -29,9 +29,7 @@ set_target_properties(lightlydecoration PROPERTIES
 
 target_link_libraries(lightlydecoration
      PUBLIC
-        Qt::Core
-        Qt::Gui
-        Qt::DBus
+        Qt6::DBus
         KDecoration2::KDecoration
      PRIVATE
         lightlycommon6
@@ -43,8 +41,6 @@ target_link_libraries(lightlydecoration
         KF6::WindowSystem
         KF6::KCMUtils
 )
-
 install(TARGETS lightlydecoration DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
 install(FILES config/lightlydecorationconfig.desktop DESTINATION  ${KDE_INSTALL_DATADIR}/kservices6)
-
 add_subdirectory(config)
