@@ -61,7 +61,11 @@ A script called `install.sh` is now available which both builds and installs thi
 
 `./install.sh` will remove if existing, build and install Lightly.
 
-`./install.sh remove` will remove Lightly.
+`./install.sh` remove` will remove Lightly.
+
+`./install.sh QT5` will build only using QT5/KF5 dependencies
+
+`./install.sh QT6` will build only using QT6/KF6 dependencies
 
 #### Void Linux
 ```
