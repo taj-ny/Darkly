@@ -59,13 +59,13 @@ This means that this fork allows real changes, and not just maintainence.
 ### Installation script
 A script called `install.sh` is now available which both builds and installs this application style.
 
-`./install.sh` will remove if existing, build and install Lightly.
+`./install.sh` will remove if existing, build and install Lightly using both QT5/QT6 dependencies.
 
-`./install.sh` remove` will remove Lightly.
+`./install.sh QT5` will build & install using only QT5/KF5 dependencies.
 
-`./install.sh QT5` will build only using QT5/KF5 dependencies
+`./install.sh QT6` will build & install using only QT6/KF6 dependencies.
 
-`./install.sh QT6` will build only using QT6/KF6 dependencies
+`./install.sh remove` will remove Lightly.
 
 #### Void Linux
 ```
