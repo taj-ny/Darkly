@@ -205,14 +205,11 @@ make -j $(nproc)
 make install
 ```
 ```
-
 Set environment variable on plasma startup:
-```
+
 echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME/.config/plasma-workspace/env/localthemes.sh && chmod +x $HOME/.config/plasma-workspace/env/localthemes.sh
 ```
-
 ***
-
 
 #### <u>Kubuntu (24.10)</u>
 ```
@@ -228,8 +225,7 @@ sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecoratio
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
-
-***
+```
 
 ## Known issues & solutions
 
