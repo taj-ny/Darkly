@@ -3,22 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # <https://github.com/nix-systems/nix-systems>
-    systems.url = "github:nix-systems/default-linux";
   };
 
   outputs =
     {
       nixpkgs,
-      systems,
       ...
     }:
     let
       inherit (nixpkgs) lib;
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
       perSystem =
         f:
-        lib.genAttrs (import systems) (
+        lib.genAttrs systems (
           system:
           f {
             pkgs = import nixpkgs { inherit system; };
