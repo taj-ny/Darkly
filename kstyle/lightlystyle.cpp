@@ -1600,17 +1600,19 @@ Style::Style()
                     if( !scrollBar->rect().contains( position ) ) continue;
 
                     // copy event, send and return
-                    QMouseEvent copy(
-                        mouseEvent->type(),
-                        position,
-                        mouseEvent->button(),
-                        mouseEvent->buttons(), mouseEvent->modifiers());
+                    QMouseEvent copy(mouseEvent->type(),
+                             position,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
+                             QCursor::pos(),
+#endif
+                             mouseEvent->button(),
+                             mouseEvent->buttons(),
+                             mouseEvent->modifiers());
 
-                    QCoreApplication::sendEvent( scrollBar, &copy );
-                    event->setAccepted( true );
-                    return true;
-
-                }
+            QCoreApplication::sendEvent(scrollBar, &copy);
+            event->setAccepted(true);
+            return true;
+        }
 
                 break;
 
@@ -1686,7 +1688,7 @@ Style::Style()
 
             } else if( StyleConfigData::dockWidgetDrawFrame() && (dockWidget->features() & (QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable))){
 
-                _helper->renderFrame( &painter, rect, background, palette, windowActive );
+                _helper->renderFrame( &painter, rect, background, windowActive );
 
             } else {
                 
@@ -3639,14 +3641,14 @@ Style::Style()
         _animations->inputWidgetEngine().updateState( widget, AnimationHover, mouseOver && !hasFocus );
 
         // retrieve animation mode and opacity
-        const AnimationMode mode( _animations->inputWidgetEngine().frameAnimationMode( widget ) );
-        const qreal opacity( _animations->inputWidgetEngine().frameOpacity( widget ) );
+        _animations->inputWidgetEngine().frameAnimationMode( widget ) ;
+        _animations->inputWidgetEngine().frameOpacity( widget ) ;
 
         // render
         if( !StyleConfigData::sidePanelDrawFrame() && widget && widget->property( PropertyNames::sidePanelView ).toBool() )
         {
 
-            const auto outline( _helper->sidePanelOutlineColor( palette, hasFocus, opacity, mode ) );
+            const auto outline( _helper->sidePanelOutlineColor( palette ) );
             const bool reverseLayout( option->direction == Qt::RightToLeft );
             const Side side( reverseLayout ? SideRight : SideLeft );
             if( (widget->window()->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog ) 
@@ -3684,7 +3686,7 @@ Style::Style()
             }*/
 
             const auto background( isTitleWidget ? palette.color( widget->backgroundRole() ) : palette.color( QPalette::Base ) );
-            _helper->renderFrame( painter, rect, background, palette, windowActive, enabled );
+            _helper->renderFrame( painter, rect, background, windowActive, enabled );
 
         }
 
@@ -3808,7 +3810,7 @@ Style::Style()
     }
 
     //______________________________________________________________
-    bool Style::drawFrameGroupBoxPrimitive( const QStyleOption* option, QPainter* painter, const QWidget* widget) const
+    bool Style::drawFrameGroupBoxPrimitive( const QStyleOption* option, QPainter* painter, const QWidget* ) const
     {
 
         // cast option and check
@@ -5511,8 +5513,8 @@ Style::Style()
         const bool useStrongFocus( StyleConfigData::menuItemDrawStrongFocus() );
         
         _animations->inputWidgetEngine().updateState( widget, AnimationHover, selected );
-        const AnimationMode mode( _animations->inputWidgetEngine().buttonAnimationMode( widget ) );
-        const qreal opacity( _animations->inputWidgetEngine().buttonOpacity( widget ) );
+        _animations->inputWidgetEngine().buttonAnimationMode( widget );
+        _animations->inputWidgetEngine().buttonOpacity( widget );
 
         // render hover and focus
         if( selected || sunken )
@@ -5554,7 +5556,6 @@ Style::Style()
             // checkbox state
 
             CheckBoxState state( menuItemOption->checked ? CheckOn : CheckOff );
-            const bool active( menuItemOption->checked );
             //const auto color( _helper->checkBoxIndicatorColor( palette, false, enabled && active ) );
             const auto background( state == CheckOn ? palette.color( QPalette::Highlight ) : palette.color( QPalette::Button ) );
             //_helper->renderCheckBoxBackground( painter, checkBoxRect, palette.color( QPalette::Window ), sunken );    //not needed

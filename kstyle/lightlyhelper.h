@@ -38,6 +38,7 @@
 
 namespace Lightly
 {
+    class PaletteChangedEventFilter;
 
     //* lightly style helper class.
     /** contains utility functions used at multiple places in both lightly style and lightly window decoration */
@@ -108,7 +109,7 @@ namespace Lightly
         QColor buttonHoverOutlineColor( const QPalette& ) const;
 
         //* side panel outline color, using animations
-        QColor sidePanelOutlineColor( const QPalette&, bool hasFocus = false, qreal opacity = AnimationData::OpacityInvalid, AnimationMode = AnimationNone ) const;
+        QColor sidePanelOutlineColor( const QPalette& ) const;
 
         //* frame background color
         QColor frameBackgroundColor( const QPalette& palette ) const
@@ -163,7 +164,7 @@ namespace Lightly
         void renderFocusLine( QPainter*, const QRect&, const QColor& ) const;
 
         //* generic frame
-        void renderFrame( QPainter*, const QRect&, const QColor& color, const QPalette& palette, const bool windowActive, const bool enabled = true ) const;
+        void renderFrame( QPainter*, const QRect&, const QColor& color, const bool windowActive, const bool enabled = true ) const;
 
         //* side panel frame
         void renderSidePanelFrame( QPainter*, const QRect&, const QColor& outline, Side ) const;
@@ -232,11 +233,11 @@ namespace Lightly
         void renderDialContents( QPainter*, const QRect&, const QColor&, qreal first, qreal second ) const;
 
         //* progress bar groove
-        void renderProgressBarGroove( QPainter*, const QRect&, const QColor&, const bool isContent = false ) const;
+        void renderProgressBarGroove( QPainter*, const QRect&, const QColor& ) const;
 
         //* progress bar contents
         void renderProgressBarContents( QPainter* painter, const QRect& rect, const QColor& color ) const
-        { return renderProgressBarGroove( painter, rect, color, true ); }
+        { return renderProgressBarGroove( painter, rect, color ); }
 
         //* progress bar contents (animated)
         void renderProgressBarBusyContents( QPainter* painter, const QRect& rect, const QColor& first, const QColor& second, bool horizontal, bool reverse, int progress  ) const;
@@ -334,6 +335,9 @@ namespace Lightly
         KStatefulBrush _windowAlternateBackgroundBrush;
         //@}
 
+        //* event filter
+        PaletteChangedEventFilter *_eventFilter;
+
         //*@name windeco colors
         //@{
         QColor _activeTitleBarColor;
@@ -344,6 +348,20 @@ namespace Lightly
 
         mutable bool _cachedAutoValid = false;
         friend class ToolsAreaManager;
+        friend class PaletteChangedEventFilter;
+    };
+
+    class PaletteChangedEventFilter : public QObject {
+        Q_OBJECT
+
+        public:
+            explicit PaletteChangedEventFilter(Helper *);
+
+        protected:
+            bool eventFilter(QObject *watched, QEvent *event) override;
+
+        private:
+            Helper *_helper;
     };
 
 }
