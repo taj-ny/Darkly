@@ -1,4 +1,3 @@
-
 # About this fork
 
 This fork attempts to revive lightly with a different approach from boehs, with the assumption that Luwx won't ever resume his project.
@@ -6,7 +5,6 @@ This fork attempts to revive lightly with a different approach from boehs, with 
 This means that this fork allows real changes, and not just maintainence.
 
 ![Lightly](https://github.com/user-attachments/assets/ae39fc7f-8277-48b1-b80c-9e307542b8b0)
-
 
 ## The to-do list
 
@@ -17,8 +15,8 @@ This means that this fork allows real changes, and not just maintainence.
 - [ ] Make some meaningful commits
 - [ ] Expand to-do list
 
-
 ## My plans for changes at the moment -- They are in progress, I'm just really slow
+
 - [x] Redesign the tabbar
   - [ ] Fix the issues I caused with it
   - [x] Align it a little better, ~~now it's slightly too left,~~ it needs slightly larger margins for ~~both sides~~ the right side
@@ -31,12 +29,14 @@ This means that this fork allows real changes, and not just maintainence.
 - [x] Add my own colorscheme to it
 - [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
 - [ ] Make installation in all major distros easy
-  - [x] Can be built on most distros that support plasma 6 
+  - [x] Can be built on most distros that support plasma 6
 - [ ] Rename the project to something like „Darkly” to reflect the changes, and for it to be installable alongside the other lightly
 - [ ] Maintain the project
 
 ## Installation
+
 ## Automatic
+
 ### Thanks to @DeltaCopy, you can use one of these install methods:
 
 #### Fedora copr
@@ -50,7 +50,6 @@ This means that this fork allows real changes, and not just maintainence.
 #### Pre-built packages
 
 <https://github.com/Bali10050/Lightly/releases>
-
 
 ## Manual
 
@@ -70,6 +69,7 @@ This means that this fork allows real changes, and not just maintainence.
 `./install.sh remove` will remove Lightly.
 
 #### Void Linux
+
 ```
 sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel \
       kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel \
@@ -79,12 +79,14 @@ sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel
       kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel \
       qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh QT6
 ```
-***
+
+---
 
 #### <u>Arch Linux</u>
 
@@ -93,19 +95,20 @@ sudo pacman -S --noconfirm cmake extra-cmake-modules kdecoration qt6-declarative
       kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git \
       qt5-declarative qt5-x11extras gcc make kcmutils5 \
       frameworkintegration5 kconfigwidgets5 kiconthemes5 \
-      kirigami2 kwindowsystem5 
+      kirigami2 kwindowsystem5
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
 
-***
+---
 
 #### <u>Fedora</u>
 
-#####  Fedora 40/41
+##### Fedora 40/41
 
 ```
 sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-devel \
@@ -117,13 +120,15 @@ sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-dev
       "cmake(KF5KIO)" kf5-kpackage-devel kf5-kcmutils-devel qt5-qtquickcontrols2-devel \
       kf5-kirigami2-devel "cmake(KF5FrameworkIntegration)"
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
 
-***
+---
+
 #### <u>openSUSE Tumbleweed</u>
 
 ```
@@ -141,15 +146,17 @@ sudo zypper in --no-recommends git ninja cmake kf6-extra-cmake-modules kf6-kconf
       xcb-util-wm-devel xcb-util-keysyms-devel kcmutils-devel \
       libqt5-qtquick3d-devel kirigami2-devel libKF5I18n5
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
-***
 
+---
 
 #### <u>KDE neon</u>
+
 ```
 sudo apt install -y git build-essential cmake kf6-extra-cmake-modules \
       kf6-extra-cmake-modules kf6-frameworkintegration-dev \
@@ -163,15 +170,17 @@ sudo apt install -y git build-essential cmake kf6-extra-cmake-modules \
       libqt5x11extras5-dev qt6-base-dev qt6-declarative-dev qtbase5-dev \
       qtdeclarative5-dev gettext qt6-svg-dev extra-cmake-modules qt3d5-dev
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
-***
 
+---
 
 #### <u>Distrobox (Fedora 41)</u>
+
 ```
 distrobox create --name lightly --image registry.fedoraproject.org/fedora-toolbox:41
 distrobox enter lightly
@@ -202,14 +211,17 @@ cd ../../
 make -j $(nproc)
 make install
 ```
+
 ```
 Set environment variable on plasma startup:
 
 echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME/.config/plasma-workspace/env/localthemes.sh && chmod +x $HOME/.config/plasma-workspace/env/localthemes.sh
 ```
-***
+
+---
 
 #### <u>Kubuntu (24.10)</u>
+
 ```
 sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations2-dev \
       libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
@@ -219,12 +231,43 @@ sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecoratio
       libkf6config-dev libkf6guiaddons-dev libkf6i18n-dev libkf6iconthemes-dev \
       libkf6windowsystem-dev libkf6kcmutils-dev libkirigami-dev
 ```
+
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
 cd Lightly
 ./install.sh
 ```
-***
+
+#### <u>Nixos</u>
+
+1. add `inputs.lightly.url = "github:Bali10050/Lightly";` to `flake.nix`
+2. nixos or home-manager
+
+- for home-manager
+
+```nix
+qt = {
+  style.package = [
+    inputs.lightly.packages.${pkgs.system}.lightly-qt5
+    inputs.lightly.packages.${pkgs.system}.lightly-qt6
+  ];
+  platformTheme.name = "qtct";
+};
+```
+
+- for nixos
+
+```nix
+qt.platformTheme = "qt5ct";
+environment.systemPackages = with pkgs; [
+  inputs.lightly.packages.${pkgs.system}.lightly-qt5
+  inputs.lightly.packages.${pkgs.system}.lightly-qt6
+]
+```
+
+3. select lightly in qt5ct / qt6ct
+
+---
 
 ## Known issues & solutions
 
