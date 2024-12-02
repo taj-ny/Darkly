@@ -74,6 +74,10 @@ remove_qt6_files() {
         "/usr/lib/cmake/${PROJECT}/${PROJECT}ConfigVersion.cmake"
         "/usr/share/color-schemes/${_PROJECT}.colors"
         /usr/lib/cmake/"${PROJECT^}"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${PROJECT}6.so"
     )
 
     for f in ${files[@]}; do
@@ -91,6 +95,7 @@ remove_qt5_files() {
         "/usr/lib64/lib${PROJECT}common5.so.6"
         "/usr/lib/lib${PROJECT}common5.so.6"
         "/usr/lib64/qt/plugins/styles/${PROJECT}5.so"
+        "/usr/lib/x86_64-linux-gnu/qt5/plugins/styles/${PROJECT}5.so"
     )
 
     for f in ${files[@]}; do

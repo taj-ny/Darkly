@@ -40,6 +40,8 @@
 #include <QDialog>
 #include <algorithm>
 
+#include <QEvent>
+
 //#include <QDebug>
 
 namespace Lightly
@@ -49,24 +51,41 @@ namespace Lightly
     static const qreal arrowShade = 0.15;
 
     //____________________________________________________________________
-    Helper::Helper( KSharedConfig::Ptr config, QObject *parent ):
-        _config( std::move( config ) )
+    PaletteChangedEventFilter::PaletteChangedEventFilter(Helper *helper)
+    : QObject(helper)
+    , _helper(helper)
     {
-        
-        if ( qApp ) {
-            connect(qApp, &QApplication::paletteChanged, this, [this]() {
-                if (qApp->property("KDE_COLOR_SCHEME_PATH").isValid()) {
-                    const auto path = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
-                    KConfig config(path, KConfig::SimpleConfig);
-                    KConfigGroup group( config.group("WM") );
-                    const QPalette palette( QApplication::palette() );
-                    _activeTitleBarColor = group.readEntry( "activeBackground", palette.color( QPalette::Active, QPalette::Highlight ) );
-                    _activeTitleBarTextColor = group.readEntry( "activeForeground", palette.color( QPalette::Active, QPalette::HighlightedText ) );
-                    _inactiveTitleBarColor = group.readEntry( "inactiveBackground", palette.color( QPalette::Disabled, QPalette::Highlight ) );
-                    _inactiveTitleBarTextColor = group.readEntry( "inactiveForeground", palette.color( QPalette::Disabled, QPalette::HighlightedText ) );
-                }
-            });
+    }
+
+    //____________________________________________________________________
+    bool PaletteChangedEventFilter::eventFilter(QObject *watched, QEvent *event) {
+        if (event->type() != QEvent::ApplicationPaletteChange || watched != qApp) {
+            return QObject::eventFilter(watched, event);
         }
+        if (!qApp->property("KDE_COLOR_SCHEME_PATH").isValid()) {
+            return QObject::eventFilter(watched, event);
+        }
+        const auto path = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
+        if (!path.isEmpty()) {
+            KConfig config(path, KConfig::SimpleConfig);
+            KConfigGroup group(config.group(QStringLiteral("WM")));
+            const QPalette palette(QApplication::palette());
+            _helper->_activeTitleBarColor = group.readEntry("activeBackground", palette.color(QPalette::Active, QPalette::Highlight));
+            _helper->_activeTitleBarTextColor = group.readEntry("activeForeground", palette.color(QPalette::Active, QPalette::HighlightedText));
+            _helper->_inactiveTitleBarColor = group.readEntry("inactiveBackground", palette.color(QPalette::Disabled, QPalette::Highlight));
+            _helper->_inactiveTitleBarTextColor = group.readEntry("inactiveForeground", palette.color(QPalette::Disabled, QPalette::HighlightedText));
+        }
+        return QObject::eventFilter(watched, event);
+    }
+
+
+
+    //____________________________________________________________________
+    Helper::Helper( KSharedConfig::Ptr config, QObject *parent )
+        : QObject(parent)
+        , _config( std::move( config ) )
+        , _eventFilter(new PaletteChangedEventFilter(this))
+    {
     }
 
     //____________________________________________________________________
@@ -142,7 +161,7 @@ namespace Lightly
     { return KColorUtils::mix( hoverColor( palette ), palette.color( QPalette::ButtonText ), 0.15 ); }
 
     //____________________________________________________________________
-    QColor Helper::sidePanelOutlineColor( const QPalette& palette, bool hasFocus, qreal opacity, AnimationMode mode ) const
+    QColor Helper::sidePanelOutlineColor( const QPalette& palette ) const
     {
 
         QColor outline( qGray(palette.color( QPalette::Window ).rgb()) > 150 ? QColor(0,0,0,20) : QColor(0,0,0,50) );
@@ -465,7 +484,7 @@ namespace Lightly
     //______________________________________________________________________________
     void Helper::renderFrame(
         QPainter* painter, const QRect& rect,
-        const QColor& color, const QPalette& palette, const bool windowActive, const bool enabled ) const
+        const QColor& color, const bool windowActive, const bool enabled ) const
     {
 
         painter->setRenderHint( QPainter::Antialiasing );
@@ -1514,16 +1533,14 @@ namespace Lightly
     //______________________________________________________________________________
     void Helper::renderProgressBarGroove(
         QPainter* painter, const QRect& rect,
-        const QColor& color, const bool isContent ) const
+        const QColor& color ) const
     {
 
         // setup painter
         painter->setRenderHint( QPainter::Antialiasing, true );
 
         const QRectF baseRect( rect );
-        
-        int thickness = Metrics::ProgressBar_Thickness;
-        if( !isContent ) thickness = qMax(Metrics::ProgressBar_Thickness-2, 0);
+
         const qreal radius(0.5 * static_cast<qreal>(Metrics::ProgressBar_Thickness));
 
         // content
