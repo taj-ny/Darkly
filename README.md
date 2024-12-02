@@ -130,7 +130,7 @@ cd Lightly
 sudo zypper in --no-recommends git ninja cmake kf6-extra-cmake-modules kf6-kconfig-devel \
       kf6-frameworkintegration-devel gmp-ecm-devel kf6-kconfigwidgets-devel \
       kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel kf6-kwindowsystem-devel \
-      kf6-kcolorscheme-devel kf6-kcoreaddons-devel kf6-kcmutils-devel kcmutils \
+      kf6-kcolorscheme-devel kf6-kcoreaddons-devel kf6-kcmutils-devel \
       qt6-quick-devel kf6-kirigami-devel qt6-base-devel kdecoration6-devel \
       qt6-tools qt6-widgets-devel gcc-c++ extra-cmake-modules libQt5Gui-devel \
       libQt5DBus-devel libqt5-qttools-devel libqt5-qtx11extras-devel \
