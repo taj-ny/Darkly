@@ -254,19 +254,30 @@ namespace Lightly
                     QMouseEvent copy(
                         mouseEvent->type(),
                         _hook,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
+                        mouseEvent->globalPosition().toPoint(),
+#endif
                         mouseEvent->button(),
-                        mouseEvent->buttons(), mouseEvent->modifiers());
+                        mouseEvent->buttons(), 
+                        mouseEvent->modifiers());
 
                     QCoreApplication::sendEvent( _splitter.data(), &copy );
 
                 } else {
 
                     // map event position to current splitter and post.
-                   QMouseEvent copy(
-                        mouseEvent->type(),
-                        _splitter.data()->mapFromGlobal( mouseEvent->globalPosition() ),
-                        mouseEvent->button(),
-                        mouseEvent->buttons(), mouseEvent->modifiers());
+QMouseEvent copy(mouseEvent->type(),
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                             _splitter.data()->mapFromGlobal(mouseEvent->globalPosition().toPoint()),
+#else
+                             _splitter.data()->mapFromGlobal(mouseEvent->globalPos()),
+#endif
+#if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
+                             mouseEvent->globalPosition().toPoint(),
+#endif
+                             mouseEvent->button(),
+                             mouseEvent->buttons(),
+                             mouseEvent->modifiers());
 
                     QCoreApplication::sendEvent( _splitter.data(), &copy );
 
@@ -357,15 +368,19 @@ namespace Lightly
         hide();
         parentWidget()->setUpdatesEnabled(true);
 
-        // send hover event
-        if( _splitter )
-        {
-            QHoverEvent hoverEvent(
-                qobject_cast<QSplitterHandle*>(_splitter.data()) ? QEvent::HoverLeave : QEvent::HoverMove,
-                _splitter.data()->mapFromGlobal(QCursor::pos()), _hook);
-            QCoreApplication::sendEvent( _splitter.data(), &hoverEvent );
+         // send hover event
+        if (_splitter) {
+            // SplitterProxy intercepts HoverLeave/HoverMove events to _splitter,
+            // but this is meant to reach it directly. Unset _splitter to stop interception.
+            auto splitter = _splitter;
             _splitter.clear();
-
+            QHoverEvent hoverEvent(qobject_cast<QSplitterHandle *>(splitter.data()) ? QEvent::HoverLeave : QEvent::HoverMove,
+                                splitter.data()->mapFromGlobal(QCursor::pos()),
+#if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
+                                splitter.data()->mapFromGlobal(QCursor::pos()),
+#endif
+                                _hook);
+            QCoreApplication::sendEvent(splitter.data(), &hoverEvent);
         }
 
         // kill timer if any
