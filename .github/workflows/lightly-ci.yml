@@ -7,8 +7,7 @@ on:
 env:
   BUILD_TYPE: Release
   BUILD_WS: build_kf6
-  BUILD_DEV: Bali10050
-  BUILD_REPO: https://github.com/$BUILD_DEV/Lightly/
+  BUILD_REPO: https://github.com/Bali10050/Lightly/
 jobs:
   release-ci:
     runs-on: ubuntu-latest
