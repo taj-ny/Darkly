@@ -362,7 +362,7 @@ namespace Lightly
         if (region.isNull()) return;
 
         widget->winId(); // force creation of the window handle
-        KWindowEffects::enableBlurBehind(widget->windowHandle(), true);
+        KWindowEffects::enableBlurBehind(widget->windowHandle(), true, region);
 
 
         // force update
