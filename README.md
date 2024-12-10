@@ -47,6 +47,8 @@ This means that this fork allows real changes, and not just maintainence.
 
 <https://aur.archlinux.org/packages/lightly-qt6>
 
+<https://aur.archlinux.org/packages/lightly-qt6-bin>
+
 #### Pre-built packages
 
 <https://github.com/Bali10050/Lightly/releases>
