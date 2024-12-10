@@ -26,8 +26,6 @@ source=(
     "${pkgname}.git::git+${url}.git#tag=v${pkgver//_/-}"
 )
 
-# use makepkg -g to generate the sha256sum for the release tag
-
 # KF6/QT6
 depends_kf6=(
     'kdecoration'
@@ -84,6 +82,6 @@ build() (
 
 package() (
     install -dm755 "$pkgdir.git"
-    DESTDIR="$pkgdir" cmake --install build_kf6
+    DESTDIR="$pkgdir" cmake --install $build_dir
     rm -rf "$pkgdir/usr/lib/cmake"
 )
