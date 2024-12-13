@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(lightly)
-set(PROJECT_VERSION "6.80")
+set(PROJECT_VERSION "0.5.10")
 set(PROJECT_VERSION_MAJOR 6)
 
 set(KF5_MIN_VERSION "5.102.0")
@@ -155,7 +155,10 @@ function(build_qt6)
     include(ECMSetupVersion)
     ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX LIGHTLY
                     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/LightlyConfigVersion.cmake"
-                    )
+                    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kstyle6/config/lightlystyleversion.h"
+    )
+
+
 
     set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Lightly")
 

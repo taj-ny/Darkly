@@ -7,7 +7,7 @@ on:
 env:
   BUILD_TYPE: Release
   BUILD_WS: build_kf6
-  BUILD_REPO: https://github.com/Bali10050/Lightly/
+  BUILD_REPO: https://github.com/DeltaCopy/Lightly/
 jobs:
   release-ci:
     runs-on: ubuntu-latest
