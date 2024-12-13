@@ -1,5 +1,7 @@
 #!/bin/bash
-
+rm /usr/lib/liblightlycommon5.so.6
+rm /usr/lib/liblightlycommon5.so.6.80
+rm /usr/lib/qt/plugins/styles/lightly5.so
 rm /usr/share/color-schemes/Lightly.colors
 rm /usr/lib/qt6/plugins/styles/lightly6.so
 rm /usr/share/kstyle/themes/lightly.themerc
@@ -17,6 +19,9 @@ rm /usr/lib/cmake/Lightly/LightlyConfig.cmake
 rm /usr/lib/cmake/Lightly/LightlyConfigVersion.cmake
 rmdir /usr/lib/cmake/Lightly
 
+rm /usr/lib64/liblightlycommon5.so.6
+rm /usr/lib64/liblightlycommon5.so.6.80
+rm /usr/lib64/qt/plugins/styles/lightly5.so
 rm /usr/share/color-schemes/Lightly.colors
 rm /usr/lib64/qt6/plugins/styles/lightly6.so
 rm /usr/share/kstyle/themes/lightly.themerc
