@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+sed -i "s/_versionNumber->setText(.*.);/_versionNumber->setText(\"$(basename "`pwd`"\"));/" ./kstyle/config/lightlystyleconfig.cpp
+
 QT_BUILD=$1
 SRC_DIR=$(pwd)
 BUILD_DIR="$SRC_DIR/build"

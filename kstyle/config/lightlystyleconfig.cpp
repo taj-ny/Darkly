@@ -214,7 +214,7 @@ namespace Lightly
         _tabBarAltStyle->setChecked( StyleConfigData::tabBarAltStyle() );
         _transparentDolphinView->setChecked( StyleConfigData::transparentDolphinView() );
         _cornerRadius->setValue( StyleConfigData::cornerRadius() );
-
+        _versionNumber->setText("LIGHTLY_VERSION");
 
     }
 
