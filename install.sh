@@ -1,7 +1,5 @@
 #!/bin/env bash
 
-sed -i "s/_versionNumber->setText(.*.);/_versionNumber->setText(\"$(basename "`pwd`"\"));/" ./kstyle/config/lightlystyleconfig.cpp
-
 QT_BUILD=$1
 SRC_DIR=$(pwd)
 BUILD_DIR="$SRC_DIR/build"
@@ -53,22 +51,22 @@ remove_build() {
 # if existing
 remove_qt6_files() {
     files=(
-        "/usr/lib64/qt6/plugins/styles/${PROJECT}6.so"
-        "/usr/lib/qt6/plugins/styles/${PROJECT}6.so"
+        "/usr/lib64/qt6/plugins/styles/${PROJECT}6.so*"
+        "/usr/lib/qt6/plugins/styles/${PROJECT}6.so*"
         "/usr/share/kstyle/themes/${PROJECT}.themerc"
-        "/usr/lib64/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so"
-        "/usr/lib/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so"
+        "/usr/lib64/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so*"
+        "/usr/lib/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so*"
         "/usr/share/applications/${PROJECT}styleconfig.desktop"
         "/usr/bin/${PROJECT}-settings6"
         "/usr/share/icons/hicolor/scalable/apps/${PROJECT}-settings.svgz"
-        "/usr/lib64/lib${PROJECT}common6.so.6.80"
-        "/usr/lib/lib${PROJECT}common6.so.6.80"
-        "/usr/lib64/lib${PROJECT}common6.so.6"
-        "/usr/lib/lib${PROJECT}common6.so.6"
-        "/usr/lib64/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so"
-        "/usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so"
-        "/usr/lib64/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so"
-        "/usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so"
+        "/usr/lib64/lib${PROJECT}common6.so*"
+        "/usr/lib/lib${PROJECT}common6.so.*"
+        "/usr/lib64/lib${PROJECT}common6.so*"
+        "/usr/lib/lib${PROJECT}common6.so*"
+        "/usr/lib64/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so*"
+        "/usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so*"
+        "/usr/lib64/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so*"
+        "/usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so*"
         "/usr/share/applications/kcm_${PROJECT}decoration.desktop"
         "/usr/lib64/cmake/${PROJECT}/${PROJECT}Config.cmake"
         "/usr/lib/cmake/${PROJECT}/${PROJECT}Config.cmake"
@@ -76,10 +74,10 @@ remove_qt6_files() {
         "/usr/lib/cmake/${PROJECT}/${PROJECT}ConfigVersion.cmake"
         "/usr/share/color-schemes/${_PROJECT}.colors"
         /usr/lib/cmake/"${PROJECT^}"
-        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so"
-        "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so"
-        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so"
-        "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${PROJECT}6.so"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2/org.kde.${PROJECT}.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${PROJECT}6.so*"
     )
 
     for f in ${files[@]}; do
@@ -90,14 +88,14 @@ remove_qt6_files() {
 # if existing
 remove_qt5_files() {
     files=(
-        "/usr/lib64/qt5/plugins/styles/${PROJECT}5.so"
-        "/usr/lib/qt5/plugins/styles/${PROJECT}5.so"
-        "/usr/lib64/lib${PROJECT}common5.so.6.80"
-        "/usr/lib/lib${PROJECT}common5.so.6.80"
-        "/usr/lib64/lib${PROJECT}common5.so.6"
-        "/usr/lib/lib${PROJECT}common5.so.6"
-        "/usr/lib64/qt/plugins/styles/${PROJECT}5.so"
-        "/usr/lib/x86_64-linux-gnu/qt5/plugins/styles/${PROJECT}5.so"
+        "/usr/lib64/qt5/plugins/styles/${PROJECT}5.so*"
+        "/usr/lib/qt5/plugins/styles/${PROJECT}5.so*"
+        "/usr/lib64/lib${PROJECT}common5.so*"
+        "/usr/lib/lib${PROJECT}common5.so*"
+        "/usr/lib64/lib${PROJECT}common5.so*"
+        "/usr/lib/lib${PROJECT}common5.so*"
+        "/usr/lib64/qt/plugins/styles/${PROJECT}5.so*"
+        "/usr/lib/x86_64-linux-gnu/qt5/plugins/styles/${PROJECT}5.so*"
     )
 
     for f in ${files[@]}; do

@@ -23,7 +23,7 @@
 #include "../lightly.h"
 #include "../config-lightly.h"
 #include "lightlystyleconfigdata.h"
-
+#include "lightlystyleversion.h"
 #include <QDBusMessage>
 #include <QDBusConnection>
 
@@ -214,7 +214,7 @@ namespace Lightly
         _tabBarAltStyle->setChecked( StyleConfigData::tabBarAltStyle() );
         _transparentDolphinView->setChecked( StyleConfigData::transparentDolphinView() );
         _cornerRadius->setValue( StyleConfigData::cornerRadius() );
-        _versionNumber->setText("LIGHTLY_VERSION");
+        _versionNumber->setText(LIGHTLY_VERSION_STRING);
 
     }
 
