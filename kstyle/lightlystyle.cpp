@@ -75,7 +75,7 @@
 #include <QQuickWindow>
 #endif
 
-#include <QDebug>
+// #include <QDebug>
 
 namespace LightlyPrivate
 {
@@ -6327,7 +6327,6 @@ Style::Style()
     //___________________________________________________________________________________
     bool Style::drawRubberBandControl( const QStyleOption* option, QPainter* painter, const QWidget* ) const
     {
-        qDebug() << StyleConfigData::roundedRubberBandFrame();
         painter->save();
 
         painter->setRenderHints( QPainter::Antialiasing );
@@ -6357,7 +6356,6 @@ Style::Style()
 
         painter->restore();
         return true;
-
     }
 
     //___________________________________________________________________________________
