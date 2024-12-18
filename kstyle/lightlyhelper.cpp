@@ -651,6 +651,9 @@ namespace Lightly
         const int size, const float param1, const float param2, 
         const int xOffset, const int yOffset, const bool outline, const int outlineStrength ) const
     {
+        if (!StyleConfigData::widgetDrawShadow())
+            return;
+
         painter->setPen( Qt::NoPen );
         
         if (outline) { 
