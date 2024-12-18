@@ -75,6 +75,7 @@ namespace Lightly
 
         connect( _kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
+        connect(_scrollableMenu, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
         connect( _oldTabbar, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _tabBarAltStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _transparentDolphinView, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
@@ -107,6 +108,7 @@ namespace Lightly
         StyleConfigData::setButtonSize( _buttonSize->value() );
         StyleConfigData::setKTextEditDrawFrame( _kTextEditDrawFrame->isChecked() );
         StyleConfigData::setWidgetDrawShadow( _widgetDrawShadow->isChecked() );
+        StyleConfigData::setScrollableMenu(_scrollableMenu->isChecked());
         StyleConfigData::setOldTabbar( _oldTabbar->isChecked() );
         StyleConfigData::setTabBarAltStyle( _tabBarAltStyle->isChecked() );
         StyleConfigData::setTransparentDolphinView( _transparentDolphinView->isChecked() );
@@ -174,6 +176,8 @@ namespace Lightly
         } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
             modified = true;
         else if( _widgetDrawShadow->isChecked() != StyleConfigData::widgetDrawShadow() ) modified = true;
+        else if (_scrollableMenu->isChecked() != StyleConfigData::scrollableMenu())
+            modified = true;
         else if( _oldTabbar->isChecked() != StyleConfigData::oldTabbar() ) modified = true;
         else if( _tabBarAltStyle->isChecked() != StyleConfigData::tabBarAltStyle() ) modified = true;
         else if( _transparentDolphinView->isChecked() != StyleConfigData::transparentDolphinView() ) modified = true;
@@ -215,6 +219,7 @@ namespace Lightly
         _buttonSize->setValue( StyleConfigData::buttonSize() );
         _kTextEditDrawFrame->setChecked( StyleConfigData::kTextEditDrawFrame() );
         _widgetDrawShadow->setChecked( StyleConfigData::widgetDrawShadow() );
+        _scrollableMenu->setChecked(StyleConfigData::scrollableMenu());
         _oldTabbar->setChecked( StyleConfigData::oldTabbar() );
         _tabBarAltStyle->setChecked( StyleConfigData::tabBarAltStyle() );
         _transparentDolphinView->setChecked( StyleConfigData::transparentDolphinView() );
