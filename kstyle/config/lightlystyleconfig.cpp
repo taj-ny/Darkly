@@ -54,6 +54,7 @@ namespace Lightly
         connect( _titleWidgetDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _sidePanelDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _menuItemDrawThinFocus, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
+        connect(_roundedRubberBandFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
         connect( _mnemonicsMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect( _animationsEnabled, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()) );
@@ -93,6 +94,7 @@ namespace Lightly
         StyleConfigData::setTitleWidgetDrawFrame( _titleWidgetDrawFrame->isChecked() );
         StyleConfigData::setSidePanelDrawFrame( _sidePanelDrawFrame->isChecked() );
         StyleConfigData::setMenuItemDrawStrongFocus( !_menuItemDrawThinFocus->isChecked() );
+        StyleConfigData::setRoundedRubberBandFrame(_roundedRubberBandFrame->isChecked());
         StyleConfigData::setMnemonicsMode( _mnemonicsMode->currentIndex() );
         StyleConfigData::setScrollBarAddLineButtons( _scrollBarAddLineButtons->currentIndex() );
         StyleConfigData::setScrollBarSubLineButtons( _scrollBarSubLineButtons->currentIndex() );
@@ -150,6 +152,8 @@ namespace Lightly
         else if( _titleWidgetDrawFrame->isChecked() != StyleConfigData::titleWidgetDrawFrame() ) modified = true;
         else if( _sidePanelDrawFrame->isChecked() != StyleConfigData::sidePanelDrawFrame() ) modified = true;
         else if( _menuItemDrawThinFocus->isChecked() == StyleConfigData::menuItemDrawStrongFocus() ) modified = true;
+        else if (_roundedRubberBandFrame->isChecked() == StyleConfigData::roundedRubberBandFrame())
+            modified = true;
         else if( _mnemonicsMode->currentIndex() != StyleConfigData::mnemonicsMode() ) modified = true;
         else if( _scrollBarAddLineButtons->currentIndex() != StyleConfigData::scrollBarAddLineButtons() ) modified = true;
         else if( _scrollBarSubLineButtons->currentIndex() != StyleConfigData::scrollBarSubLineButtons() ) modified = true;
@@ -193,6 +197,7 @@ namespace Lightly
         _titleWidgetDrawFrame->setChecked( StyleConfigData::titleWidgetDrawFrame() );
         _sidePanelDrawFrame->setChecked( StyleConfigData::sidePanelDrawFrame() );
         _menuItemDrawThinFocus->setChecked( !StyleConfigData::menuItemDrawStrongFocus() );
+        _roundedRubberBandFrame->setChecked(StyleConfigData::roundedRubberBandFrame());
         _mnemonicsMode->setCurrentIndex( StyleConfigData::mnemonicsMode() );
         _scrollBarAddLineButtons->setCurrentIndex( StyleConfigData::scrollBarAddLineButtons() );
         _scrollBarSubLineButtons->setCurrentIndex( StyleConfigData::scrollBarSubLineButtons() );

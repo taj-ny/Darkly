@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>772</width>
-    <height>534</height>
+    <height>545</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -471,6 +471,16 @@
         <widget class="QCheckBox" name="_menuItemDrawThinFocus">
          <property name="text">
           <string>Draw a thin line to indicate focus in menus and menubars</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="_roundedRubberBandFrame">
+         <property name="toolTip">
+          <string>This makes the selection rectangle frame rounded</string>
+         </property>
+         <property name="text">
+          <string>Draw rounded frame on rubber band control</string>
          </property>
         </widget>
        </item>
