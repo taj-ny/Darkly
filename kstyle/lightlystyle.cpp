@@ -75,7 +75,7 @@
 #include <QQuickWindow>
 #endif
 
-//#include <QDebug>
+// #include <QDebug>
 
 namespace LightlyPrivate
 {
@@ -856,6 +856,14 @@ Style::Style()
             case SH_ComboBox_ListMouseTracking: return true;
             case SH_MenuBar_MouseTracking: return true;
             case SH_Menu_MouseTracking: return true;
+            case SH_Menu_Scrollable: {
+                if (StyleConfigData::scrollableMenu()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
             case SH_Menu_SubMenuPopupDelay: return 150;
             case SH_Menu_SloppySubMenus: return true;
 
@@ -4266,11 +4274,16 @@ Style::Style()
         //auto background( _helper->frameBackgroundColor( palette ) );
         auto background (palette.color( QPalette::Base ));
 
+        painter->save();
+
         if ( hasAlpha ) {
+            painter->setCompositionMode(QPainter::CompositionMode_Source);
             background.setAlphaF(StyleConfigData::menuOpacity() / 100.0);
         }
 
         _helper->renderMenuFrame( painter, option->rect, background, outline, hasAlpha );
+
+        painter->restore();
 
         return true;
 
@@ -6327,22 +6340,35 @@ Style::Style()
     //___________________________________________________________________________________
     bool Style::drawRubberBandControl( const QStyleOption* option, QPainter* painter, const QWidget* ) const
     {
-
         painter->save();
 
         painter->setRenderHints( QPainter::Antialiasing );
         const auto& palette( option->palette );
         auto color = palette.color( QPalette::Highlight );
-        QPen pen = KColorUtils::mix( color, palette.color( QPalette::Active, QPalette::WindowText ) );
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QPen pen = KColorUtils::lighten(palette.color(QPalette::Accent));
+#else
+        QPen pen = KColorUtils::lighten(palette.color(QPalette::Highlight));
+#endif
+
+        if (!StyleConfigData::roundedRubberBandFrame()) {
+            QPen pen = KColorUtils::mix(color, palette.color(QPalette::Active, QPalette::WindowText));
+        }
+
         pen.setJoinStyle(Qt::RoundJoin);
         painter->setPen( pen );
         color.setAlpha( 51 ); // 20% opacity
         painter->setBrush( color );
-        painter->drawRect( _helper->strokedRect( option->rect ) );
+        if (StyleConfigData::roundedRubberBandFrame()) {
+            painter->drawRoundedRect(_helper->strokedRect(option->rect), StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
+
+        } else {
+            painter->drawRect(_helper->strokedRect(option->rect));
+        }
 
         painter->restore();
         return true;
-
     }
 
     //___________________________________________________________________________________

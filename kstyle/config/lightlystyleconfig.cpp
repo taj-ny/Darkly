@@ -54,6 +54,7 @@ namespace Lightly
         connect( _titleWidgetDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _sidePanelDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _menuItemDrawThinFocus, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
+        connect(_roundedRubberBandFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
         connect( _mnemonicsMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect( _animationsEnabled, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()) );
@@ -74,6 +75,7 @@ namespace Lightly
 
         connect( _kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
+        connect(_scrollableMenu, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
         connect( _oldTabbar, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _tabBarAltStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
         connect( _transparentDolphinView, &QAbstractButton::toggled, this, &StyleConfig::updateChanged );
@@ -93,6 +95,7 @@ namespace Lightly
         StyleConfigData::setTitleWidgetDrawFrame( _titleWidgetDrawFrame->isChecked() );
         StyleConfigData::setSidePanelDrawFrame( _sidePanelDrawFrame->isChecked() );
         StyleConfigData::setMenuItemDrawStrongFocus( !_menuItemDrawThinFocus->isChecked() );
+        StyleConfigData::setRoundedRubberBandFrame(_roundedRubberBandFrame->isChecked());
         StyleConfigData::setMnemonicsMode( _mnemonicsMode->currentIndex() );
         StyleConfigData::setScrollBarAddLineButtons( _scrollBarAddLineButtons->currentIndex() );
         StyleConfigData::setScrollBarSubLineButtons( _scrollBarSubLineButtons->currentIndex() );
@@ -105,6 +108,7 @@ namespace Lightly
         StyleConfigData::setButtonSize( _buttonSize->value() );
         StyleConfigData::setKTextEditDrawFrame( _kTextEditDrawFrame->isChecked() );
         StyleConfigData::setWidgetDrawShadow( _widgetDrawShadow->isChecked() );
+        StyleConfigData::setScrollableMenu(_scrollableMenu->isChecked());
         StyleConfigData::setOldTabbar( _oldTabbar->isChecked() );
         StyleConfigData::setTabBarAltStyle( _tabBarAltStyle->isChecked() );
         StyleConfigData::setTransparentDolphinView( _transparentDolphinView->isChecked() );
@@ -150,6 +154,8 @@ namespace Lightly
         else if( _titleWidgetDrawFrame->isChecked() != StyleConfigData::titleWidgetDrawFrame() ) modified = true;
         else if( _sidePanelDrawFrame->isChecked() != StyleConfigData::sidePanelDrawFrame() ) modified = true;
         else if( _menuItemDrawThinFocus->isChecked() == StyleConfigData::menuItemDrawStrongFocus() ) modified = true;
+        else if (_roundedRubberBandFrame->isChecked() == StyleConfigData::roundedRubberBandFrame())
+            modified = true;
         else if( _mnemonicsMode->currentIndex() != StyleConfigData::mnemonicsMode() ) modified = true;
         else if( _scrollBarAddLineButtons->currentIndex() != StyleConfigData::scrollBarAddLineButtons() ) modified = true;
         else if( _scrollBarSubLineButtons->currentIndex() != StyleConfigData::scrollBarSubLineButtons() ) modified = true;
@@ -170,6 +176,8 @@ namespace Lightly
         } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
             modified = true;
         else if( _widgetDrawShadow->isChecked() != StyleConfigData::widgetDrawShadow() ) modified = true;
+        else if (_scrollableMenu->isChecked() != StyleConfigData::scrollableMenu())
+            modified = true;
         else if( _oldTabbar->isChecked() != StyleConfigData::oldTabbar() ) modified = true;
         else if( _tabBarAltStyle->isChecked() != StyleConfigData::tabBarAltStyle() ) modified = true;
         else if( _transparentDolphinView->isChecked() != StyleConfigData::transparentDolphinView() ) modified = true;
@@ -193,6 +201,7 @@ namespace Lightly
         _titleWidgetDrawFrame->setChecked( StyleConfigData::titleWidgetDrawFrame() );
         _sidePanelDrawFrame->setChecked( StyleConfigData::sidePanelDrawFrame() );
         _menuItemDrawThinFocus->setChecked( !StyleConfigData::menuItemDrawStrongFocus() );
+        _roundedRubberBandFrame->setChecked(StyleConfigData::roundedRubberBandFrame());
         _mnemonicsMode->setCurrentIndex( StyleConfigData::mnemonicsMode() );
         _scrollBarAddLineButtons->setCurrentIndex( StyleConfigData::scrollBarAddLineButtons() );
         _scrollBarSubLineButtons->setCurrentIndex( StyleConfigData::scrollBarSubLineButtons() );
@@ -210,6 +219,7 @@ namespace Lightly
         _buttonSize->setValue( StyleConfigData::buttonSize() );
         _kTextEditDrawFrame->setChecked( StyleConfigData::kTextEditDrawFrame() );
         _widgetDrawShadow->setChecked( StyleConfigData::widgetDrawShadow() );
+        _scrollableMenu->setChecked(StyleConfigData::scrollableMenu());
         _oldTabbar->setChecked( StyleConfigData::oldTabbar() );
         _tabBarAltStyle->setChecked( StyleConfigData::tabBarAltStyle() );
         _transparentDolphinView->setChecked( StyleConfigData::transparentDolphinView() );
