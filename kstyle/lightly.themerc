@@ -1,6 +1,6 @@
 [Misc]
-Name=Lightly
+Name=Darkly
 ConfigPage=kstyle_config/lightlystyleconfig
 Comment=Widget style for Qt Applications
 [KDE]
-WidgetStyle=Lightly
+WidgetStyle=Darkly
