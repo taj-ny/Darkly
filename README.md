@@ -4,7 +4,7 @@ This fork attempts to revive lightly with a different approach from boehs, with 
 
 This means that this fork allows real changes, and not just maintainence.
 
-![Lightly](https://github.com/user-attachments/assets/ae39fc7f-8277-48b1-b80c-9e307542b8b0)
+![Darkly](https://github.com/user-attachments/assets/ae39fc7f-8277-48b1-b80c-9e307542b8b0)
 
 ## The to-do list
 
@@ -51,7 +51,7 @@ This means that this fork allows real changes, and not just maintainence.
 
 #### Pre-built packages
 
-<https://github.com/Bali10050/Lightly/releases>
+<https://github.com/Bali10050/Darkly/releases>
 
 ## Manual
 
@@ -62,13 +62,13 @@ This means that this fork allows real changes, and not just maintainence.
 > [!NOTE]
 > A script called `install.sh` is now available which both builds and installs this application style.
 
-`./install.sh` will remove if existing, build and install Lightly using both QT5/QT6 dependencies.
+`./install.sh` will remove if existing, build and install Darkly using both QT5/QT6 dependencies.
 
 `./install.sh QT5` will build & install using only QT5/KF5 dependencies.
 
 `./install.sh QT6` will build & install using only QT6/KF6 dependencies.
 
-`./install.sh remove` will remove Lightly.
+`./install.sh remove` will remove Darkly.
 
 #### Void Linux
 
@@ -83,8 +83,8 @@ sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh QT6
 ```
 
@@ -101,8 +101,8 @@ sudo pacman -S --noconfirm cmake extra-cmake-modules kdecoration qt6-declarative
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh
 ```
 
@@ -124,8 +124,8 @@ sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-dev
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh
 ```
 
@@ -150,8 +150,8 @@ sudo zypper in --no-recommends git ninja cmake kf6-extra-cmake-modules kf6-kconf
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh
 ```
 
@@ -174,8 +174,8 @@ sudo apt install -y git build-essential cmake kf6-extra-cmake-modules \
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh
 ```
 
@@ -198,8 +198,8 @@ sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration2)" kwin-dev
     "cmake(KF5KIO)" kf5-kpackage-devel kf5-kcmutils-devel qt5-qtquickcontrols2-devel \
     kf5-kirigami2-devel "cmake(KF5FrameworkIntegration)"
 
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \
@@ -235,14 +235,14 @@ sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecoratio
 ```
 
 ```
-git clone --single-branch --depth=1 https://github.com/Bali10050/Lightly.git
-cd Lightly
+git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
+cd Darkly
 ./install.sh
 ```
 
 #### <u>Nixos</u>
 
-1. add `inputs.lightly.url = "github:Bali10050/Lightly";` to `flake.nix`
+1. add `inputs.lightly.url = "github:Bali10050/Darkly";` to `flake.nix`
 2. nixos or home-manager
 
 - for home-manager
@@ -275,7 +275,7 @@ environment.systemPackages = with pkgs; [
 
 ### Blurred icon rendering on Wayland with fractional scaling
 
-As referenced in https://github.com/Bali10050/Lightly/issues/14
+As referenced in https://github.com/Bali10050/Darkly/issues/14
 
 On Wayland when scaling is set to >100% some icons appear blurred.
 

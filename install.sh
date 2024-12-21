@@ -10,8 +10,12 @@ CMAKE_OPTS=(
     -Wno-dev
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 )
-PROJECT="lightly"
-_PROJECT="Lightly"
+PROJECT="darkly"
+_PROJECT="Darkly"
+
+OLD_PROJECT="darkly"
+_OLD_PROJECT="Darkly"
+
 
 build_qt6() {
     echo " *** Building with QT6 *** "
@@ -78,6 +82,33 @@ remove_qt6_files() {
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${PROJECT}styleconfig.so*"
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${PROJECT}decoration.so*"
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${PROJECT}6.so*"
+        "/usr/lib64/qt6/plugins/styles/${OLD_PROJECT}6.so*"
+        "/usr/lib/qt6/plugins/styles/${OLD_PROJECT}6.so*"
+        "/usr/share/kstyle/themes/${OLD_PROJECT}.themerc"
+        "/usr/lib64/qt6/plugins/kstyle_config/${OLD_PROJECT}styleconfig.so*"
+        "/usr/lib/qt6/plugins/kstyle_config/${OLD_PROJECT}styleconfig.so*"
+        "/usr/share/applications/${OLD_PROJECT}styleconfig.desktop"
+        "/usr/bin/${OLD_PROJECT}-settings6"
+        "/usr/share/icons/hicolor/scalable/apps/${OLD_PROJECT}-settings.svgz"
+        "/usr/lib64/lib${OLD_PROJECT}common6.so*"
+        "/usr/lib/lib${OLD_PROJECT}common6.so.*"
+        "/usr/lib64/lib${OLD_PROJECT}common6.so*"
+        "/usr/lib/lib${OLD_PROJECT}common6.so*"
+        "/usr/lib64/qt6/plugins/org.kde.kdecoration2/org.kde.${OLD_PROJECT}.so*"
+        "/usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.${OLD_PROJECT}.so*"
+        "/usr/lib64/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${OLD_PROJECT}decoration.so*"
+        "/usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${OLD_PROJECT}decoration.so*"
+        "/usr/share/applications/kcm_${OLD_PROJECT}decoration.desktop"
+        "/usr/lib64/cmake/${OLD_PROJECT}/${OLD_PROJECT}Config.cmake"
+        "/usr/lib/cmake/${OLD_PROJECT}/${OLD_PROJECT}Config.cmake"
+        "/usr/lib64/cmake/${PROJECT}/${OLD_PROJECT}ConfigVersion.cmake"
+        "/usr/lib/cmake/${OLD_PROJECT}/${OLD_PROJECT}ConfigVersion.cmake"
+        "/usr/share/color-schemes/${_OLD_PROJECT}.colors"
+        /usr/lib/cmake/"${OLD_PROJECT^}"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2/org.kde.${OLD_PROJECT}.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${OLD_PROJECT}styleconfig.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${OLD_PROJECT}decoration.so*"
+        "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${OLD_PROJECT}6.so*"
     )
 
     for f in ${files[@]}; do
@@ -96,6 +127,14 @@ remove_qt5_files() {
         "/usr/lib/lib${PROJECT}common5.so*"
         "/usr/lib64/qt/plugins/styles/${PROJECT}5.so*"
         "/usr/lib/x86_64-linux-gnu/qt5/plugins/styles/${PROJECT}5.so*"
+        "/usr/lib64/qt5/plugins/styles/${OLD_PROJECT}5.so*"
+        "/usr/lib/qt5/plugins/styles/${OLD_PROJECT}5.so*"
+        "/usr/lib64/lib${OLD_PROJECT}common5.so*"
+        "/usr/lib/lib${OLD_PROJECT}common5.so*"
+        "/usr/lib64/lib${OLD_PROJECT}common5.so*"
+        "/usr/lib/lib${OLD_PROJECT}common5.so*"
+        "/usr/lib64/qt/plugins/styles/${OLD_PROJECT}5.so*"
+        "/usr/lib/x86_64-linux-gnu/qt5/plugins/styles/${OLD_PROJECT}5.so*"
     )
 
     for f in ${files[@]}; do

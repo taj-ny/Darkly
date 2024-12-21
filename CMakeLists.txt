@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(lightly)
+project(darkly)
 set(PROJECT_VERSION "0.5.12")
 set(PROJECT_VERSION_MAJOR 6)
 
@@ -44,7 +44,7 @@ function(build_qt5)
     set(QT_MAJOR_VERSION 5)
     include(KDEInstallDirs5)
     include(KDECMakeSettings)
-    option(WITH_DECORATIONS "Build Lightly window decorations for KWin" ON)
+    option(WITH_DECORATIONS "Build Darkly window decorations for KWin" ON)
 
     find_package(Qt5 ${QT5_MIN_VERSION} REQUIRED CONFIG COMPONENTS Widgets DBus)
     find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
@@ -75,13 +75,13 @@ function(build_qt5)
             TYPE OPTIONAL
             PURPOSE "Required to use KStyle convenience functionalities in style")
 
-    set(LIGHTLY_HAVE_KSTYLE ${KF5FrameworkIntegration_FOUND})
-    set(LIGHTLY_HAVE_QTQUICK ${Qt5Quick_FOUND})
+    set(DARKLY_HAVE_KSTYLE ${KF5FrameworkIntegration_FOUND})
+    set(DARKLY_HAVE_QTQUICK ${Qt5Quick_FOUND})
 
 
     #add_subdirectory(colors)
     add_subdirectory(kstyle kstyle5)
-    add_subdirectory(liblightlycommon liblightlycommon5)
+    add_subdirectory(libdarklycommon libdarklycommon5)
     #add_subdirectory(misc)
     unset(QUERY_EXECUTABLE CACHE)
 endfunction()
@@ -95,7 +95,7 @@ function(build_qt6)
     include(KDEInstallDirs6)
     include(KDECMakeSettings)
 
-    option(WITH_DECORATIONS "Build Lightly window decorations for KWin" ON)
+    option(WITH_DECORATIONS "Build Darkly window decorations for KWin" ON)
 
     find_package(Qt6 ${QT_MIN_VERSION} REQUIRED CONFIG COMPONENTS Widgets DBus)
     find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS
@@ -127,8 +127,8 @@ function(build_qt6)
             TYPE OPTIONAL
             PURPOSE "Required to use KStyle convenience functionalities in style")
 
-    set(LIGHTLY_HAVE_KSTYLE ${KF6FrameworkIntegration_FOUND})
-    set(LIGHTLY_HAVE_QTQUICK ${Qt6Quick_FOUND})
+    set(DARKLY_HAVE_KSTYLE ${KF6FrameworkIntegration_FOUND})
+    set(DARKLY_HAVE_QTQUICK ${Qt6Quick_FOUND})
 
 
     add_library(Qt::Core ALIAS Qt6::Core)
@@ -141,7 +141,7 @@ function(build_qt6)
 
     #add_subdirectory(colors)
     add_subdirectory(kstyle kstyle6)
-    add_subdirectory(liblightlycommon liblightlycommon6)
+    add_subdirectory(libdarklycommon libdarklycommon6)
     #add_subdirectory(misc)
 
     if(WITH_DECORATIONS)
@@ -153,23 +153,23 @@ function(build_qt6)
 
     # create a Config.cmake and a ConfigVersion.cmake file and install them
     include(ECMSetupVersion)
-    ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX LIGHTLY
-                    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/LightlyConfigVersion.cmake"
-                    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kstyle6/config/lightlystyleversion.h"
+    ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX DARKLY
+                    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
+                    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kstyle6/config/darklystyleversion.h"
     )
 
 
 
-    set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Lightly")
+    set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Darkly")
 
-    configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/LightlyConfig.cmake.in"
-                                    "${CMAKE_CURRENT_BINARY_DIR}/LightlyConfig.cmake"
+    configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
+                                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
                                     PATH_VARS KDE_INSTALL_FULL_DATADIR
                                     INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
                                 )
 
-    install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/LightlyConfig.cmake"
-                    "${CMAKE_CURRENT_BINARY_DIR}/LightlyConfigVersion.cmake"
+    install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
+                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
                 DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
                 COMPONENT Devel
             )

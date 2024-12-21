@@ -1,25 +1,25 @@
 #####  config classes ææææææ
 
-set(lightlydecoration_config_SRCS
-  ../lightlyexceptionlist.cpp
-    lightlyconfigwidget.cpp
-    lightlydetectwidget.cpp
-    lightlyexceptiondialog.cpp
-    lightlyexceptionlistwidget.cpp
-    lightlyexceptionmodel.cpp
-    lightlyitemmodel.cpp
+set(darklydecoration_config_SRCS
+  ../darklyexceptionlist.cpp
+    darklyconfigwidget.cpp
+    darklydetectwidget.cpp
+    darklyexceptiondialog.cpp
+    darklyexceptionlistwidget.cpp
+    darklyexceptionmodel.cpp
+    darklyitemmodel.cpp
 )
-ki18n_wrap_ui(lightlydecoration_config_SRCS
-    ui/lightlyconfigurationui.ui
-    ui/lightlydetectwidget.ui
-    ui/lightlyexceptiondialog.ui
-    ui/lightlyexceptionlistwidget.ui
+ki18n_wrap_ui(darklydecoration_config_SRCS
+    ui/darklyconfigurationui.ui
+    ui/darklydetectwidget.ui
+    ui/darklyexceptiondialog.ui
+    ui/darklyexceptionlistwidget.ui
 )
 
-kcoreaddons_add_plugin(kcm_lightlydecoration SOURCES kcm_lightlydecoration.cpp ${lightlydecoration_config_SRCS} INSTALL_NAMESPACE "${KDECORATION_KCM_PLUGIN_DIR}")
-kconfig_add_kcfg_files(kcm_lightlydecoration ../lightlysettings.kcfgc)
-target_include_directories(kcm_lightlydecoration PRIVATE ${CMAKE_SOURCE_DIR}/kdecoration ${CMAKE_BINARY_DIR}/kdecoration/)
-target_link_libraries(kcm_lightlydecoration
+kcoreaddons_add_plugin(kcm_darklydecoration SOURCES kcm_darklydecoration.cpp ${darklydecoration_config_SRCS} INSTALL_NAMESPACE "${KDECORATION_KCM_PLUGIN_DIR}")
+kconfig_add_kcfg_files(kcm_darklydecoration ../darklysettings.kcfgc)
+target_include_directories(kcm_darklydecoration PRIVATE ${CMAKE_SOURCE_DIR}/kdecoration ${CMAKE_BINARY_DIR}/kdecoration/)
+target_link_libraries(kcm_darklydecoration
      PUBLIC
         Qt6::Core
         Qt6::Gui
@@ -34,4 +34,4 @@ target_link_libraries(kcm_lightlydecoration
         KF6::WindowSystem
         KF6::KCMUtils
 )
-kcmutils_generate_desktop_file(kcm_lightlydecoration)
+kcmutils_generate_desktop_file(kcm_darklydecoration)
