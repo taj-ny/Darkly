@@ -4,34 +4,17 @@ This fork attempts to revive lightly with a different approach from boehs, with 
 
 This means that this fork allows real changes, and not just maintainence.
 
-![Darkly](https://github.com/user-attachments/assets/ae39fc7f-8277-48b1-b80c-9e307542b8b0)
+![Darkly](https://github.com/user-attachments/assets/0d60725e-c146-4e1e-9889-fe8317d52b22)
 
-## The to-do list
-
-- [x] Make a new readme
-- [x] Make install work on plasma 6
-- [ ] Find ~~some~~ more people that can help with this project
-- [ ] Build some community
-- [ ] Make some meaningful commits
-- [ ] Expand to-do list
-
-## My plans for changes at the moment -- They are in progress, I'm just really slow
+## What changed?
 
 - [x] Redesign the tabbar
-  - [ ] Fix the issues I caused with it
-  - [x] Align it a little better, ~~now it's slightly too left,~~ it needs slightly larger margins for ~~both sides~~ the right side
-  - [x] You can now set the old tabbar back if you dont like the new one in the settings
-- [ ] Make the buttons sligthly larger
-  - [x] The standard push button is now slightly larger
-  - [x] Spinboxes and comboboxes
-  - [x] Now the size of the buttons is adjustable by the user in the settings
+- [x] Make the buttons sligthly larger
 - [x] Change the defaults to fit the normal use-cases better
 - [x] Add my own colorscheme to it
-- [ ] Use [klassy](https://github.com/paulmcauley/klassy) for window decorations (I don't know how to use make / cmake, so it'll take a while)
-- [ ] Make installation in all major distros easy
-  - [x] Can be built on most distros that support plasma 6
-- [ ] Rename the project to something like „Darkly” to reflect the changes, and for it to be installable alongside the other lightly
-- [ ] Maintain the project
+- [x] Make installation in all major distros easy
+- [x] Rename the project to something like „Darkly”
+- [x] Maintain the project
 
 ## Installation
 
