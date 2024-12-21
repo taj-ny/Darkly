@@ -29,7 +29,7 @@ namespace Lightly
     //_________________________________________________
     QStyle* StylePlugin::create( const QString &key )
     {
-        if( key.toLower() == QStringLiteral( "lightly" ) )
+        if( key.toLower() == QStringLiteral( "darkly" ) )
         {
             return new Style;
         }
