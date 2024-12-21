@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(darkly)
-set(PROJECT_VERSION "0.5.12")
+set(PROJECT_VERSION "0.5.13")
 set(PROJECT_VERSION_MAJOR 6)
 
 set(KF5_MIN_VERSION "5.102.0")
