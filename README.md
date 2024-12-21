@@ -233,8 +233,8 @@ cd Darkly
 ```nix
 qt = {
   style.package = [
-    inputs.lightly.packages.${pkgs.system}.lightly-qt5
-    inputs.lightly.packages.${pkgs.system}.lightly-qt6
+    inputs.lightly.packages.${pkgs.system}.darkly-qt5
+    inputs.lightly.packages.${pkgs.system}.darkly-qt6
   ];
   platformTheme.name = "qtct";
 };
@@ -245,9 +245,9 @@ qt = {
 ```nix
 qt.platformTheme = "qt5ct";
 environment.systemPackages = with pkgs; [
-  inputs.lightly.packages.${pkgs.system}.lightly-qt5
-  inputs.lightly.packages.${pkgs.system}.lightly-qt6
-]
+  inputs.lightly.packages.${pkgs.system}.darkly-qt5
+  inputs.lightly.packages.${pkgs.system}.darkly-qt6
+];
 ```
 
 3. select lightly in qt5ct / qt6ct
