@@ -13,8 +13,8 @@ CMAKE_OPTS=(
 PROJECT="darkly"
 _PROJECT="Darkly"
 
-OLD_PROJECT="darkly"
-_OLD_PROJECT="Darkly"
+OLD_PROJECT="lightly"
+_OLD_PROJECT="Lightly"
 
 
 build_qt6() {
@@ -109,6 +109,7 @@ remove_qt6_files() {
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/kstyle_config/${OLD_PROJECT}styleconfig.so*"
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${OLD_PROJECT}decoration.so*"
         "/usr/lib/x86_64-linux-gnu/qt6/plugins/styles/${OLD_PROJECT}6.so*"
+        "/usr/share/kservices6/${PROJECT}decorationconfig.desktop"
     )
 
     for f in ${files[@]}; do
