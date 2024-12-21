@@ -1,5 +1,5 @@
 # openSUSE Tumbleweed
-# Build Lightly from release tag and publish .rpm package
+# Build Darkly from release tag and publish .rpm package
 
 on:
   workflow_call:
@@ -11,7 +11,7 @@ on:
         required: true
         type: string
 env:
-  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/lightly.spec
+  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/darkly.spec
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4.2.0
         with:
           repository: ${{ github.repository }}
-          sparse-checkout: .github/assets/specs/lightly.spec
+          sparse-checkout: .github/assets/specs/darkly.spec
       - name: Update tag version inside spec file
         run: sed -i "s/.*%define release_tag.*/%define release_tag ${{ inputs.version }}/" ${{ env.SPEC_FILE }}
       - name: Copy opensuse specfile to rpm build location
@@ -44,11 +44,11 @@ jobs:
       - name: Create rpm binary file
         run: |
           cd /usr/src/packages/SPECS
-          rpmbuild -bb lightly.spec
+          rpmbuild -bb darkly.spec
           rpm_file=$(find /usr/src/packages/RPMS/x86_64 -name "*.rpm*" ! -name "*src*" ! -name "*debug*")
           echo "rpm_file = $rpm_file"
-          mv $rpm_file /usr/src/packages/RPMS/x86_64/lightly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm
-          echo "RPM_ASSET= /usr/src/packages/RPMS/x86_64/lightly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm" >> "$GITHUB_ENV"
+          mv $rpm_file /usr/src/packages/RPMS/x86_64/darkly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm
+          echo "RPM_ASSET= /usr/src/packages/RPMS/x86_64/darkly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm" >> "$GITHUB_ENV"
       - name: Release
         uses: softprops/action-gh-release@v2.0.8
         if: startsWith(github.ref, 'refs/tags/')

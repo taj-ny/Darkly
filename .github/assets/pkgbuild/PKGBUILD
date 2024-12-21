@@ -1,14 +1,14 @@
 # Maintainer: DeltaCopy <7x0bb03yq@mozmail.com>
-# Description: Builds Lightly from https://github.com/Bali10050/Lightly
+# Description: Builds Darkly from https://github.com/Bali10050/Darkly
 # Used inside Github Action workflow archlinux-ci
 
 # basic info
 dev="Bali10050"
-pkgname="lightly-qt6"
+pkgname="darkly"
 pkgver= # change this to match the name of the release tag you want to build from
 pkgrel=1
-pkgdesc="Bali10050's fork of Lightly (A modern style for qt applications)"
-url="https://github.com/$dev/lightly"
+pkgdesc="Bali10050's fork of Darkly (A modern style for qt applications)"
+url="https://github.com/$dev/Darkly"
 arch=('x86_64' 'aarch64')
 license=("GPL-2.0-or-later")
 pkgdir="$srcdir/fakeinstall_kf6"
@@ -54,9 +54,9 @@ depends=("${depends_kf6[@]}" "${depends_kf5[@]}")
 conflicts=(
     lightly-kf6
     lightly-qt
+    lightly-qt6
+    lightly-qt6-bin
 )
-
-provides=("lightly-qt6")
 
 pkgver() {
     cd "$srcdir/$pkgname.git"

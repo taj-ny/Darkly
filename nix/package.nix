@@ -12,7 +12,7 @@
   kcmutils,
   frameworkintegration,
   extra-cmake-modules,
-  lightly-qt6 ? null,
+  darkly-qt6 ? null,
 }:
 let
   inherit (builtins) baseNameOf;
@@ -21,7 +21,7 @@ let
   isQt5 = lib.versionOlder qtbase.version "6";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "lightly-qt${if isQt5 then "5" else "6"}";
+  pname = "darkly-qt${if isQt5 then "5" else "6"}";
   version = "0.5.7";
 
   src = cleanSourceWith {
@@ -36,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = lib.optionalString isQt5 ''
     rm -r $out/share
-    ln -s "${lightly-qt6}/share" "$out/share"
-    ln -s "${lightly-qt6}/bin" "$out/bin"
+    ln -s "${darkly-qt6}/share" "$out/share"
+    ln -s "${darkly-qt6}/bin" "$out/bin"
   '';
 
   buildInputs = [ qtbase ];
@@ -72,9 +72,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = with lib; {
-    description = "Fork of the Lightly breeze theme style that aims to be visually modern and minimalistic";
-    mainProgram = "lightly-settings6";
-    homepage = "https://github.com/Bali10050/Lightly";
+    description = "Fork of the Darkly breeze theme style that aims to be visually modern and minimalistic";
+    mainProgram = "darkly-settings6";
+    homepage = "https://github.com/Bali10050/Darkly";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

@@ -1,6 +1,0 @@
-File=lightlysettingsdata.kcfg
-ClassName=InternalSettings
-NameSpace=Lightly
-Singleton=false
-Mutators=true
-GlobalEnums=true

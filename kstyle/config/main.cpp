@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// lightlyanimationconfigitem.h
+// darklyanimationconfigitem.h
 // animation configuration item
 // -------------------
 //
@@ -35,16 +35,16 @@
 //__________________________________________
 int main(int argc, char *argv[])
 {
-    KLocalizedString::setApplicationDomain("lightly_style_config");
+    KLocalizedString::setApplicationDomain("darkly_style_config");
 
     QApplication app( argc, argv );
-    app.setApplicationName( i18n( "Lightly Settings" ) );
-    app.setWindowIcon( QIcon::fromTheme( QStringLiteral( "lightly-settings" ) ) );
+    app.setApplicationName(i18n("Darkly Settings"));
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("darkly-settings")));
 
     KCMultiDialog dialog;
-    dialog.setWindowTitle( i18n( "Lightly Settings" ) );
-    dialog.addModule(KPluginMetaData(QStringLiteral("kstyle_config/lightlystyleconfig")));
-    dialog.addModule(KPluginMetaData(QStringLiteral("org.kde.kdecoration2.kcm/kcm_lightlydecoration.so")));
+    dialog.setWindowTitle(i18n("Darkly Settings"));
+    dialog.addModule(KPluginMetaData(QStringLiteral("kstyle_config/darklystyleconfig")));
+    dialog.addModule(KPluginMetaData(QStringLiteral("org.kde.kdecoration2.kcm/kcm_darklydecoration.so")));
     dialog.show();
 
     foreach( auto child, dialog.findChildren<QAbstractScrollArea*>() )

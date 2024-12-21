@@ -1,40 +1,40 @@
 #!/bin/bash
-rm /usr/lib/liblightlycommon5.so.6
-rm /usr/lib/liblightlycommon5.so.6.80
-rm /usr/lib/qt/plugins/styles/lightly5.so
-rm /usr/share/color-schemes/Lightly.colors
-rm /usr/lib/qt6/plugins/styles/lightly6.so
-rm /usr/share/kstyle/themes/lightly.themerc
-rm /usr/lib/qt6/plugins/kstyle_config/lightlystyleconfig.so
-rm /usr/share/applications/lightlystyleconfig.desktop
-rm /usr/bin/lightly-settings6
-rm /usr/share/icons/hicolor/scalable/apps/lightly-settings.svgz
-rm /usr/lib/liblightlycommon6.so.6.80
-rm /usr/lib/liblightlycommon6.so.6
-rm /usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.lightly.so
-rm /usr/share/kservices6/lightlydecorationconfig.desktop
-rm /usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/kcm_lightlydecoration.so
-rm /usr/share/applications/kcm_lightlydecoration.desktop
-rm /usr/lib/cmake/Lightly/LightlyConfig.cmake
-rm /usr/lib/cmake/Lightly/LightlyConfigVersion.cmake
-rmdir /usr/lib/cmake/Lightly
 
-rm /usr/lib64/liblightlycommon5.so.6
-rm /usr/lib64/liblightlycommon5.so.6.80
-rm /usr/lib64/qt/plugins/styles/lightly5.so
-rm /usr/share/color-schemes/Lightly.colors
-rm /usr/lib64/qt6/plugins/styles/lightly6.so
-rm /usr/share/kstyle/themes/lightly.themerc
-rm /usr/lib64/qt6/plugins/kstyle_config/lightlystyleconfig.so
-rm /usr/share/applications/lightlystyleconfig.desktop
-rm /usr/bin/lightly-settings6
-rm /usr/share/icons/hicolor/scalable/apps/lightly-settings.svgz
-rm /usr/lib64/liblightlycommon6.so.6.80
-rm /usr/lib64/liblightlycommon6.so.6
-rm /usr/lib64/qt6/plugins/org.kde.kdecoration2/org.kde.lightly.so
-rm /usr/share/kservices6/lightlydecorationconfig.desktop
-rm /usr/lib64/qt6/plugins/org.kde.kdecoration2.kcm/kcm_lightlydecoration.so
-rm /usr/share/applications/kcm_lightlydecoration.desktop
-rm /usr/lib64/cmake/Lightly/LightlyConfig.cmake
-rm /usr/lib64/cmake/Lightly/LightlyConfigVersion.cmake
-rmdir /usr/lib64/cmake/Lightly
+styles=(
+    "lightly"
+    "Lightly"
+    "Darkly"
+    "darkly"
+)
+
+test $(whoami) != "root" && echo "[ERROR]: This script needs sudo access to remove files." && exit 1
+
+for style in ${styles[@]}; do
+    rm /usr/lib/lib${style}common5.so*
+    rm /usr/lib64/lib${style}common5.so*
+    rm /usr/lib/qt5/plugins/styles/${style}5.so*
+    rm /usr/lib64/qt5/plugins/styles/${style}5.so*
+    rm /usr/share/color-schemes/${style}.colors
+    rm /usr/lib/qt6/plugins/styles/${style}6.so*
+    rm /usr/lib64/qt6/plugins/styles/${style}6.so*
+    rm /usr/share/kstyle/themes/${style}.themerc
+    rm /usr/lib/qt6/plugins/kstyle_config/${style}styleconfig.so*
+    rm /usr/lib64/qt6/plugins/kstyle_config/${style}styleconfig.so*
+    rm /usr/share/applications/${style}styleconfig.desktop
+    rm /usr/bin/${style}-settings6
+    rm /usr/share/icons/hicolor/scalable/apps/${style}-settings.svgz
+    rm /usr/lib/lib${style}common6.so*
+    rm /usr/lib64/lib${style}common6.so*
+    rm /usr/lib/qt6/plugins/org.kde.kdecoration2/org.kde.${style}.so*
+    rm /usr/lib64/qt6/plugins/org.kde.kdecoration2/org.kde.${style}.so*
+    rm /usr/share/kservices6/${style}decorationconfig.desktop
+    rm /usr/lib/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${style}decoration.so*
+    rm /usr/lib64/qt6/plugins/org.kde.kdecoration2.kcm/kcm_${style}decoration.so*
+    rm /usr/share/applications/kcm_${style}decoration.desktop
+    rm /usr/lib/cmake/${style}/${style}Config.cmake
+    rm /usr/lib64/cmake/${style}/${style}Config.cmake
+    rm -r /usr/lib/cmake/${style}
+    rm -r /usr/lib64/cmake/${style}
+done
+
+
