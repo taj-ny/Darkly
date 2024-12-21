@@ -3,8 +3,8 @@
 %define kf5_version 5.102.0
 %define qt5_version 5.15.2
 %define dev Bali10050
-%define style Lightly
-%define _style lightly
+%define style Darkly
+%define _style darkly
 %define release_tag ${TAG} # this line gets updated automatically by Github Actions
 
 Name:           %{style}
