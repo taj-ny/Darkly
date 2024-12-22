@@ -24,13 +24,13 @@ This means that this fork allows real changes, and not just maintainence.
 
 #### Fedora copr
 
-<https://copr.fedorainfracloud.org/coprs/deltacopy/lightly-qt6/>
+<https://copr.fedorainfracloud.org/coprs/deltacopy/darkly/>
 
 #### AUR
 
-<https://aur.archlinux.org/packages/lightly-qt6>
+<https://aur.archlinux.org/packages/darkly>
 
-<https://aur.archlinux.org/packages/lightly-qt6-bin>
+<https://aur.archlinux.org/packages/darkly-bin>
 
 #### Pre-built packages
 
