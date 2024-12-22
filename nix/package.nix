@@ -22,7 +22,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darkly-qt${if isQt5 then "5" else "6"}";
-  version = "0.5.13";
+  version = lib.removeSuffix "\n" (builtins.readFile ../VERSION);
 
   src = cleanSourceWith {
     filter =
