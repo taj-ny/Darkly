@@ -30,7 +30,7 @@ set_target_properties(darklydecoration PROPERTIES
 target_link_libraries(darklydecoration
      PUBLIC
         Qt6::DBus
-        KDecoration2::KDecoration
+        KDecoration3::KDecoration
      PRIVATE
         darklycommon6
         KF6::CoreAddons

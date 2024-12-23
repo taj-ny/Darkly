@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "darklydecoration.h"
-#include <KDecoration2/DecorationButton>
+#include <KDecoration3/DecorationButton>
 
 #include <QHash>
 #include <QImage>
@@ -32,7 +32,7 @@ class QVariantAnimation;
 namespace Darkly
 {
 
-class Button : public KDecoration2::DecorationButton
+class Button : public KDecoration3::DecorationButton
 {
     Q_OBJECT
 
@@ -44,7 +44,7 @@ public:
     virtual ~Button() = default;
 
     //* button creation
-    static Button *create(KDecoration2::DecorationButtonType type, KDecoration2::Decoration *decoration, QObject *parent);
+    static Button *create(KDecoration3::DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent);
 
     //* render
     virtual void paint(QPainter *painter, const QRect &repaintRegion) override;
@@ -120,7 +120,7 @@ private Q_SLOTS:
 
 private:
     //* private constructor
-    explicit Button(KDecoration2::DecorationButtonType type, Decoration *decoration, QObject *parent = nullptr);
+    explicit Button(KDecoration3::DecorationButtonType type, Decoration *decoration, QObject *parent = nullptr);
 
     //* draw button icon
     void drawIcon(QPainter *) const;

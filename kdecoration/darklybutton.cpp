@@ -21,7 +21,7 @@
 #include "darklybutton.h"
 
 #include <KColorUtils>
-#include <KDecoration2/DecoratedClient>
+#include <KDecoration3/DecoratedClient>
 #include <KIconLoader>
 
 #include <QPainter>
@@ -31,9 +31,9 @@
 namespace Darkly
 {
 
-using KDecoration2::ColorGroup;
-using KDecoration2::ColorRole;
-using KDecoration2::DecorationButtonType;
+using KDecoration3::ColorGroup;
+using KDecoration3::ColorRole;
+using KDecoration3::DecorationButtonType;
 
 //__________________________________________________________________
 Button::Button(DecorationButtonType type, Decoration *decoration, QObject *parent)
@@ -56,8 +56,8 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
 
     // connections
     connect(decoration->client(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
-    connect(decoration->settings().get(), &KDecoration2::DecorationSettings::reconfigured, this, &Button::reconfigure);
-    connect(this, &KDecoration2::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
+    connect(decoration->settings().get(), &KDecoration3::DecorationSettings::reconfigured, this, &Button::reconfigure);
+    connect(this, &KDecoration3::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
 
     reconfigure();
 }
@@ -73,38 +73,38 @@ Button::Button(QObject *parent, const QVariantList &args)
 }
 
 //__________________________________________________________________
-Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *decoration, QObject *parent)
+Button *Button::create(DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent)
 {
     if (auto d = qobject_cast<Decoration *>(decoration)) {
         Button *b = new Button(type, d, parent);
         switch (type) {
         case DecorationButtonType::Close:
             b->setVisible(d->client()->isCloseable());
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::closeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::closeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Maximize:
             b->setVisible(d->client()->isMaximizeable());
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::maximizeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::maximizeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Minimize:
             b->setVisible(d->client()->isMinimizeable());
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::minimizeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::minimizeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::ContextHelp:
             b->setVisible(d->client()->providesContextHelp());
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::providesContextHelpChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::providesContextHelpChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Shade:
             b->setVisible(d->client()->isShadeable());
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::shadeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::shadeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Menu:
-            QObject::connect(d->client(), &KDecoration2::DecoratedClient::iconChanged, b, [b]() {
+            QObject::connect(d->client(), &KDecoration3::DecoratedClient::iconChanged, b, [b]() {
                 b->update();
             });
             break;
