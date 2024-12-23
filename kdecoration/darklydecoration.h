@@ -25,7 +25,7 @@
 #include "darkly.h"
 #include "darklysettings.h"
 
-#include <KDecoration3/DecoratedClient>
+#include <KDecoration3/DecoratedWindow>
 #include <KDecoration3/Decoration>
 #include <KDecoration3/DecorationSettings>
 
@@ -199,45 +199,45 @@ bool Decoration::hasNoSideBorders() const
 
 bool Decoration::isMaximized() const
 {
-    return client()->isMaximized() && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return window()->isMaximized() && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isMaximizedHorizontally() const
 {
-    return client()->isMaximizedHorizontally() && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return window()->isMaximizedHorizontally() && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isMaximizedVertically() const
 {
-    return client()->isMaximizedVertically() && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return window()->isMaximizedVertically() && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isLeftEdge() const
 {
-    return (client()->isMaximizedHorizontally() || client()->adjacentScreenEdges().testFlag(Qt::LeftEdge))
-        && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return (window()->isMaximizedHorizontally() || window()->adjacentScreenEdges().testFlag(Qt::LeftEdge))
+    && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isRightEdge() const
 {
-    return (client()->isMaximizedHorizontally() || client()->adjacentScreenEdges().testFlag(Qt::RightEdge))
-        && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return (window()->isMaximizedHorizontally() || window()->adjacentScreenEdges().testFlag(Qt::RightEdge))
+    && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isTopEdge() const
 {
-    return (client()->isMaximizedVertically() || client()->adjacentScreenEdges().testFlag(Qt::TopEdge)) && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return (window()->isMaximizedVertically() || window()->adjacentScreenEdges().testFlag(Qt::TopEdge)) && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isBottomEdge() const
 {
-    return (client()->isMaximizedVertically() || client()->adjacentScreenEdges().testFlag(Qt::BottomEdge))
-        && !m_internalSettings->drawBorderOnMaximizedWindows();
+    return (window()->isMaximizedVertically() || window()->adjacentScreenEdges().testFlag(Qt::BottomEdge))
+    && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::hideTitleBar() const
 {
-    return m_internalSettings->hideTitleBar() && !client()->isShaded();
+    return m_internalSettings->hideTitleBar() && !window()->isShaded();
 }
 
 }

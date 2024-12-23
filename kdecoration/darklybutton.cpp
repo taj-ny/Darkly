@@ -21,7 +21,7 @@
 #include "darklybutton.h"
 
 #include <KColorUtils>
-#include <KDecoration3/DecoratedClient>
+#include <KDecoration3/DecoratedWindow>
 #include <KIconLoader>
 
 #include <QPainter>
@@ -55,7 +55,7 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
     setIconSize(QSize(height, height));
 
     // connections
-    connect(decoration->client(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
+    connect(decoration->window(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
     connect(decoration->settings().get(), &KDecoration3::DecorationSettings::reconfigured, this, &Button::reconfigure);
     connect(this, &KDecoration3::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
 
@@ -79,32 +79,32 @@ Button *Button::create(DecorationButtonType type, KDecoration3::Decoration *deco
         Button *b = new Button(type, d, parent);
         switch (type) {
         case DecorationButtonType::Close:
-            b->setVisible(d->client()->isCloseable());
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::closeableChanged, b, &Darkly::Button::setVisible);
+            b->setVisible(d->window()->isCloseable());
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::closeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Maximize:
-            b->setVisible(d->client()->isMaximizeable());
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::maximizeableChanged, b, &Darkly::Button::setVisible);
+            b->setVisible(d->window()->isMaximizeable());
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::maximizeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Minimize:
-            b->setVisible(d->client()->isMinimizeable());
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::minimizeableChanged, b, &Darkly::Button::setVisible);
+            b->setVisible(d->window()->isMinimizeable());
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::minimizeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::ContextHelp:
-            b->setVisible(d->client()->providesContextHelp());
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::providesContextHelpChanged, b, &Darkly::Button::setVisible);
+            b->setVisible(d->window()->providesContextHelp());
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::providesContextHelpChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Shade:
-            b->setVisible(d->client()->isShadeable());
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::shadeableChanged, b, &Darkly::Button::setVisible);
+            b->setVisible(d->window()->isShadeable());
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::shadeableChanged, b, &Darkly::Button::setVisible);
             break;
 
         case DecorationButtonType::Menu:
-            QObject::connect(d->client(), &KDecoration3::DecoratedClient::iconChanged, b, [b]() {
+            QObject::connect(d->window(), &KDecoration3::DecoratedWindow::iconChanged, b, [b]() {
                 b->update();
             });
             break;
@@ -143,17 +143,17 @@ void Button::paint(QPainter *painter, const QRect &repaintRegion)
         const QRectF iconRect(geometry().topLeft(), m_iconSize);
         if (auto deco = qobject_cast<Decoration *>(decoration())) {
             const QPalette activePalette = KIconLoader::global()->customPalette();
-            QPalette palette = decoration()->client()->palette();
+            QPalette palette = decoration()->window()->palette();
             palette.setColor(QPalette::WindowText, deco->fontColor());
             KIconLoader::global()->setCustomPalette(palette);
-            decoration()->client()->icon().paint(painter, iconRect.toRect());
+            decoration()->window()->icon().paint(painter, iconRect.toRect());
             if (activePalette == QPalette()) {
                 KIconLoader::global()->resetPalette();
             } else {
                 KIconLoader::global()->setCustomPalette(palette);
             }
         } else {
-            decoration()->client()->icon().paint(painter, iconRect.toRect());
+            decoration()->window()->icon().paint(painter, iconRect.toRect());
         }
 
     } else {
@@ -341,7 +341,7 @@ QColor Button::backgroundColor() const
         return QColor();
     }
 
-    auto c = d->client();
+    auto c = d->window();
     if (isPressed()) {
         if (type() == DecorationButtonType::Close)
             return c->color(ColorGroup::Warning, ColorRole::Foreground);
