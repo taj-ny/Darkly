@@ -75,7 +75,7 @@
 #include <QQuickWindow>
 #endif
 
-#include <QDebug>
+// #include <QDebug>
 
 namespace DarklyPrivate
 {
