@@ -548,6 +548,7 @@ void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor 
             painter->setBrush(Qt::NoBrush);
             frameRect = strokedRect(frameRect);
             radius += 0.5; // enhance pixel aligment
+            painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
 
             painter->drawRoundedRect(frameRect, radius, radius);
         }
