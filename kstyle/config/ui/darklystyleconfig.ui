@@ -44,7 +44,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -488,6 +488,13 @@
          </property>
          <property name="text">
           <string>Draw rounded frame on rubber band control</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="_adjustToDarkThemes">
+         <property name="text">
+          <string>Tabbar background always dark</string>
          </property>
         </widget>
        </item>

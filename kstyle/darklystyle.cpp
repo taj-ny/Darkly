@@ -6650,9 +6650,10 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
     documentMode |= (tabWidget ? tabWidget->documentMode() : true);
 
     // define the 'tabbar' background color
+    QColor ColorOfBackground =  StyleConfigData::adjustToDarkThemes() ? QColor(0, 0, 0) : palette.color(QPalette::Shadow);
     QColor backgroundColor = documentMode
-        ? _helper->isDarkTheme(palette) ? _helper->alphaColor(palette.color(QPalette::Shadow), 0.4) : _helper->alphaColor(palette.color(QPalette::Shadow), 0.2)
-        : _helper->alphaColor(palette.color(QPalette::Shadow), 0.1);
+    ? _helper->isDarkTheme(palette) ? _helper->alphaColor(ColorOfBackground, 0.4) : _helper->alphaColor(ColorOfBackground, 0.2)
+    : _helper->alphaColor(ColorOfBackground, 0.1);
 
     // shadow size
     constexpr int shadowSize = 4;

@@ -78,6 +78,8 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_scrollableMenu, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_oldTabbar, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_adjustToDarkThemes, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+
     connect(_tabBarAltStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_transparentDolphinView, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_cornerRadius, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
@@ -110,6 +112,7 @@ void StyleConfig::save()
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
     StyleConfigData::setScrollableMenu(_scrollableMenu->isChecked());
     StyleConfigData::setOldTabbar(_oldTabbar->isChecked());
+    StyleConfigData::setAdjustToDarkThemes(_adjustToDarkThemes->isChecked());
     StyleConfigData::setTabBarAltStyle(_tabBarAltStyle->isChecked());
     StyleConfigData::setTransparentDolphinView(_transparentDolphinView->isChecked());
     StyleConfigData::setCornerRadius(_cornerRadius->value());
@@ -195,6 +198,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_oldTabbar->isChecked() != StyleConfigData::oldTabbar())
         modified = true;
+    else if (_adjustToDarkThemes->isChecked() != StyleConfigData::adjustToDarkThemes())
+        modified = true;
     else if (_tabBarAltStyle->isChecked() != StyleConfigData::tabBarAltStyle())
         modified = true;
     else if (_transparentDolphinView->isChecked() != StyleConfigData::transparentDolphinView())
@@ -237,6 +242,7 @@ void StyleConfig::load()
     _widgetDrawShadow->setChecked(StyleConfigData::widgetDrawShadow());
     _scrollableMenu->setChecked(StyleConfigData::scrollableMenu());
     _oldTabbar->setChecked(StyleConfigData::oldTabbar());
+    _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
     _tabBarAltStyle->setChecked(StyleConfigData::tabBarAltStyle());
     _transparentDolphinView->setChecked(StyleConfigData::transparentDolphinView());
     _cornerRadius->setValue(StyleConfigData::cornerRadius());
