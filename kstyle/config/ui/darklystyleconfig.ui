@@ -494,7 +494,37 @@
        <item>
         <widget class="QCheckBox" name="_adjustToDarkThemes">
          <property name="text">
-          <string>Tabbar background always dark</string>
+          <string>Custom tabbar background</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KColorButton" name="_tabBGColor">
+         <property name="maximumSize">
+          <size>
+           <width>128</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Tabbar background</string>
+         </property>
+         <property name="color">
+          <color alpha="160">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </property>
+         <property name="defaultColor">
+          <color alpha="160">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </property>
+         <property name="alphaChannelEnabled">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -902,6 +932,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KColorButton</class>
+   <extends>QPushButton</extends>
+   <header>kcolorbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>_tabDrawHighlight</tabstop>
   <tabstop>_toolBarDrawItemSeparator</tabstop>

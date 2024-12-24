@@ -26,6 +26,7 @@
 #include "darklystyleversion.h"
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <KLocalizedString>
 
 extern "C" {
 Q_DECL_EXPORT QWidget *allocate_kstyle_config(QWidget *parent)
@@ -79,6 +80,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_scrollableMenu, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_oldTabbar, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_adjustToDarkThemes, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_tabBGColor, &KColorButton::changed, this, &StyleConfig::updateChanged);
 
     connect(_tabBarAltStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_transparentDolphinView, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
@@ -113,6 +115,7 @@ void StyleConfig::save()
     StyleConfigData::setScrollableMenu(_scrollableMenu->isChecked());
     StyleConfigData::setOldTabbar(_oldTabbar->isChecked());
     StyleConfigData::setAdjustToDarkThemes(_adjustToDarkThemes->isChecked());
+    StyleConfigData::setTabBGColor(_tabBGColor->color());
     StyleConfigData::setTabBarAltStyle(_tabBarAltStyle->isChecked());
     StyleConfigData::setTransparentDolphinView(_transparentDolphinView->isChecked());
     StyleConfigData::setCornerRadius(_cornerRadius->value());
@@ -206,6 +209,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_cornerRadius->value() != StyleConfigData::cornerRadius())
         modified = true;
+    else if (_tabBGColor->color() != StyleConfigData::tabBGColor())
+        modified = true;
 
     emit changed(modified);
 }
@@ -244,6 +249,7 @@ void StyleConfig::load()
     _oldTabbar->setChecked(StyleConfigData::oldTabbar());
     _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
     _tabBarAltStyle->setChecked(StyleConfigData::tabBarAltStyle());
+    _tabBGColor->setColor(StyleConfigData::tabBGColor());
     _transparentDolphinView->setChecked(StyleConfigData::transparentDolphinView());
     _cornerRadius->setValue(StyleConfigData::cornerRadius());
     _versionNumber->setText(DARKLY_VERSION_STRING);

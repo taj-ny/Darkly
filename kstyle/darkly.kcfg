@@ -266,6 +266,9 @@
     <entry name="AdjustToDarkThemes" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="TabBGColor" type = "Color">
+      <default>0, 0, 0</default>
+    </entry>
   </group>
 
 </kcfg>
