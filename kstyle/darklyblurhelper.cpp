@@ -126,9 +126,6 @@ bool BlurHelper::eventFilter(QObject *object, QEvent *event)
         if (!widget || !widget->isWindow())
             break;
 
-        if (!widget)
-            break;
-
         update(widget);
         break;
     }

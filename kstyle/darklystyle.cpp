@@ -344,8 +344,16 @@ void Style::polish(QWidget *widget)
             }
 
             // make window translucent
-            widget->setAttribute(Qt::WA_TranslucentBackground);
-            widget->setAttribute(Qt::WA_StyledBackground);
+            if (!widget->testAttribute(Qt::WA_TranslucentBackground))
+                widget->setAttribute(Qt::WA_TranslucentBackground);
+
+            if (!widget->testAttribute(Qt::WA_StyledBackground))
+                widget->setAttribute(Qt::WA_StyledBackground);
+
+            // setting Qt::WA_TranslucentBackground enables Qt::WA_NoSystemBackground unset here to stop flickering during repaint events on resizing
+            if (StyleConfigData::transparentDolphinView() && widget->testAttribute(Qt::WA_NoSystemBackground))
+                widget->setAttribute(Qt::WA_NoSystemBackground, false);
+
             _translucentWidgets.insert(widget);
 
             // paint the background in event filter
@@ -3651,9 +3659,9 @@ bool Style::drawFramePrimitive(const QStyleOption *option, QPainter *painter, co
                 && QString(pw->metaObject()->className()).startsWith("Dolphin")) {
                 if (widget->property("VISIBLE-SEPARATORS").toBool()) {
                     QRect copy = rect.adjusted(12, 0, -12, 0);
-                    painter->setRenderHint(QPainter::Antialiasing, false);
+                    painter->setRenderHint(QPainter::Antialiasing);
                     painter->setBrush(Qt::NoBrush);
-                    painter->setPen(QColor(0, 0, 0, 30));
+                    painter->setPen(Qt::NoPen);
                     painter->drawLine(copy.topLeft(), copy.topRight());
                     painter->drawLine(copy.bottomLeft(), copy.bottomRight());
                 }
