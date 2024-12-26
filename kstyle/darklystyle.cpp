@@ -5239,6 +5239,8 @@ bool Style::drawMenuBarEmptyAreaControl(const QStyleOption *option, QPainter *pa
             else if (tb->y() > widget->y() + rect.height())
                 shouldDrawShadow = true; // bottom toolbar
         }
+    } else if (_helper->titleBarColor(windowActive).alphaF() * 100.0 < 100) {
+        shouldDrawShadow = false;
     }
 
     if (_isKonsole && StyleConfigData::unifiedTabBarKonsole())
@@ -5317,7 +5319,7 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
         if (DarklyPrivate::possibleTranslucentToolBars.isEmpty())
             shouldDrawShadow = true;
 
-        else if (DarklyPrivate::possibleTranslucentToolBars.size() == 1) {
+        if (DarklyPrivate::possibleTranslucentToolBars.size() == 1) {
             QSet<const QWidget *>::const_iterator i = DarklyPrivate::possibleTranslucentToolBars.constBegin();
             const QToolBar *tb = qobject_cast<const QToolBar *>(*i);
 
@@ -5328,6 +5330,8 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
                 } else if (tb->y() > widget->y() + rect.height())
                     shouldDrawShadow = true; // bottom toolbar
             }
+        } else if (_helper->titleBarColor(windowActive).alphaF() * 100.0 < 100) {
+            shouldDrawShadow = false; // don't draw shadow if using transparent color schemes
         }
 
         if (_isKonsole && StyleConfigData::unifiedTabBarKonsole())
