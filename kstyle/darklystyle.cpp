@@ -5730,6 +5730,9 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
 
     _helper->renderTransparentArea(painter, rect);
 
+    // blur so that there are no translucent effects in Dolphin toolbar when showing/hiding the menubar
+    _blurHelper->registerWidget(widget->window(), _isDolphin);
+
     // paint background
     QColor backgroundColor = palette.color(QPalette::Window);
     if (sideToolbarDolphin) {
