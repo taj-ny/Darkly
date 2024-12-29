@@ -1,7 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
-project(darkly)
-set(PROJECT_VERSION "0.5.13")
-set(PROJECT_VERSION_MAJOR 6)
+
+# Get version
+file(READ "${CMAKE_SOURCE_DIR}/VERSION" VER_RAW)
+string(STRIP ${VER_RAW} VER)
+
+project(
+    darkly
+    DESCRIPTION "A modern style for qt applications."
+    VERSION ${VER}
+)
 
 set(KF5_MIN_VERSION "5.102.0")
 set(KF6_MIN_VERSION "6.2.0")

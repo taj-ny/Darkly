@@ -1556,7 +1556,8 @@ bool Style::eventFilter(QObject *object, QEvent *event)
 
         // update blur region if window is not completely transparent
         if (widget && widget->inherits("QWidget")) {
-            if (widget->palette().color(QPalette::Window).alpha() == 255) {
+            // also catch if the alpha channel is set to 255
+            if (widget->palette().color(QPalette::Window).alpha() <= 255) {
                 if ((qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget)) && _helper->titleBarColor(true).alphaF() < 1.0) {
                     if (event->type() == QEvent::Move || event->type() == QEvent::Show || event->type() == QEvent::Hide) {
                         if (_translucentWidgets.contains(widget->window()) && !_isKonsole)
