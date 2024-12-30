@@ -162,6 +162,10 @@
       <default>false</default>
     </entry>
 
+    <entry name="TabUseHighlightColor" type="Bool">
+      <default>false</default>
+    </entry>
+
     <!-- frames -->
     <entry name="TitleWidgetDrawFrame" type="Bool">
       <default>false</default>

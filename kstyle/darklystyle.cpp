@@ -6676,8 +6676,11 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
     // tab color
     QColor color;
     if (selected)
-        color = (documentMode && !isQtQuickControl && !hasAlteredBackground(widget)) ? palette.color(QPalette::Window) : _helper->frameBackgroundColor(palette);
-
+        if (StyleConfigData::tabUseHighlightColor()) {
+            color = palette.color(QPalette::Highlight);
+        } else {
+            color = (documentMode && !isQtQuickControl && !hasAlteredBackground(widget)) ? palette.color(QPalette::Window) : _helper->frameBackgroundColor(palette);
+        }
     else {
         const auto normal(_helper->alphaColor(palette.color(QPalette::Shadow), 0.1));
         const auto hover(_helper->alphaColor(_helper->hoverColor(palette), 0.2));
@@ -6982,8 +6985,12 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
             _helper->renderBoxShadow(painter, backgroundRect, 0, 1, 6, QColor(0, 0, 0, 100), StyleConfigData::cornerRadius(), true);
             painter->setBrush(color);
             painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
-            painter->setBrush(QColor(255, 255, 255, 20));
-            painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
+
+            // Don't lighten the highlight color
+            if (!StyleConfigData::tabUseHighlightColor()) {
+                painter->setBrush(QColor(255, 255, 255, 20));
+                painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
+            }
         }
 
         painter->setClipRegion(oldRegion);
