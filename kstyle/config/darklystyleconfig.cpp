@@ -85,6 +85,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabBarAltStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_transparentDolphinView, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_cornerRadius, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_tabUseHighlightColor, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 }
 
 //__________________________________________________________________
@@ -119,6 +120,7 @@ void StyleConfig::save()
     StyleConfigData::setTabBarAltStyle(_tabBarAltStyle->isChecked());
     StyleConfigData::setTransparentDolphinView(_transparentDolphinView->isChecked());
     StyleConfigData::setCornerRadius(_cornerRadius->value());
+    StyleConfigData::setTabUseHighlightColor(_tabUseHighlightColor->isChecked());
 
     StyleConfigData::self()->save();
 
@@ -211,6 +213,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_tabBGColor->color() != StyleConfigData::tabBGColor())
         modified = true;
+    else if (_tabUseHighlightColor->isChecked() != StyleConfigData::tabUseHighlightColor())
+        modified = true;
 
     emit changed(modified);
 }
@@ -252,6 +256,7 @@ void StyleConfig::load()
     _tabBGColor->setColor(StyleConfigData::tabBGColor());
     _transparentDolphinView->setChecked(StyleConfigData::transparentDolphinView());
     _cornerRadius->setValue(StyleConfigData::cornerRadius());
+    _tabUseHighlightColor->setChecked(StyleConfigData::tabUseHighlightColor());
     _versionNumber->setText(DARKLY_VERSION_STRING);
 }
 
